@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="google_config" type="collection">
+            <parameter key="client_id" type="string">%env(default::GOOGLE_CLIENT_ID)%</parameter>
+            <parameter key="client_secret" type="string">%env(default::GOOGLE_CLIENT_SECRET)%</parameter>
+            <parameter key="redirect_uri" type="string">%env(default::GOOGLE_REDIRECT_URI)%</parameter>
+            <parameter key="developer_token" type="string">%env(default::GOOGLE_DEVELOPER_TOKEN)%</parameter>
+            <parameter key="ads_manager_id" type="string">%env(default::GOOGLE_ADS_MANAGER_ID)%</parameter>
+            <parameter key="mca_id" type="string">%env(default::GOOGLE_MCA_ID)%</parameter>
+            <parameter key="auth_file_path" type="string">%env(resolve:GOOGLE_AUTH_FILE)%</parameter>
+            <parameter key="auth_config">%env(default::json:file:resolve:GOOGLE_AUTH_FILE)%</parameter>
+        </parameter>
+    </parameters>
+
+    <services>
+        <service id="Swag\GoogleShoppingSaas\Client\Config\ClientConfigServiceDecorated"
+                 decorates="Swag\GoogleShopping\Client\Config\ClientConfigService">
+            <argument type="service" id="Swag\GoogleShoppingSaas\Client\Config\ClientConfigServiceDecorated.inner"/>
+            <argument>%google_config%</argument>
+        </service>
+    </services>
+</container>

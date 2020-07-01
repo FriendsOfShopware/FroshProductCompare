@@ -1,0 +1,35 @@
+{
+    "name": "justa/simple-product-compare",
+    "description": "A Simple Product Compare plugin for Shopware 6",
+    "version": "1.0.0",
+    "type": "shopware-platform-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thuong Le",
+            "email": "levienthuong@gmail.com"
+        }
+    ],
+    "require": {
+        "shopware/core": "^6.x.x"
+    },
+    "extra": {
+        "shopware-plugin-class": "Justa\\SimpleProductCompare\\SimpleProductCompare",
+        "plugin-icon": "src/Resources/config/plugin.png",
+        "copyright": "(c) by Justa Vin<levienthuong@gmail.com>",
+        "label": {
+            "de-DE": "Ein einfaches Produktvergleichs-Plugin für Shopware 6",
+            "en-GB": "A Simple Product Compare plugin for Shopware 6"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Justa\\SimpleProductCompare\\": "src/"
+        }
+    }
+    "conflict": {
+        "shopware/storefront": "<6,>=7",
+        "shopware/administration": "<6,>=7"
+    },
+    "prefer-stable": true
+}
