@@ -1,0 +1,9 @@
+{% block simple_compare_product_translated_attribute_cells %}
+    {% for product in products %}
+        <td>
+            <span class="text-dark font-weight-semibold">
+                {{ attribute(product.translated, attribute) }}
+            </span>
+        </td>
+    {% endfor %}
+{% endblock %}

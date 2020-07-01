@@ -1,0 +1,18 @@
+{% block simple_compare_product_specification_section %}
+    <tbody id="specification">
+        <tr>
+            <th class="text-uppercase" colspan="{{ productsCount + 1 }}">{{ "simpleProductCompare.section.specification.title"|trans|sw_sanitize }}</th>
+        </tr>
+
+        {% set setProperties = products.first.sortedProperties %}
+
+        {% for property in setProperties %}
+            <tr class="property">
+                <th class="capitalize">{{ property.translated.name|e }}</th>
+                {% sw_include '@Storefront/storefront/component/compare/partial/properties.html.twig' with {
+                    property: property,
+                } %}
+            </tr>
+        {% endfor %}
+    </tbody>
+{% endblock %}

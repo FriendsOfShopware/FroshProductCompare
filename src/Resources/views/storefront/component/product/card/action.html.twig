@@ -1,0 +1,21 @@
+{% sw_extends '@Storefront/storefront/component/product/card/action.html.twig' %}
+
+{% block component_product_box_action_buy %}
+    {{ parent() }}
+
+    {% if app.request.attributes.get('_route') != 'frontend.compare.content' %}
+        {% block component_product_box_action_add_to_compare_button %}
+            {% sw_include '@Storefront/storefront/component/product/card/compare-button.html.twig' %}
+        {% endblock %}
+    {% endif  %}
+{% endblock %}
+
+{% block component_product_box_action_detail %}
+    {{ parent() }}
+
+    {% if app.request.attributes.get('_route') != 'frontend.compare.content' %}
+        {% block component_product_box_action_detail_add_to_compare_button %}
+            {% sw_include '@Storefront/storefront/component/product/card/compare-button.html.twig' %}
+        {% endblock %}
+    {% endif %}
+{% endblock %}

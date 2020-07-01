@@ -1,0 +1,111 @@
+{% block simple_product_compare_comparison_table_container %}
+    <div class="comparison-table">
+        {% set products = page.products %}
+        {% set productsCount = products.count %}
+        {% set isAjaxContent = app.request.attributes.get('_route') == 'frontend.compare.content' %}
+        {% if productsCount is same as(0) %}
+            {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                type: "info",
+                content: "simpleProductCompare.general.empty"|trans|sw_sanitize
+            } %}
+        {% else %}
+            {% block simple_product_compare_comparison_table %}
+                <table class="table table-bordered">
+
+                    {% block simple_product_compare_comparison_table_header %}
+                        <thead>
+                            <tr>
+                                <td class="align-middle hide-on-print">
+                                </td>
+                                {% for product in products %}
+                                    {% set name = product.translated.name %}
+                                    {% set id = product.id %}
+                                    {% set cover = product.cover.media %}
+
+                                    <td class="product-{{ product.id }}{% if not isAjaxContent and app.request.attributes.get('productId') == id %} is-feature-item {% endif %}">
+                                    <div class="comparison-item">
+                                        {% if isAjaxContent %}
+                                            {% set addToCompareOptions = {
+                                                productId: product.id
+                                            } %}
+                                              <button title="{{ "checkout.removeLineItem"|trans|striptags }}"
+                                                      data-add-to-compare-button="true"
+                                                      data-add-to-compare-button-options="{{ addToCompareOptions|json_encode }}"
+                                                      class="btn btn-buy btn-sm compare-item-remove-button is-added-to-compare hide-on-print">
+                                                        {% sw_icon 'x' style { 'size': 'xs' } %}
+                                                </button>
+                                        {% endif %}
+                                        {% block component_product_box_image %}
+                                            <div class="product-image-wrapper">
+                                                {# fallback if display mode is not set #}
+                                                {% set displayMode = displayMode ?: 'standard' %}
+
+                                                {# set display mode 'cover' for box-image with standard display mode #}
+                                                {% if layout == 'image' and displayMode == 'standard' %}
+                                                    {% set displayMode = 'cover' %}
+                                                {% endif %}
+
+                                                <a href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}"
+                                                   title="{{ name }}"
+                                                   target="_blank"
+                                                   class="product-image-link is-{{ displayMode }}">
+                                                    {% if cover.url %}
+                                                        {% set attributes = {
+                                                            'class': 'product-image is-'~displayMode,
+                                                            'alt': (cover.translated.alt ?: name),
+                                                            'title': (cover.translated.title ?: name)
+                                                        } %}
+
+                                                        {% if displayMode == 'cover' or displayMode == 'contain' %}
+                                                            {% set attributes = attributes|merge({ 'data-object-fit': displayMode }) %}
+                                                        {% endif %}
+
+                                                        {% sw_thumbnails 'product-image-thumbnails' with {
+                                                            media: cover,
+                                                            sizes: {
+                                                                'xs': '501px',
+                                                                'sm': '315px',
+                                                                'md': '427px',
+                                                                'lg': '333px',
+                                                                'xl': '284px'
+                                                            }
+                                                        } %}
+                                                    {% else %}
+                                                        <div class="product-image-placeholder">
+                                                            {% sw_icon 'placeholder' style {
+                                                                'size': 'fluid'
+                                                            } %}
+                                                        </div>
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                        {% endblock %}
+                                        <a class="comparison-item-title" href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}" target="_blank">{{ product.translated.name }}</a>
+                                        <div class="hide-on-print">
+                                            {% sw_include '@Storefront/storefront/component/product/card/action.html.twig' %}
+                                        </div>
+                                    </div>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                    {% endblock %}
+                    {% sw_include '@Storefront/storefront/component/compare/section/overview.html.twig' %}
+                    {% sw_include '@Storefront/storefront/component/compare/section/specification.html.twig' %}
+                    {% if isAjaxContent %}
+                        <tbody class="hide-on-print">
+                        <tr>
+                            <th></th>
+                            {% for product in products %}
+                                <td>
+                                    {% sw_include '@Storefront/storefront/component/product/card/action.html.twig' %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        </tbody>
+                    {% endif %}
+                </table>
+            {% endblock %}
+        {% endif %}
+    </div>
+{% endblock %}

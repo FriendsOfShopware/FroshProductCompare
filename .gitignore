@@ -1,0 +1,7 @@
+.idea/
+coverage/
+.phpunit.result.cache
+vendor/
+var/
+phpstan.neon
+src/Resources/public/administration/simple-product-compare.*.hot-update.js

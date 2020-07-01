@@ -1,0 +1,26 @@
+{% block simple_compare_product_properties_item %}
+    {% set i = ( i | default(0) ) + 1 %}
+    {% set name = property.translated.name %}
+
+    {% if displayType == 'color' or displayType == 'media' %}
+        {% set color = property.colorHexCode %}
+        {% set media = property.media.url %}
+
+        {% block simple_compare_product_properties_item_with_bg %}
+            <span class="filter-property-select-preview color-on-printer hide-on-print mr-2"
+                  title="{{ name }}"
+                  {% if displayType == 'color' and color %}
+                      style="background: {{ color }}"
+                  {% endif %}
+                {% if displayType == 'media' and media %}
+                  style="background-image: url('{{ media }}')"
+                  {% endif %}>
+            </span>
+            <span class="show-on-print-only">{% if i > 1 %}, {% endif %}{{ name|e }}</span>
+        {% endblock %}
+    {% else %}
+        {% block simple_compare_product_properties_item_text %}
+            <span>{% if i > 1 %}, {% endif %}{{ name|e }}</span>
+        {% endblock %}
+    {% endif %}
+{% endblock %}

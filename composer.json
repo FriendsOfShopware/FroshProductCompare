@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "shopware/core": "^6.x.x"
+        "shopware/core": "~6.2.0"
     },
     "extra": {
         "shopware-plugin-class": "Justa\\SimpleProductCompare\\SimpleProductCompare",
@@ -26,7 +26,7 @@
         "psr-4": {
             "Justa\\SimpleProductCompare\\": "src/"
         }
-    }
+    },
     "conflict": {
         "shopware/storefront": "<6,>=7",
         "shopware/administration": "<6,>=7"

@@ -1,13 +1,11 @@
 <?php declare(strict_types=1);
-/*
- * (c) shopware AG <info@shopware.com>
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 namespace Justa\SimpleProductCompare;
 
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Shopware\Core\Framework\Plugin;
+use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -20,5 +18,41 @@ class SimpleProductCompare extends Plugin
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/DependencyInjection/'));
         $loader->load('services.xml');
+    }
+
+    public function uninstall(UninstallContext $uninstallContext): void
+    {
+        if ($uninstallContext->keepUserData()) {
+            parent::uninstall($uninstallContext);
+
+            return;
+        }
+
+        $this->cleanRelatedData();
+        parent::uninstall($uninstallContext);
+    }
+
+    /**
+     * @throws DBALException
+     * @throws \Doctrine\DBAL\ConnectionException
+     */
+    public function cleanRelatedData(): void
+    {
+        /** @var Connection $connection */
+        $connection = $this->container->get(Connection::class);
+
+        $connection->beginTransaction();
+
+        try {
+            $connection->exec('
+                DROP TABLE IF EXISTS spc_cross_selling_comparable;
+            ');
+
+            $connection->commit();
+        } catch (DBALException $e) {
+            $connection->rollBack();
+
+            throw $e;
+        }
     }
 }

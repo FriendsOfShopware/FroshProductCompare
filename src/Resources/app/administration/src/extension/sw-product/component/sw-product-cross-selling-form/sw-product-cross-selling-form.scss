@@ -1,0 +1,6 @@
+// https://issues.shopware.com/issues/NEXT-9645
+.product-detail-cross-selling-form__card-container {
+    >.sw-container {
+        grid-template-columns: 4.6fr 1fr 1fr!important;
+    }
+}

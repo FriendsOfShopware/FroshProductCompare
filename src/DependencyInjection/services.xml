@@ -3,24 +3,47 @@
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-    <parameters>
-        <parameter key="google_config" type="collection">
-            <parameter key="client_id" type="string">%env(default::GOOGLE_CLIENT_ID)%</parameter>
-            <parameter key="client_secret" type="string">%env(default::GOOGLE_CLIENT_SECRET)%</parameter>
-            <parameter key="redirect_uri" type="string">%env(default::GOOGLE_REDIRECT_URI)%</parameter>
-            <parameter key="developer_token" type="string">%env(default::GOOGLE_DEVELOPER_TOKEN)%</parameter>
-            <parameter key="ads_manager_id" type="string">%env(default::GOOGLE_ADS_MANAGER_ID)%</parameter>
-            <parameter key="mca_id" type="string">%env(default::GOOGLE_MCA_ID)%</parameter>
-            <parameter key="auth_file_path" type="string">%env(resolve:GOOGLE_AUTH_FILE)%</parameter>
-            <parameter key="auth_config">%env(default::json:file:resolve:GOOGLE_AUTH_FILE)%</parameter>
-        </parameter>
-    </parameters>
-
     <services>
-        <service id="Swag\GoogleShoppingSaas\Client\Config\ClientConfigServiceDecorated"
-                 decorates="Swag\GoogleShopping\Client\Config\ClientConfigService">
-            <argument type="service" id="Swag\GoogleShoppingSaas\Client\Config\ClientConfigServiceDecorated.inner"/>
-            <argument>%google_config%</argument>
+        <!-- Snippet file for Storefront -->
+        <service id="Justa\SimpleProductCompare\Resources\snippet\en_GB\SnippetFile_en_GB" public="true">
+            <tag name="shopware.snippet.file" priority="200"/>
+        </service>
+        <service id="Justa\SimpleProductCompare\Resources\snippet\de_DE\SnippetFile_de_DE" public="true">
+            <tag name="shopware.snippet.file" priority="201"/>
+        </service>
+
+        <!-- Entity Extension-->
+        <service id="Justa\SimpleProductCompare\DBAL\Extension\ProductCrossSellingEntityExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <!-- Entity Definitions-->
+        <service id="Justa\SimpleProductCompare\CrossSellingComparable\CrossSellingComparableDefinition">
+            <tag name="shopware.entity.definition" entity="spc_cross_selling_comparable"/>
+        </service>
+
+        <service id="Justa\SimpleProductCompare\Page\CompareProductPageLoader">
+            <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingLoader"/>
+            <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader"/>
+            <argument type="service" id="Symfony\Component\EventDispatcher\EventDispatcherInterface" />
+            <argument type="service" id="product_review.repository" />
+        </service>
+
+
+        <service id="Justa\SimpleProductCompare\Controller\CompareProductController" public="true">
+            <argument type="service" id="Justa\SimpleProductCompare\Page\CompareProductPageLoader"/>
+            <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <!-- subscriber -->
+        <service id="Justa\SimpleProductCompare\Subscriber\CrossSellingProductListingSubscriber">
+            <tag name="kernel.event_subscriber"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="Justa\SimpleProductCompare\Page\CompareProductPageLoader"/>
+            <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingLoader"/>
         </service>
     </services>
 </container>

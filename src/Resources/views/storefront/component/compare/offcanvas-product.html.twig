@@ -1,0 +1,79 @@
+{% block simple_compare_product_offcanvas_inner %}
+    {% set price = product.price %}
+    {% set isNested = product.children.count > 0 %}
+    {% set label = product.translated.name %}
+    {% set productId = product.id %}
+    {% set type = product.type %}
+    {% set id = product.id %}
+
+    {% block simple_compare_product_offcanvas_container %}
+        <div class="cart-item offcanvas-comparison-item">
+            <div class="row cart-item-row">
+                {% block simple_compare_product_offcanvas_product_image %}
+                    <div class="col-auto">
+                        {% block product_compare_offcanvas_product_image_inner %}
+                            <div class="cart-item-img">
+                                <a href="{{ seoUrl('frontend.detail.page', {'productId': productId}) }}"
+                                   class="cart-item-img-link"
+                                   title="{{ label }}">
+                                    {% if product.cover.media %}
+                                        {% sw_thumbnails 'cart-item-img-thumbnails' with {
+                                            media: product.cover.media,
+                                            sizes: {
+                                                'default': '100px'
+                                            },
+                                            attributes: {
+                                                'class': 'img-fluid cart-item-img-source',
+                                                'alt': label,
+                                                'title': label
+                                            }
+                                        } %}
+                                    {% else %}
+                                        {% sw_icon 'placeholder' style {
+                                            'size': 'fluid'
+                                        } %}
+                                    {% endif %}
+                                </a>
+                            </div>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+
+                {% block simple_compare_product_offcanvas_product_detail %}
+                    <div class="col cart-item-details">
+                        {% block simple_compare_product_offcanvas_product_detail_inner %}
+                            <div class="cart-item-details-container">
+                                {% block simple_compare_product_offcanvas_product_label %}
+                                    <div class="cart-item-details">
+                                        <a href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}"
+                                           class="cart-item-label"
+                                           target="_blank"
+                                           title="{{ label }}">
+                                            {{ label|u.truncate(60) }}
+                                        </a>
+                                    </div>
+                                {% endblock %}
+                            </div>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+
+                {% block simple_compare_product_offcanvas_product_remove %}
+                    <div class="col-2">
+                        {% block simple_compare_product_offcanvas_product_remove_button %}
+                            {% set addToCompareOptions = {
+                                productId: product.id
+                            } %}
+                            <button title="{{ "checkout.removeLineItem"|trans|striptags }}"
+                                    data-add-to-compare-button="true"
+                                    data-add-to-compare-button-options="{{ addToCompareOptions|json_encode }}"
+                                    class="btn btn-sm is-added-to-compare compare-item-remove-button">
+                                {% sw_icon 'x' style { 'size': 'xs' } %}
+                            </button>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}

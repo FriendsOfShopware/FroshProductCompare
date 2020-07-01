@@ -1,0 +1,11 @@
+{% block simple_compare_product_description_cells %}
+    {% for product in products %}
+        {% block simple_compare_product_description_cell %}
+        <td>
+            {{ product.translated.description|striptags|slice(0, 100) ~ '...' |raw }}
+        </td>
+        {% endblock %}
+    {% endfor %}
+{% endblock %}
+
+

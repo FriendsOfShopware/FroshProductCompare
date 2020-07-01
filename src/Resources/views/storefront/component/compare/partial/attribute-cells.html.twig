@@ -1,0 +1,9 @@
+{% block simple_compare_product_attribute_cells %}
+    {% for product in products %}
+        {% block simple_compare_product_attribute_cell %}
+            <td>
+                {{ attribute(product, attribute) }}
+            </td>
+        {% endblock %}
+    {% endfor %}
+{% endblock %}

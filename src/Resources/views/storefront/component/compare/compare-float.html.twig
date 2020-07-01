@@ -1,0 +1,20 @@
+{% block simple_compare_product_float_button_inner %}
+    {% set compareFloatOptions = {
+        maximumNumberCompareProductsText: "simpleProductCompare.general.maximumCompareProducts"|trans|sw_sanitize
+    } %}
+
+    <div data-compare-float="true" data-compare-float-options="{{ compareFloatOptions|json_encode }}">
+        {% block simple_compare_product_float_button %}
+            <div class="compare-float-button js-compare-float-button">
+                <button
+                   class="btn btn-primary">
+                    {% block simple_compare_product_float_icon %}
+                        {% sw_icon 'bag-product' style { 'size': 'sm' } %}
+                    {% endblock %}
+                    <span class="badge badge-danger"></span>
+                </button>
+            </div>
+        {% endblock %}
+        {{ sw_csrf('frontend.compare.offcanvas') }}
+    </div>
+{% endblock %}

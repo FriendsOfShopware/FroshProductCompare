@@ -1,0 +1,25 @@
+{% block simple_compare_product_overview_section %}
+    <tbody id="overview" data-filter="target">
+        <tr>
+            <th class="text-uppercase" colspan="{{ productsCount + 1 }}">{{ "simpleProductCompare.section.overview.title"|trans|sw_sanitize }}</th>
+        </tr>
+        <tr>
+            <th>{{ "simpleProductCompare.section.overview.manufacturer"|trans|sw_sanitize }}</th>
+            {% sw_include '@Storefront/storefront/component/compare/partial/translated-nested-attribute-cells.html.twig' with {
+                attribute: 'manufacturer'
+            } %}
+        </tr>
+        <tr>
+            <th>{{ "simpleProductCompare.section.overview.price"|trans|sw_sanitize }}</th>
+            {% sw_include '@Storefront/storefront/component/compare/partial/price-cells.html.twig' %}
+        </tr>
+        <tr>
+            <th>{{ "simpleProductCompare.section.overview.description"|trans|sw_sanitize }}</th>
+            {% sw_include '@Storefront/storefront/component/compare/partial/description-cells.html.twig' %}
+        </tr>
+        <tr>
+            <th>{{ "simpleProductCompare.section.overview.rating"|trans|sw_sanitize }}</th>
+            {% sw_include '@Storefront/storefront/component/compare/partial/rating-cells.html.twig' %}
+        </tr>
+    </tbody>
+{% endblock %}

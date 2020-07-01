@@ -1,0 +1,59 @@
+{% sw_extends '@Storefront/storefront/utilities/offcanvas.html.twig' %}
+
+{% block utilities_offcanvas_close_icon %}
+    {% sw_icon 'arrow-head-right' style { 'size': 'sm' } %}
+{% endblock %}
+
+{% block utilities_offcanvas_close_text %}
+    {{ "simpleProductCompare.offcanvas.continueShopping"|trans|sw_sanitize }}
+{% endblock %}
+
+{% block utilities_offcanvas_content %}
+    {% block component_offcanvas_product_compare %}
+        {% set isCompareProductsNotEmpty = (page.products|length > 0) %}
+
+        <div class="offcanvas-cart">
+
+            {% block component_offcanvas_product_compare_header %}
+                <div class="row align-items-center h4 offcanvas-cart-header">
+                    <div class="col">
+                        {{ "simpleProductCompare.offcanvas.header"|trans|sw_sanitize }}
+                    </div>
+                </div>
+            {% endblock %}
+
+            {% if isCompareProductsNotEmpty %}
+                {% block component_offcanvas_product_compare_products %}
+                    <div class="offcanvas-cart-items">
+                        {% for product in page.products %}
+                            {% block component_offcanvas_product_compare_item %}
+                                {% sw_include '@Storefront/storefront/component/compare/offcanvas-product.html.twig' %}
+                            {% endblock %}
+                        {% endfor %}
+                    </div>
+                {% endblock %}
+            {% else %}
+                {% block component_offcanvas_product_compare_empty %}
+                    {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                        type: "info",
+                        content: "simpleProductCompare.general.empty"|trans|sw_sanitize
+                    } %}
+                {% endblock %}
+            {% endif %}
+        </div>
+
+        {% block component_offcanvas_product_compare_actions %}
+            <div class="offcanvas-cart-actions">
+
+                {% block component_offcanvas_product_compare_actions_compare_now %}
+                    <a href="{{ path('frontend.compare.page') }}"
+                       class="btn btn-block begin-checkout-btn{% if isCompareProductsNotEmpty and (page.products|length > 1) %} btn-primary{% else %} btn-light disabled{% endif %}"
+                       title="{{ "simpleProductCompare.offcanvas.compareNow"|trans|striptags }}">
+                        {{ "simpleProductCompare.offcanvas.compareNow"|trans|sw_sanitize }}
+                    </a>
+                {% endblock %}
+
+            </div>
+        {% endblock %}
+    {% endblock %}
+{% endblock %}

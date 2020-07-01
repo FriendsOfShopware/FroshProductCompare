@@ -1,0 +1,119 @@
+@import 'abstract.scss';
+
+.compare-product-container {
+    min-height: 300px;
+}
+
+.comparison-table {
+    width: 100%;
+    font-size: .875rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+
+    table {
+        width: unset!important;
+        min-width: 41rem;
+        table-layout: fixed;
+
+        thead {
+            background-color: $comparison-heading-color;
+        }
+
+        tbody {
+            tr:first-child, th {
+                background-color: $comparison-heading-color;
+            }
+        }
+
+        tbody+tbody {
+            border-top-width: 1px;
+        }
+
+        &.table-bordered th, &.table-bordered td {
+            padding: $table-cell-padding;
+            vertical-align: middle;
+            border-top: $table-border-width solid $table-border-color;
+            max-width: $comparison-item-max-width;
+
+            &.capitalize {
+                text-transform: capitalize;
+            }
+        }
+
+        .is-feature-item {
+            .comparison-item-title {
+                color: $success;
+            }
+        }
+        .product-action {
+            margin-top: 0;
+
+            .btn {
+                max-width: $comparison-item-max-width / 2;
+                margin: 0 auto;
+            }
+        }
+    }
+
+
+    .table-bordered thead {
+        td {
+            border-bottom-width: 1px;
+            background-color: $white;
+        }
+    }
+
+    .comparison-item {
+        position: relative;
+        background-color: transparent;
+        text-align: center;
+
+        .comparison-item-thumb {
+            display: block;
+            width: 5rem;
+            margin-right: auto;
+            margin-bottom: .75rem;
+            margin-left: auto;
+        }
+
+        .comparison-item-thumb>img {
+            display: block;
+            width: 100%
+        }
+
+        .product-image-link {
+            align-items: flex-start;
+        }
+
+        .comparison-item-title {
+            display: block;
+            width: 100%;
+            margin-bottom: 14px;
+            color: #222;
+            font-weight: 600;
+            text-decoration: none
+        }
+
+        .compare-item-remove-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            .icon {
+                color: $white;
+            }
+        }
+    }
+
+    .product-price-info {
+        margin: 0;
+        p {
+            margin: 0;
+        }
+
+        .product-price-unit {
+            height: auto;
+        }
+    }
+}

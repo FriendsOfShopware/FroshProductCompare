@@ -1,0 +1,5 @@
+export const MAXIMUM_COMPARE_PRODUCT_ITEMS = 4;
+
+export default {
+    MAXIMUM_COMPARE_PRODUCT_ITEMS
+};

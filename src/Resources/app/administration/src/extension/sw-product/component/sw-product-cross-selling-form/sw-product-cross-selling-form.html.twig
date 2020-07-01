@@ -1,0 +1,18 @@
+{% block sw_prduct_cross_selling_form_active_field %}
+    {% parent %}
+    <sw-field
+        v-model="crossSelling.extensions.crossSellingComparable.isComparable"
+        type="switch"
+        class="sw-product-detail-cross-selling__active-switch"
+        :label="$tc('simple-product-compare.crossSelling.compareLayout')">
+    </sw-field>
+{% endblock %}
+
+{% block sw_prduct_cross_selling_form_limit_field %}
+    <sw-number-field
+        numberType="int"
+        :disabled="crossSelling.extensions.crossSellingComparable.isComparable"
+        :label="$tc('sw-product.crossselling.inputCrossSellingLimit')"
+        v-model="crossSelling.limit">
+    </sw-number-field>
+{% endblock %}

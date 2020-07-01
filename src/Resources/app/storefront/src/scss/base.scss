@@ -1,0 +1,70 @@
+@import 'abstract.scss';
+@import 'compare.scss';
+@import 'scss/layout/_scroll-up';
+
+.compare-button {
+    margin-top: 10px;
+    .btn-compare {
+        @extend .btn-lg;
+        @include button-variant($buy-btn-bg, $buy-btn-bg);
+        color: $buy-btn-color;
+
+        &.is-added-to-compare {
+            @include button-variant($disabled-btn-bg, $disabled-btn-bg);
+        }
+    }
+}
+
+.show-on-print-only {
+    display: none;
+}
+
+.compare-float-button {
+    @extend .scroll-up-button;
+    left: 1.5rem;
+    right: unset;
+    transition: unset;
+    &.is-visible {
+        transition: 0.45s cubic-bezier(0.3, 0, 0.15, 1);
+    }
+
+    .badge {
+        position: absolute;
+        top: -25%;
+    }
+}
+
+.product-compare-main-header {
+    margin-bottom: 1.5rem;
+}
+
+@media print {
+    .show-on-print-only {
+        display: inline-block;
+    }
+
+    .show-on-print {
+        visibility: visible;
+    }
+
+    .hide-on-print {
+        visibility: hidden;
+    }
+
+    .color-on-printer {
+        display: none;
+    }
+
+    .compare-product-container {
+        a {
+            text-decoration: none;
+        }
+        .action-row {
+            display:none;
+        }
+
+        .btn-buy {
+            display: none;
+        }
+    }
+}

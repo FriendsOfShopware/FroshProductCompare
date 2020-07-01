@@ -1,0 +1,11 @@
+{
+    "simple-product-compare": {
+        "generalInformation": {
+            "mainMenuItemGeneral": "Simple Product Compare",
+            "descriptionTextModule": "Add an extension to compare product in cross-selling"
+        },
+        "crossSelling": {
+            "compareLayout": "Comparable"
+        }
+    }
+}

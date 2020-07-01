@@ -1,0 +1,19 @@
+{% block simple_compare_product_rating_cells %}
+    {% for product in products %}
+        {% block simple_compare_product_rating_cell %}
+            <td>
+                {% sw_include '@Storefront/storefront/component/review/rating.html.twig' with {
+                    points: product.ratingAverage,
+                    style: 'text-primary'
+                } %}
+                <a class="product-detail-reviews-link"
+                   target="_blank"
+                   href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}#review-tab-pane"
+                   aria-controls="review-tab-pane">
+                    {{ product.productReviews.count }}
+                    {{ "detail.reviewLinkText"|trans({'%count%': 1})|sw_sanitize }}
+                </a>
+            </td>
+        {% endblock %}
+    {% endfor %}
+{% endblock %}

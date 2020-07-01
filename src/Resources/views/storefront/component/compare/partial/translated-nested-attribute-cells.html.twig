@@ -1,0 +1,7 @@
+{% block simple_compare_product_translated_nested_attribute_cells %}
+    {% for product in products %}
+        <td>
+            {{ attribute(product, attribute).translated.name }}
+        </td>
+    {% endfor %}
+{% endblock %}

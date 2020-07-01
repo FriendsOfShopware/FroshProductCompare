@@ -1,0 +1,28 @@
+{% block simple_compare_product_properties_cells %}
+    {% for product in products %}
+        {% set matchProperty = false %}
+        {% for group in product.sortedProperties %}
+            {% if group.id == property.id %}
+                {% set matchProperty = true %}
+                {% block simple_compare_product_properties_cell %}
+                    <td class="properties-value">
+                        {% apply spaceless %}
+                            {% for option in group.options %}
+                                {% sw_include '@Storefront/storefront/component/compare/partial/property-item.html.twig' with {
+                                    i: loop.index0,
+                                    property: option,
+                                    displayType: group.displayType,
+                                } %}
+                            {% endfor %}
+                        {% endapply %}
+                    </td>
+                {% endblock %}
+            {% endif %}
+        {% endfor %}
+        {% if not matchProperty %}
+            <td class="properties-value">
+                <span>N/A</span>
+            </td>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

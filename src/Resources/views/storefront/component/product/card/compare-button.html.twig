@@ -1,0 +1,18 @@
+{% block simple_compare_product_add_to_compare_box %}
+    {# @var product \Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity #}
+    <div class="compare-button">
+        {% set addToCompareOptions = {
+            productId: product.id,
+            defaultText: "simpleProductCompare.general.addToCompare"|trans|sw_sanitize,
+            addedText: "simpleProductCompare.general.removeFromCompare"|trans|sw_sanitize
+        } %}
+        {% block simple_compare_product_add_to_compare_button %}
+            <button data-add-to-compare-button="true"
+                    data-add-to-compare-button-options="{{ addToCompareOptions|json_encode }}"
+                    class="btn btn-block btn-compare"
+                    title="{{ "simpleProductCompare.general.addToCompare"|trans|striptags }}">
+                {{ "simpleProductCompare.general.addToCompare"|trans|sw_sanitize }}
+            </button>
+        {% endblock %}
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_body %}
+    {{ parent() }}
+    {% if app.request.attributes.get('_route') != 'frontend.compare.page' %}
+        {% block base_compare_float_button %}
+            {% sw_include '@Storefront/storefront/component/compare/compare-float.html.twig' %}
+        {% endblock %}
+    {% endif %}
+{% endblock %}
+
+{% block base_script_router %}
+    {{ parent() }}
+    <script>
+        window.router['frontend.compare.offcanvas'] = '{{ path('frontend.compare.offcanvas') }}';
+        window.router['frontend.compare.content'] = '{{ path('frontend.compare.content') }}';
+    </script>
+{% endblock %}
