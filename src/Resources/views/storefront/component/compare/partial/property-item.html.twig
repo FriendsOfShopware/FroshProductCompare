@@ -1,4 +1,4 @@
-{% block simple_compare_product_properties_item %}
+{% block frosh_product_compare_properties_item %}
     {% set i = ( i | default(0) ) + 1 %}
     {% set name = property.translated.name %}
 
@@ -6,7 +6,7 @@
         {% set color = property.colorHexCode %}
         {% set media = property.media.url %}
 
-        {% block simple_compare_product_properties_item_with_bg %}
+        {% block frosh_product_compare_properties_item_with_bg %}
             <span class="filter-property-select-preview color-on-printer hide-on-print mr-2"
                   title="{{ name }}"
                   {% if displayType == 'color' and color %}
@@ -19,7 +19,7 @@
             <span class="show-on-print-only">{% if i > 1 %}, {% endif %}{{ name|e }}</span>
         {% endblock %}
     {% else %}
-        {% block simple_compare_product_properties_item_text %}
+        {% block frosh_product_compare_properties_item_text %}
             <span>{% if i > 1 %}, {% endif %}{{ name|e }}</span>
         {% endblock %}
     {% endif %}

@@ -1,9 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Justa\SimpleProductCompare\Controller;
+namespace Justa\FroshProductCompare\Controller;
 
-use Justa\SimpleProductCompare\Page\CompareProductPageLoader;
-use Justa\SimpleProductCompare\Service\Offcanvas\OffcanvasCompareListPageLoader;
+use Justa\FroshProductCompare\Page\CompareProductPageLoader;
 use Shopware\Core\Framework\Routing\Annotation\RouteScope;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Justa\SimpleProductCompare\CrossSellingComparable;
+namespace Justa\FroshProductCompare\CrossSellingComparable;
 
 use Shopware\Core\Content\Product\Aggregate\ProductCrossSelling\ProductCrossSellingEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;

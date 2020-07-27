@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block utilities_offcanvas_close_text %}
-    {{ "simpleProductCompare.offcanvas.continueShopping"|trans|sw_sanitize }}
+    {{ "froshProductCompare.offcanvas.continueShopping"|trans|sw_sanitize }}
 {% endblock %}
 
 {% block utilities_offcanvas_content %}
@@ -17,7 +17,7 @@
             {% block component_offcanvas_product_compare_header %}
                 <div class="row align-items-center h4 offcanvas-cart-header">
                     <div class="col">
-                        {{ "simpleProductCompare.offcanvas.header"|trans|sw_sanitize }}
+                        {{ "froshProductCompare.offcanvas.header"|trans|sw_sanitize }}
                     </div>
                 </div>
             {% endblock %}
@@ -36,7 +36,7 @@
                 {% block component_offcanvas_product_compare_empty %}
                     {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
                         type: "info",
-                        content: "simpleProductCompare.general.empty"|trans|sw_sanitize
+                        content: "froshProductCompare.general.empty"|trans|sw_sanitize
                     } %}
                 {% endblock %}
             {% endif %}
@@ -48,8 +48,8 @@
                 {% block component_offcanvas_product_compare_actions_compare_now %}
                     <a href="{{ path('frontend.compare.page') }}"
                        class="btn btn-block begin-checkout-btn{% if isCompareProductsNotEmpty and (page.products|length > 1) %} btn-primary{% else %} btn-light disabled{% endif %}"
-                       title="{{ "simpleProductCompare.offcanvas.compareNow"|trans|striptags }}">
-                        {{ "simpleProductCompare.offcanvas.compareNow"|trans|sw_sanitize }}
+                       title="{{ "froshProductCompare.offcanvas.compareNow"|trans|striptags }}">
+                        {{ "froshProductCompare.offcanvas.compareNow"|trans|sw_sanitize }}
                     </a>
                 {% endblock %}
 

@@ -1,0 +1,27 @@
+{
+    "storeAvailabilities": [
+        "International",
+        "German"
+    ],
+    "standardLocale": "en_GB",
+    "localizations": [
+        "en_GB",
+        "de_DE"
+    ],
+    "categories": [
+        "Storefront",
+        "Product Compare"
+    ],
+    "productType": "extension",
+    "responsive": true,
+    "tags": {
+        "en": [
+            "product compare",
+            "cross selling"
+        ],
+        "de": [
+            "Produktvergleich",
+            "Cross-Selling"
+        ]
+    }
+}

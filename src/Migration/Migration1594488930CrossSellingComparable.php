@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Justa\SimpleProductCompare\Migration;
+namespace Justa\FroshProductCompare\Migration;
 
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Framework\Migration\MigrationStep;

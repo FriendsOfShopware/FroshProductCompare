@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Justa\SimpleProductCompare\Subscriber;
+namespace Justa\FroshProductCompare\Subscriber;
 
 use Doctrine\DBAL\Connection;
-use Justa\SimpleProductCompare\CrossSellingComparable\CrossSellingComparableEntity;
-use Justa\SimpleProductCompare\Page\CompareProductPageLoader;
+use Justa\FroshProductCompare\CrossSellingComparable\CrossSellingComparableEntity;
+use Justa\FroshProductCompare\Page\CompareProductPageLoader;
 use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingLoader;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;

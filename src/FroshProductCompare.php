@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Justa\SimpleProductCompare;
+namespace Justa\FroshProductCompare;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -10,7 +10,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-class SimpleProductCompare extends Plugin
+class FroshProductCompare extends Plugin
 {
     public function build(ContainerBuilder $container): void
     {
@@ -41,18 +41,8 @@ class SimpleProductCompare extends Plugin
         /** @var Connection $connection */
         $connection = $this->container->get(Connection::class);
 
-        $connection->beginTransaction();
-
-        try {
-            $connection->exec('
-                DROP TABLE IF EXISTS spc_cross_selling_comparable;
-            ');
-
-            $connection->commit();
-        } catch (DBALException $e) {
-            $connection->rollBack();
-
-            throw $e;
-        }
+        $connection->exec('
+            DROP TABLE IF EXISTS spc_cross_selling_comparable;
+        ');
     }
 }
