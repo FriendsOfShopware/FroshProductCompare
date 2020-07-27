@@ -1,37 +1,41 @@
 {% sw_extends '@Storefront/storefront/base.html.twig' %}
 
+{% block base_head %}
+    {% sw_include '@Storefront/storefront/layout/meta-robot-no-index.html.twig' %}
+{% endblock %}
+
 {% block base_flashbags %}{% endblock %}
 
 {% block base_content %}
     <div class="container-main">
         {% block page_content %}
-            {% block simple_compare_product_page_header %}
+            {% block frosh_product_compare_page_header %}
                 <h1 class="product-compare-main-header show-on-print">
-                    {{ "simpleProductCompare.general.headline"|trans|sw_sanitize }}
+                    {{ "froshProductCompare.general.headline"|trans|sw_sanitize }}
                 </h1>
             {% endblock %}
 
             <div class="cms-page show-on-print">
-                {% block simple_compare_product_page_content_block %}
+                {% block frosh_product_compare_page_content_block %}
                     <div class="compare-product-container" data-compare-widget="true">
 
-                        {% block simple_compare_product_page_content_action %}
+                        {% block frosh_product_compare_page_content_action %}
                             <div class="row no-gutters mt-3 pb-3 hide-on-print action-row">
                                 <div class="col-12">
-                                    <button type="button" class="btn btn-outline-info mr-2 btn-printer" title="{{ "simpleProductCompare.action.print"|trans|sw_sanitize }}">
+                                    <button type="button" class="btn btn-outline-info mr-2 btn-printer" title="{{ "froshProductCompare.action.print"|trans|sw_sanitize }}">
                                         {% sw_icon 'printer' style {'color': 'primary', 'size': 'sm'} %}
-                                        {{ "simpleProductCompare.action.print"|trans|sw_sanitize }}
+                                        {{ "froshProductCompare.action.print"|trans|sw_sanitize }}
                                     </button>
-                                    <button type="button" class="btn btn-outline-secondary btn-clear" title="{{ "simpleProductCompare.action.clearAll"|trans|sw_sanitize }}">
+                                    <button type="button" class="btn btn-outline-secondary btn-clear" title="{{ "froshProductCompare.action.clearAll"|trans|sw_sanitize }}">
                                         {% sw_icon 'trash' style {'color': 'primary', 'size': 'sm'} %}
-                                        {{ "simpleProductCompare.action.clearAll"|trans|sw_sanitize }}
+                                        {{ "froshProductCompare.action.clearAll"|trans|sw_sanitize }}
                                     </button>
                                 </div>
                             </div>
 
                         {% endblock %}
 
-                        {% block simple_compare_product_page_content %}
+                        {% block frosh_product_compare_page_content %}
                             <div class="compare-product-content">
                             </div>
                             {{ sw_csrf('frontend.compare.content') }}

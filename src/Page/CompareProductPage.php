@@ -1,6 +1,6 @@
 <?php
 
-namespace Justa\SimpleProductCompare\Page;
+namespace Justa\FroshProductCompare\Page;
 
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
 use Shopware\Storefront\Page\Page;

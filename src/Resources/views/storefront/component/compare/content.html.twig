@@ -1,4 +1,4 @@
-{% block simple_product_compare_comparison_table_container %}
+{% block frosh_product_compare_table_container %}
     <div class="comparison-table">
         {% set products = page.products %}
         {% set productsCount = products.count %}
@@ -6,13 +6,13 @@
         {% if productsCount is same as(0) %}
             {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
                 type: "info",
-                content: "simpleProductCompare.general.empty"|trans|sw_sanitize
+                content: "froshProductCompare.general.empty"|trans|sw_sanitize
             } %}
         {% else %}
-            {% block simple_product_compare_comparison_table %}
+            {% block  frosh_product_compare_table %}
                 <table class="table table-bordered">
 
-                    {% block simple_product_compare_comparison_table_header %}
+                    {% block  frosh_product_compare_table_header %}
                         <thead>
                             <tr>
                                 <td class="align-middle hide-on-print">

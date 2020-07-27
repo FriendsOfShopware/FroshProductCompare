@@ -1,10 +1,10 @@
-{% block simple_compare_product_properties_cells %}
+{% block frosh_product_compare_properties_cells %}
     {% for product in products %}
         {% set matchProperty = false %}
         {% for group in product.sortedProperties %}
             {% if group.id == property.id %}
                 {% set matchProperty = true %}
-                {% block simple_compare_product_properties_cell %}
+                {% block frosh_product_compare_properties_cell %}
                     <td class="properties-value">
                         {% apply spaceless %}
                             {% for option in group.options %}

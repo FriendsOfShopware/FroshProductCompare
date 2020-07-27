@@ -1,3 +1,9 @@
+# 1.0.1 - Release on Shopware store as Frosh's plugin
+
+- Remove some redundant LoC.
+- Add robot noindex meta on Compare page
+- Update the plugin's name and add some store's requirements.
+
 # 1.0.0 - First release
 - Add `Add to Compare` button in Product Card and Product detail.
 - Add `Float button` on bottom left of the page with `added products counter`.

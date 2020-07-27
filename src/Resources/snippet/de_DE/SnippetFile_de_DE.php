@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Justa\SimpleProductCompare\Resources\snippet\de_DE;
+namespace Justa\FroshProductCompare\Resources\snippet\de_DE;
 
 use Shopware\Core\System\Snippet\Files\SnippetFileInterface;
 
 class SnippetFile_de_DE implements SnippetFileInterface
 {
     public const ISO = 'de-DE';
-    public const NAME = 'simpleProductCompare';
+    public const NAME = 'froshProductCompare';
 
     public function getName(): string
     {

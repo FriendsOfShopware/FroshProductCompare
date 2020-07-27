@@ -1,7 +1,7 @@
 {
-    "name": "justa/simple-product-compare",
+    "name": "justa/frosh-product-compare",
     "description": "A Simple Product Compare plugin for Shopware 6",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "type": "shopware-platform-plugin",
     "license": "MIT",
     "authors": [
@@ -11,10 +11,10 @@
         }
     ],
     "require": {
-        "shopware/core": "~6.2.0"
+        "shopware/core": "^6.2.0"
     },
     "extra": {
-        "shopware-plugin-class": "Justa\\SimpleProductCompare\\SimpleProductCompare",
+        "shopware-plugin-class": "Justa\\FroshProductCompare\\FroshProductCompare",
         "plugin-icon": "src/Resources/config/plugin.png",
         "copyright": "(c) by Justa Vin<levienthuong@gmail.com>",
         "label": {
@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Justa\\SimpleProductCompare\\": "src/"
+            "Justa\\FroshProductCompare\\": "src/"
         }
     },
     "conflict": {

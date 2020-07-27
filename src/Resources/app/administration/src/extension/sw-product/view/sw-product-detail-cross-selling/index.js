@@ -13,6 +13,7 @@ Component.override('sw-product-detail-cross-selling', {
             const crossSellingComparableRepo = this.repositoryFactory.create('spc_cross_selling_comparable');
 
             const crossSellingComparable = crossSellingComparableRepo.create(Shopware.Context.api);
+            crossSellingComparable.isComparable = false;
 
             this.crossSelling.productId = this.product.id;
             this.crossSelling.position = this.product.crossSellings.length + 1;
@@ -20,7 +21,7 @@ Component.override('sw-product-detail-cross-selling', {
             this.crossSelling.sortBy = 'name';
             this.crossSelling.sortDirection = 'ASC';
             this.crossSelling.limit = 24;
-            this.crossSelling.simpleProductCompareCrossSellingComparable = crossSellingComparable;
+            this.crossSelling.extensions.crossSellingComparable = crossSellingComparable;
 
             this.product.crossSellings.push(this.crossSelling);
         }

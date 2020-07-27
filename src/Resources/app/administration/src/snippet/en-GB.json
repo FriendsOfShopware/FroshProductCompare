@@ -1,7 +1,7 @@
 {
-    "simple-product-compare": {
+    "frosh-product-compare": {
         "generalInformation": {
-            "mainMenuItemGeneral": "Simple Product Compare",
+            "mainMenuItemGeneral": "Frosh Product Compare",
             "descriptionTextModule": "Add an extension to compare product in cross-selling"
         },
         "crossSelling": {

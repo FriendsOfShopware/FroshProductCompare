@@ -5,24 +5,24 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <!-- Snippet file for Storefront -->
-        <service id="Justa\SimpleProductCompare\Resources\snippet\en_GB\SnippetFile_en_GB" public="true">
+        <service id="Justa\FroshProductCompare\Resources\snippet\en_GB\SnippetFile_en_GB" public="true">
             <tag name="shopware.snippet.file" priority="200"/>
         </service>
-        <service id="Justa\SimpleProductCompare\Resources\snippet\de_DE\SnippetFile_de_DE" public="true">
+        <service id="Justa\FroshProductCompare\Resources\snippet\de_DE\SnippetFile_de_DE" public="true">
             <tag name="shopware.snippet.file" priority="201"/>
         </service>
 
         <!-- Entity Extension-->
-        <service id="Justa\SimpleProductCompare\DBAL\Extension\ProductCrossSellingEntityExtension">
+        <service id="Justa\FroshProductCompare\DBAL\Extension\ProductCrossSellingEntityExtension">
             <tag name="shopware.entity.extension"/>
         </service>
 
         <!-- Entity Definitions-->
-        <service id="Justa\SimpleProductCompare\CrossSellingComparable\CrossSellingComparableDefinition">
+        <service id="Justa\FroshProductCompare\CrossSellingComparable\CrossSellingComparableDefinition">
             <tag name="shopware.entity.definition" entity="spc_cross_selling_comparable"/>
         </service>
 
-        <service id="Justa\SimpleProductCompare\Page\CompareProductPageLoader">
+        <service id="Justa\FroshProductCompare\Page\CompareProductPageLoader">
             <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingLoader"/>
             <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader"/>
             <argument type="service" id="Symfony\Component\EventDispatcher\EventDispatcherInterface" />
@@ -30,8 +30,8 @@
         </service>
 
 
-        <service id="Justa\SimpleProductCompare\Controller\CompareProductController" public="true">
-            <argument type="service" id="Justa\SimpleProductCompare\Page\CompareProductPageLoader"/>
+        <service id="Justa\FroshProductCompare\Controller\CompareProductController" public="true">
+            <argument type="service" id="Justa\FroshProductCompare\Page\CompareProductPageLoader"/>
             <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader"/>
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
@@ -39,10 +39,10 @@
         </service>
 
         <!-- subscriber -->
-        <service id="Justa\SimpleProductCompare\Subscriber\CrossSellingProductListingSubscriber">
+        <service id="Justa\FroshProductCompare\Subscriber\CrossSellingProductListingSubscriber">
             <tag name="kernel.event_subscriber"/>
             <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="Justa\SimpleProductCompare\Page\CompareProductPageLoader"/>
+            <argument type="service" id="Justa\FroshProductCompare\Page\CompareProductPageLoader"/>
             <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingLoader"/>
         </service>
     </services>

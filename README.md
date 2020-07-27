@@ -23,7 +23,7 @@ http://shopware.thuong.lv/
 | 1.0.0    	| Shopware 6.2 >=	            |
 
 ## License
-
-Plugin's Icon by [Icons8](https://icons8.com).
+    
+Plugin's Icon by [flaticon](https://www.flaticon.com).
 
 The plugin is released under MIT. For a full overview check the [LICENSE](./LICENSE) file.
