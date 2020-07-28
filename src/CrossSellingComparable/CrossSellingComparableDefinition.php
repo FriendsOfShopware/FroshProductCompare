@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Justa\FroshProductCompare\CrossSellingComparable;
+namespace Frosh\FroshProductCompare\CrossSellingComparable;
 
 use Shopware\Core\Content\Product\Aggregate\ProductCrossSelling\ProductCrossSellingDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
@@ -14,7 +14,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class CrossSellingComparableDefinition extends EntityDefinition
 {
-    public const ENTITY_NAME = 'spc_cross_selling_comparable';
+    public const ENTITY_NAME = 'frosh_cross_selling_comparable';
 
     public function getEntityName(): string
     {

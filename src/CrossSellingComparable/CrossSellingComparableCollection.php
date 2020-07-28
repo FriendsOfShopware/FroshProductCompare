@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Justa\FroshProductCompare\CrossSellingComparable;
+namespace Frosh\FroshProductCompare\CrossSellingComparable;
 
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 

@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Justa\FroshProductCompare\DBAL\Extension;
+namespace Frosh\FroshProductCompare\DAL\Extension;
 
-use Justa\FroshProductCompare\CrossSellingComparable\CrossSellingComparableDefinition;
+use Frosh\FroshProductCompare\CrossSellingComparable\CrossSellingComparableDefinition;
 use Shopware\Core\Content\Product\Aggregate\ProductCrossSelling\ProductCrossSellingDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityExtension;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
