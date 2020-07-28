@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Justa\FroshProductCompare\Migration;
+namespace Frosh\FroshProductCompare\Migration;
 
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Framework\Migration\MigrationStep;
@@ -15,7 +15,7 @@ class Migration1594488930CrossSellingComparable extends MigrationStep
     public function update(Connection $connection): void
     {
         $connection->executeUpdate('
-            CREATE TABLE `spc_cross_selling_comparable` (
+            CREATE TABLE `frosh_cross_selling_comparable` (
                 `id` BINARY(16) NOT NULL PRIMARY KEY,
                 `product_cross_selling_id` BINARY(16) NOT NULL,
                 `is_comparable` TINYINT(1) NULL DEFAULT 0,

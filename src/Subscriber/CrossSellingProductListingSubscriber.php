@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Justa\FroshProductCompare\Subscriber;
+namespace Frosh\FroshProductCompare\Subscriber;
 
 use Doctrine\DBAL\Connection;
-use Justa\FroshProductCompare\CrossSellingComparable\CrossSellingComparableEntity;
-use Justa\FroshProductCompare\Page\CompareProductPageLoader;
+use Frosh\FroshProductCompare\CrossSellingComparable\CrossSellingComparableEntity;
+use Frosh\FroshProductCompare\Page\CompareProductPageLoader;
 use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingLoader;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
@@ -22,10 +22,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class CrossSellingProductListingSubscriber implements EventSubscriberInterface
 {
     /**
-     * @var Connection
-     */
-    private $connection;
-    /**
      * @var CompareProductPageLoader
      */
     private $compareProductPageLoader;
@@ -36,11 +32,9 @@ class CrossSellingProductListingSubscriber implements EventSubscriberInterface
     private $productListingLoader;
 
     public function __construct(
-        Connection $connection,
         CompareProductPageLoader $compareProductPageLoader,
         ProductListingLoader $productListingLoader
     ) {
-        $this->connection = $connection;
         $this->compareProductPageLoader = $compareProductPageLoader;
         $this->productListingLoader = $productListingLoader;
     }

@@ -1,30 +1,47 @@
 {
-    "name": "justa/frosh-product-compare",
+    "name": "frosh/product-compare",
     "description": "A Simple Product Compare plugin for Shopware 6",
     "version": "1.0.1",
     "type": "shopware-platform-plugin",
     "license": "MIT",
     "authors": [
         {
+            "name": "FriendsOfShopware",
+            "email": "info@friendsofshopware.com"
+        },
+        {
             "name": "Thuong Le",
             "email": "levienthuong@gmail.com"
         }
     ],
     "require": {
-        "shopware/core": "^6.2.0"
+        "shopware/core": "^6.2.0",
+        "shopware/storefront": "^6.2.0"
     },
     "extra": {
-        "shopware-plugin-class": "Justa\\FroshProductCompare\\FroshProductCompare",
+        "shopware-plugin-class": "Frosh\\FroshProductCompare\\FroshProductCompare",
         "plugin-icon": "src/Resources/config/plugin.png",
         "copyright": "(c) by Justa Vin<levienthuong@gmail.com>",
         "label": {
             "de-DE": "Ein einfaches Produktvergleichs-Plugin für Shopware 6",
             "en-GB": "A Simple Product Compare plugin for Shopware 6"
+        },
+        "description": {
+            "de-DE": "Kostenloses Open Source Plugin für Shopware 6. Ermöglicht es bis zu 4 Produkte miteinander zu vergleichen. Vergleichsliste auf der Produktvergleichsseite oder auf der Artikelseite.",
+            "en-GB": "Free Shopware 6 open source extension which allows to compare up to 4 products with each other. Show compare list in products compare page or in product detail's cross-selling."
+        },
+        "manufacturerLink": {
+            "de-DE": "https://github.com/FriendsOfShopware/FroshProductCompare",
+            "en-GB": "https://github.com/FriendsOfShopware/FroshProductCompare"
+        },
+        "supportLink": {
+            "de-DE": "https://github.com/FriendsOfShopware/FroshProductCompare/issues",
+            "en-GB": "https://github.com/FriendsOfShopware/FroshProductCompare/issues"
         }
     },
     "autoload": {
         "psr-4": {
-            "Justa\\FroshProductCompare\\": "src/"
+            "Frosh\\FroshProductCompare\\": "src/"
         }
     },
     "conflict": {

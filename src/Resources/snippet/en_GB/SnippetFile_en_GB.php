@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Justa\FroshProductCompare\Resources\snippet\en_GB;
+namespace Frosh\FroshProductCompare\Resources\snippet\en_GB;
 
 use Shopware\Core\System\Snippet\Files\SnippetFileInterface;
 

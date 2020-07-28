@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Justa\FroshProductCompare;
+namespace Frosh\FroshProductCompare;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -42,7 +42,7 @@ class FroshProductCompare extends Plugin
         $connection = $this->container->get(Connection::class);
 
         $connection->exec('
-            DROP TABLE IF EXISTS spc_cross_selling_comparable;
+            DROP TABLE IF EXISTS frosh_cross_selling_comparable;
         ');
     }
 }
