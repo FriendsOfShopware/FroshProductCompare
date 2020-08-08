@@ -1,3 +1,7 @@
+# 1.0.2
+
+- Shopware 6.3 Kompatibilität
+
 # 1.0.1 - Release on Shopware store as Frosh's plugin
 
 - Remove some redundant LoC.
