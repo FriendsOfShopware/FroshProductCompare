@@ -2,7 +2,7 @@
     "froshProductCompare": {
         "general": {
             "headline": "Produkte vergleichen",
-            "addToCompare": "Hinzufügen zum vergleichen",
+            "addToCompare": "Zum Vergleich hinzufügen",
             "removeFromCompare": "Aus dem Vergleich entfernen",
             "maximumCompareProducts": "Die maximale Anzahl von Vergleichsprodukten beträgt 4",
             "empty": "Zum Vergleich wird kein Produkt hinzugefügt"
@@ -13,7 +13,7 @@
             "compareNow": "Jetzt vergleichen"
         },
         "action": {
-            "print": "Print",
+            "print": "Drucken",
             "clearAll": "Alles löschen"
         },
         "section": {
@@ -30,7 +30,7 @@
                 "manufacturer": "Hersteller",
                 "price": "Preis",
                 "description": "Beschreibung",
-                "rating": "Wertung",
+                "rating": "Bewertung",
                 "category": "Kategorie"
             }
         }
