@@ -9,8 +9,8 @@
         "de_DE"
     ],
     "categories": [
-        "Storefront",
-        "Product Compare"
+        "Produktdarstellung",
+        "KundenkontoPersonalisierung"
     ],
     "productType": "extension",
     "responsive": true,
