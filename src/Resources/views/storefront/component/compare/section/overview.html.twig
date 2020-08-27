@@ -17,9 +17,11 @@
             <th>{{ "froshProductCompare.section.overview.description"|trans|sw_sanitize }}</th>
             {% sw_include '@Storefront/storefront/component/compare/partial/description-cells.html.twig' %}
         </tr>
-        <tr>
-            <th>{{ "froshProductCompare.section.overview.rating"|trans|sw_sanitize }}</th>
-            {% sw_include '@Storefront/storefront/component/compare/partial/rating-cells.html.twig' %}
-        </tr>
+        {% if shopware.config.detail.showReviews %}
+            <tr>
+                <th>{{ "froshProductCompare.section.overview.rating"|trans|sw_sanitize }}</th>
+                {% sw_include '@Storefront/storefront/component/compare/partial/rating-cells.html.twig' %}
+            </tr>
+        {% endif %}
     </tbody>
 {% endblock %}

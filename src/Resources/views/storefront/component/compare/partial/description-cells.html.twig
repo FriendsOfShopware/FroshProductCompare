@@ -2,7 +2,7 @@
     {% for product in products %}
         {% block frosh_product_compare_description_cell %}
         <td>
-            {{ product.translated.description|striptags|slice(0, 100) ~ '...' |raw }}
+            {{ product.translated.description|raw|striptags|u.truncate(250, '…') }}
         </td>
         {% endblock %}
     {% endfor %}

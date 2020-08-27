@@ -4,14 +4,6 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <!-- Snippet files for Storefront -->
-        <service id="Frosh\FroshProductCompare\Resources\snippet\en_GB\SnippetFile_en_GB" public="true">
-            <tag name="shopware.snippet.file" priority="200"/>
-        </service>
-
-        <service id="Frosh\FroshProductCompare\Resources\snippet\de_DE\SnippetFile_de_DE" public="true">
-            <tag name="shopware.snippet.file" priority="201"/>
-        </service>
 
         <!-- Entity Extension-->
         <service id="Frosh\FroshProductCompare\DAL\Extension\ProductCrossSellingEntityExtension">
