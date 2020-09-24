@@ -21,8 +21,8 @@ class Migration1594488930CrossSellingComparable extends MigrationStep
                 `is_comparable` TINYINT(1) NULL DEFAULT 0,
                 `created_at` DATETIME(3) NOT NULL,
                 `updated_at` DATETIME(3) NULL,
-                CONSTRAINT `uniq.spc_cross_selling_comparable.product_cross_selling_id` UNIQUE (`product_cross_selling_id`),
-                CONSTRAINT `fk.spc_cross_selling_comparable.product_cross_selling_id` FOREIGN KEY (`product_cross_selling_id`)
+                CONSTRAINT `uniq.frosh_cross_selling_comparable.product_cross_selling_id` UNIQUE (`product_cross_selling_id`),
+                CONSTRAINT `fk.frosh_cross_selling_comparable.product_cross_selling_id` FOREIGN KEY (`product_cross_selling_id`)
                 REFERENCES `product_cross_selling` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
         ');

@@ -28,7 +28,7 @@ Component.override('sw-product-cross-selling-form', {
 
         if (!crossSellingComparable) {
             crossSellingComparable =
-                this.repositoryFactory.create('spc_cross_selling_comparable').create(Shopware.Context.api);
+                this.repositoryFactory.create('frosh_cross_selling_comparable').create(Shopware.Context.api);
             crossSellingComparable.isComparable = false;
             this.crossSelling.extensions.crossSellingComparable = crossSellingComparable;
         }
