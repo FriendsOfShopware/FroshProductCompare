@@ -1,3 +1,6 @@
+# 1.0.3
+- Fix Cross-Selling funktioniert nach der Installation des Plugins nicht.
+
 # 1.0.2
 
 - Shopware 6.3 Kompatibilität

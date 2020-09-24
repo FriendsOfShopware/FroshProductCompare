@@ -10,7 +10,7 @@ Component.override('sw-product-detail-cross-selling', {
             );
 
             this.crossSelling = crossSellingRepository.create(Shopware.Context.api);
-            const crossSellingComparableRepo = this.repositoryFactory.create('spc_cross_selling_comparable');
+            const crossSellingComparableRepo = this.repositoryFactory.create('frosh_cross_selling_comparable');
 
             const crossSellingComparable = crossSellingComparableRepo.create(Shopware.Context.api);
             crossSellingComparable.isComparable = false;
