@@ -39,6 +39,16 @@
 }
 
 @media print {
+    #footerColumns {
+        display: none;
+    }
+
+    .footer-bottom {
+        .container {
+            display: none;
+        }
+    }
+
     .show-on-print-only {
         display: inline-block;
     }
