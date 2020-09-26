@@ -1,3 +1,6 @@
+# 1.0.4
+- Use `HttpClient` instead of `StoreApiClient`.
+
 # 1.0.3
 - Fix Cross-Selling funktioniert nach der Installation des Plugins nicht.
 

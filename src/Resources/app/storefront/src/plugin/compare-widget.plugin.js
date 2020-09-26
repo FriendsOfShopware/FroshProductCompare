@@ -1,12 +1,12 @@
 import Plugin from 'src/plugin-system/plugin.class';
 import PluginManager from 'src/plugin-system/plugin.manager';
-import StoreApiClient from 'src/service/store-api-client.service';
+import HttpClient from 'src/service/http-client.service';
 import ElementLoadingIndicatorUtil from 'src/utility/loading-indicator/element-loading-indicator.util';
 import CompareLocalStorageHelper from '../helper/compare-local-storage.helper';
 
 export default class CompareWidgetPlugin extends Plugin {
     init() {
-        this._client = new StoreApiClient();
+        this._client = new HttpClient();
         this._clearBtn = this.el.querySelector('.btn-clear');
         this._printBtn = this.el.querySelector('.btn-printer');
         this.insertStoredContent();
