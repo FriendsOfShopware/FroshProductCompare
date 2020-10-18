@@ -29,6 +29,9 @@ export default class AddToCompareButtonPlugin extends Plugin {
     }
 
     _toggleText(el, text) {
+        if (this.options.showIconOnly) {
+            return;
+        }
         el.textContent = text;
     }
 
@@ -41,16 +44,20 @@ export default class AddToCompareButtonPlugin extends Plugin {
         } = this.options;
 
         compareButton.addEventListener('click', () => {
-            if (compareButton.classList.contains(isAddedToCompareClass)) {
-                this._handleBeforeRemove();
+            try {
+                if (compareButton.classList.contains(isAddedToCompareClass)) {
+                    this._handleBeforeRemove();
 
-                CompareLocalStorageHelper.remove(productId);
-            } else {
-                const addResult = CompareLocalStorageHelper.add(productId);
+                    CompareLocalStorageHelper.remove(productId);
+                } else {
+                    const addResult = CompareLocalStorageHelper.add(productId);
 
-                if (addResult) {
-                    this._handleBeforeAdd();
+                    if (addResult) {
+                        this._handleBeforeAdd();
+                    }
                 }
+            } catch (e) {
+                CompareLocalStorageHelper.clear();
             }
         });
     }

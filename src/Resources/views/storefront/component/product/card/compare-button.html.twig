@@ -1,18 +1,29 @@
 {% block frosh_product_compare_add_to_compare_box %}
+    {% set showIconOnly = shopware.config.FroshProductCompare.config is defined and shopware.config.FroshProductCompare.config.showIconOnly %}
     {# @var product \Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity #}
     <div class="compare-button">
         {% set addToCompareOptions = {
             productId: product.id,
+            showIconOnly: showIconOnly,
             defaultText: "froshProductCompare.general.addToCompare"|trans|sw_sanitize,
             addedText: "froshProductCompare.general.removeFromCompare"|trans|sw_sanitize
         } %}
         {% block frosh_product_compare_add_to_compare_button %}
-            <button data-add-to-compare-button="true"
-                    data-add-to-compare-button-options="{{ addToCompareOptions|json_encode }}"
-                    class="btn btn-block btn-compare"
-                    title="{{ "froshProductCompare.general.addToCompare"|trans|striptags }}">
-                {{ "froshProductCompare.general.addToCompare"|trans|sw_sanitize }}
-            </button>
+            {% if showIconOnly %}
+                <button data-add-to-compare-button="true"
+                        data-add-to-compare-button-options="{{ addToCompareOptions|json_encode }}"
+                        class="btn btn-block btn-compare"
+                        title="{{ "froshProductCompare.general.addToCompare"|trans|striptags }}">
+                    {% sw_icon 'bag-product' style { 'size': 'sm', 'color': 'primary' } %}
+                </button>
+            {% else %}
+                <button data-add-to-compare-button="true"
+                        data-add-to-compare-button-options="{{ addToCompareOptions|json_encode }}"
+                        class="btn btn-block btn-compare"
+                        title="{{ "froshProductCompare.general.addToCompare"|trans|striptags }}">
+                    {{ "froshProductCompare.general.addToCompare"|trans|sw_sanitize }}
+                </button>
+            {% endif %}
         {% endblock %}
     </div>
 {% endblock %}

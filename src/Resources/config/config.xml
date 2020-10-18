@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
+    <card>
+        <title>Product Compare Configuration</title>
+        <title lang="de-DE">Produktvergleichskonfiguration</title>
+
+        <input-field type="bool">
+            <name>showIconOnly</name>
+            <label>Add to compare with icon only</label>
+            <label lang="de-DE">Hinzufügen, um nur mit dem Symbol zu vergleichen</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
+
+    </card>
+</config>
