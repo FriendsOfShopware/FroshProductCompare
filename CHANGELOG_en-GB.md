@@ -1,3 +1,7 @@
+# 1.0.5
+- Small fix on handle click events.
+- [Issue-9](https://github.com/FriendsOfShopware/FroshProductCompare/issues/9) Add Plugin config `showIconOnly` that only show AddToCompare button with only icon (without Text).
+
 # 1.0.4
 - Use `HttpClient` instead of `StoreApiClient`.
 
@@ -22,3 +26,4 @@
 - Add `Print` button in Compare page to print the compare table.
 - Add `Clear all` button to clear all products in the list.
 - Add `Comparable switch` in `Administration > Product Detail > Cross-selling tab` that allow to display cross-selling products as a compare table.
+

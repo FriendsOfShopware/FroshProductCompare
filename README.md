@@ -20,7 +20,7 @@ http://shopware.thuong.lv/
 
 | Version 	| Requirements               	|
 |---------	|----------------------------	|
-| 1.0.0    	| Shopware 6.2 >=	            |
+| 1.0.5    	| Shopware 6.2 >=	            |
 
 ## License
     
