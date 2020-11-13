@@ -2,11 +2,9 @@
 
 {% block base_body %}
     {{ parent() }}
-    {% if app.request.attributes.get('_route') != 'frontend.compare.page' %}
-        {% block frosh_product_compare_float_button %}
-            {% sw_include '@Storefront/storefront/component/compare/compare-float.html.twig' %}
-        {% endblock %}
-    {% endif %}
+    {% block frosh_product_compare_float_button %}
+        {% sw_include '@Storefront/storefront/component/compare/compare-float.html.twig' %}
+    {% endblock %}
 {% endblock %}
 
 {% block base_script_router %}
