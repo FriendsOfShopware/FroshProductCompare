@@ -1,3 +1,7 @@
+# 1.0.6
+- [Issue-11] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/11) Korrigieren Sie die Import-SCSS-Syntax.
+- Kleiner Refactor auf der `base.html.twig` des Plugins
+
 # 1.0.5
 - Kleine Korrektur für Handle-Click-Ereignisse.
 - [Issue-9] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/9) Fügen Sie die Plugin-Konfiguration `showIconOnly` hinzu, die nur die Schaltfläche AddToCompare mit nur einem Symbol (ohne Text) anzeigt.
