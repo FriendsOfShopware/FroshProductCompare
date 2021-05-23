@@ -1,3 +1,10 @@
+# 1.1.0
+- Shopware 6.4 compatibility
+- [Issue-14] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/14) Fixes cross-sellings compare does not work with product variants
+- Show variant's property option value in compare list
+- [Issue-15] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/15) Added a new plugin's config to toggle between show all/selected properties
+- Fix minor issues
+
 # 1.0.6
 - [Issue-11] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/11) Fix import scss syntax.
 - Small refactor on plugin's base.html.twig

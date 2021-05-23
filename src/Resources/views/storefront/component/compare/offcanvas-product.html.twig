@@ -34,6 +34,7 @@
                                         } %}
                                     {% endif %}
                                 </a>
+
                             </div>
                         {% endblock %}
                     </div>
@@ -51,6 +52,25 @@
                                            title="{{ label }}">
                                             {{ label|u.truncate(60) }}
                                         </a>
+
+                                        {% if product.variation %}
+                                            {% block component_product_box_variant_characteristics %}
+                                                <div class="product-variant-characteristics">
+                                                    <div class="product-variant-characteristics-text">
+                                                        {% for variation in product.variation %}
+                                                            {{ variation.group }}:
+                                                            <span class="product-variant-characteristics-option">
+                                                    {{ variation.option }}
+                                                </span>
+
+                                                            {% if product.variation|last != variation %}
+                                                                {{ " | " }}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            {% endblock %}
+                                        {% endif %}
                                     </div>
                                 {% endblock %}
                             </div>

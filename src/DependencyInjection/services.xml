@@ -16,10 +16,11 @@
         </service>
 
         <service id="Frosh\FroshProductCompare\Page\CompareProductPageLoader">
-            <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingLoader"/>
+            <argument type="service" id="Shopware\Core\Content\Product\Cart\ProductGateway"/>
             <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader"/>
             <argument type="service" id="Symfony\Component\EventDispatcher\EventDispatcherInterface" />
             <argument type="service" id="product_review.repository" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
         </service>
 
         <service id="Frosh\FroshProductCompare\Controller\CompareProductController" public="true">
@@ -31,10 +32,15 @@
         </service>
 
         <!-- Subscriber -->
-        <service id="Frosh\FroshProductCompare\Subscriber\CrossSellingProductListingSubscriber">
+        <service id="Frosh\FroshProductCompare\Subscriber\FroshCrossSellingProductListingSubscriber">
             <argument type="service" id="Frosh\FroshProductCompare\Page\CompareProductPageLoader"/>
-            <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingLoader"/>
+            <argument type="service" id="Shopware\Core\Content\Product\Cart\ProductGateway"/>
             <tag name="kernel.event_subscriber"/>
         </service>
+
+        <service id="Frosh\FroshProductCompare\Subscriber\FroshProductGatewayCriteriaSubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
     </services>
 </container>

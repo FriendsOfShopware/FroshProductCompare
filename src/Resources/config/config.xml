@@ -12,5 +12,18 @@
             <defaultValue>false</defaultValue>
         </input-field>
 
+        <component name="sw-switch-field">
+            <name>showSelectedProperties</name>
+            <bordered>bordered</bordered>
+            <label>When active, only show selected properties in the below multi-select</label>
+            <label lang="de-DE">Nur ausgewählte Eigenschaften in der unteren Mehrfachauswahl anzeigen</label>
+            <defaultValue>false</defaultValue>
+        </component>
+
+        <component name="sw-property-multi-select">
+            <name>selectedProperties</name>
+            <label>Only show these properties</label>
+            <label lang="de-DE">Nur diese Eigenschaften anzeigen</label>
+        </component>
     </card>
 </config>

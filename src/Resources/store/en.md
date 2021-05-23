@@ -2,6 +2,7 @@
 
 - Add up to 4 products into compare list.
 - Show compare list separated in products compare page or in product detail's cross-selling tab.
+- Compare all properties or selected properties, configurable in plugin's config
 - Read CHANGELOG for detail.
 
 This plugin is part of [@FriendsOfShopware](https://store.shopware.com/en/friends-of-shopware.html).  

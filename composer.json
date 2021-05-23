@@ -1,7 +1,7 @@
 {
     "name": "frosh/product-compare",
     "description": "A Simple Product Compare plugin for Shopware 6",
-    "version": "1.0.6",
+    "version": "1.1.0",
     "type": "shopware-platform-plugin",
     "license": "MIT",
     "authors": [
@@ -15,8 +15,8 @@
         }
     ],
     "require": {
-        "shopware/core": "^6.3",
-        "shopware/storefront": "^6.3"
+        "shopware/core": "^6.4",
+        "shopware/storefront": "^6.4"
     },
     "extra": {
         "shopware-plugin-class": "Frosh\\FroshProductCompare\\FroshProductCompare",

@@ -2,6 +2,7 @@
 
 - Fügen Sie bis zu 4 Produkte zur Vergleichsliste hinzu.
 - Vergleichsliste getrennt auf der Produktvergleichsseite oder auf der Cross-Selling-Registerkarte der Produktdetails anzeigen.
+- Vergleich aller Eigenschaften oder ausgewählter Eigenschaften, konfigurierbar in der Konfiguration des Plugins
 - Lesen Sie CHANGELOG für Details.
 
 Dieses Plugin ist Teil von [@FriendsOfShopware] (https://store.shopware.com/de/friends-of-shopware.html).

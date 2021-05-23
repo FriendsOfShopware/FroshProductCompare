@@ -2,59 +2,52 @@
 
 namespace Frosh\FroshProductCompare\Subscriber;
 
-use Doctrine\DBAL\Connection;
 use Frosh\FroshProductCompare\CrossSellingComparable\CrossSellingComparableEntity;
 use Frosh\FroshProductCompare\Page\CompareProductPageLoader;
+use Shopware\Core\Content\Product\Cart\ProductGateway;
+use Shopware\Core\Content\Product\Events\ProductCrossSellingCriteriaEvent;
+use Shopware\Core\Content\Product\Events\ProductCrossSellingIdsCriteriaEvent;
+use Shopware\Core\Content\Product\Events\ProductCrossSellingsLoadedEvent;
+use Shopware\Core\Content\Product\Events\ProductCrossSellingStreamCriteriaEvent;
 use Shopware\Core\Content\Product\ProductCollection;
-use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingLoader;
+use Shopware\Core\Content\Product\SalesChannel\CrossSelling\CrossSellingElement;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
-use Shopware\Storefront\Page\Product\CrossSelling\CrossSellingElement;
-use Shopware\Storefront\Page\Product\CrossSelling\CrossSellingLoadedEvent;
-use Shopware\Storefront\Page\Product\CrossSelling\CrossSellingProductCriteriaEvent;
-use Shopware\Storefront\Page\Product\CrossSelling\CrossSellingProductListCriteriaEvent;
-use Shopware\Storefront\Page\Product\CrossSelling\CrossSellingProductStreamCriteriaEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class CrossSellingProductListingSubscriber implements EventSubscriberInterface
+class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var CompareProductPageLoader
-     */
-    private $compareProductPageLoader;
+    private CompareProductPageLoader $compareProductPageLoader;
 
-    /**
-     * @var ProductListingLoader
-     */
-    private $productListingLoader;
+    private ProductGateway $productGateway;
 
     public function __construct(
         CompareProductPageLoader $compareProductPageLoader,
-        ProductListingLoader $productListingLoader
+        ProductGateway $productGateway
     ) {
         $this->compareProductPageLoader = $compareProductPageLoader;
-        $this->productListingLoader = $productListingLoader;
+        $this->productGateway = $productGateway;
     }
 
     public static function getSubscribedEvents()
     {
         return [
-            CrossSellingProductStreamCriteriaEvent::class => [
+            ProductCrossSellingStreamCriteriaEvent::class => [
                 ['handleCriteriaLoadedRequest', 201]
             ],
-            CrossSellingProductListCriteriaEvent::class => [
+            ProductCrossSellingIdsCriteriaEvent::class => [
                 ['handleCriteriaLoadedRequest', 201]
             ],
-            CrossSellingLoadedEvent::class => [
+            ProductCrossSellingsLoadedEvent::class => [
                 ['handleCrossSellingLoadedEvent', 201]
             ]
         ];
     }
 
-    public function handleCriteriaLoadedRequest(CrossSellingProductCriteriaEvent $event): void
+    public function handleCriteriaLoadedRequest(ProductCrossSellingCriteriaEvent $event): void
     {
         $crossSelling = $event->getCrossSelling();
         /** @var CrossSellingComparableEntity $crossSellingComparable */
@@ -77,12 +70,12 @@ class CrossSellingProductListingSubscriber implements EventSubscriberInterface
             ->addAssociation('properties.media')
             ->addAssociation('mainCategories.category')
             ->addFilter(new NotFilter(NotFilter::CONNECTION_AND, [new EqualsFilter('id', $crossSelling->getProductId())]))
-            ->setLimit(CompareProductPageLoader::MAX_COMPARE_PRODUCT_ITEMS - 1);
+            ->setLimit(CompareProductPageLoader::MAX_COMPARE_PRODUCT_ITEMS);
     }
 
-    public function handleCrossSellingLoadedEvent(CrossSellingLoadedEvent $event)
+    public function handleCrossSellingLoadedEvent(ProductCrossSellingsLoadedEvent $event)
     {
-        $crossSellings = $event->getCrossSellingResult();
+        $crossSellings = $event->getCrossSellings();
 
         $context = $event->getContext();
 
@@ -90,7 +83,6 @@ class CrossSellingProductListingSubscriber implements EventSubscriberInterface
 
         /** @var CrossSellingElement $crossSellingElement */
         foreach ($crossSellings as $crossSellingElement) {
-
             $crossSelling = $crossSellingElement->getCrossSelling();
 
             /** @var CrossSellingComparableEntity $crossSellingComparable */
@@ -100,9 +92,23 @@ class CrossSellingProductListingSubscriber implements EventSubscriberInterface
                 continue;
             }
 
-            $featureProduct = $this->getFeaturedProduct($crossSelling->getProductId(), $salesChannelContext);
+            $featureProductId = $crossSelling->getProductId();
 
-            $products = new ProductCollection([$featureProduct]);
+            /** @var SalesChannelProductEntity $product */
+            foreach ($crossSellingElement->getProducts() as $product) {
+                if ($product->getParentId() === $featureProductId) {
+                    // if there's at least a variant that in the compare list, remove container product from compare list
+                    $featureProductId = null;
+                    break;
+                }
+            }
+
+            $products = new ProductCollection();
+
+            if ($featureProductId) {
+                $featureProduct = $this->getFeaturedProduct($featureProductId, $salesChannelContext);
+                $products->add($featureProduct);
+            }
 
             $compareProducts = $crossSellingElement->getProducts();
 
@@ -118,10 +124,11 @@ class CrossSellingProductListingSubscriber implements EventSubscriberInterface
 
     private function getFeaturedProduct(string $productId, SalesChannelContext $context): SalesChannelProductEntity
     {
-        $criteria = $this->compareProductPageLoader->getCompareProductListCriteria([$productId]);
+        $products = $this->productGateway->get([$productId], $context);
 
-        $products = $this->productListingLoader->load($criteria, $context);
+        /** @var SalesChannelProductEntity $salesChannelProduct */
+        $salesChannelProduct = $products->get($productId);
 
-        return $products->first();
+        return $salesChannelProduct;
     }
 }
