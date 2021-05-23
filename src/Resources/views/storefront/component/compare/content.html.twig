@@ -80,7 +80,26 @@
                                                 </a>
                                             </div>
                                         {% endblock %}
-                                        <a class="comparison-item-title" href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}" target="_blank">{{ product.translated.name }}</a>
+                                        <a class="comparison-item-title" href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}" target="_blank">{{ name|u.truncate(60) }}</a>
+                                        {% if product.variation %}
+                                            {% block component_product_box_variant_characteristics %}
+                                                <div class="product-variant-characteristics">
+                                                    <div class="product-variant-characteristics-text text-center">
+                                                        {% for variation in product.variation %}
+                                                            {{ variation.group }}:
+                                                            <span class="product-variant-characteristics-option">
+                                                                {{ variation.option }}
+                                                            </span>
+
+                                                            {% if product.variation|last != variation %}
+                                                                {{ " | " }}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            {% endblock %}
+                                        {% endif %}
+
                                         <div class="hide-on-print">
                                             {% sw_include '@Storefront/storefront/component/product/card/action.html.twig' %}
                                         </div>

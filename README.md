@@ -14,13 +14,14 @@ http://shopware.thuong.lv/
 
 - Add up to 4 products into compare list.
 - Show compare list separated in products compare page or in product detail's cross-selling tab.
+- Compare all properties or selected properties, configurable in plugin's config
 - Read CHANGELOG for detail.
 
 ## Requirements
 
 | Version 	| Requirements               	|
 |---------	|----------------------------	|
-| 1.0.6    	| Shopware 6.2 >=	            |
+| 1.0.6    	| Shopware 6.4 >=	            |
 
 ## License
     

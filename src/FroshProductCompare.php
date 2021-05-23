@@ -41,7 +41,7 @@ class FroshProductCompare extends Plugin
         /** @var Connection $connection */
         $connection = $this->container->get(Connection::class);
 
-        $connection->exec('
+        $connection->executeStatement('
             DROP TABLE IF EXISTS frosh_cross_selling_comparable;
         ');
     }

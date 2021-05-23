@@ -7,10 +7,7 @@ use Shopware\Storefront\Page\Page;
 
 class CompareProductPage extends Page
 {
-    /**
-     * @var ProductListingResult
-     */
-    protected $products;
+    protected ProductListingResult $products;
 
     public function getProducts(): ProductListingResult
     {

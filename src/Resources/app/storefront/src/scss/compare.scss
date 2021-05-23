@@ -55,7 +55,7 @@
             }
         }
     }
-    
+
     .table-bordered thead {
         td {
             border-bottom-width: 1px;
@@ -98,6 +98,7 @@
             position: absolute;
             top: 0;
             right: 0;
+            z-index: 99;
 
             .icon {
                 color: $white;

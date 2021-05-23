@@ -16,14 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CompareProductController extends StorefrontController
 {
-    /**
-     * @var CompareProductPageLoader
-     */
-    private $compareProductPageLoader;
-    /**
-     * @var GenericPageLoader
-     */
-    private $genericPageLoader;
+    private CompareProductPageLoader $compareProductPageLoader;
+
+    private GenericPageLoader $genericPageLoader;
 
     public function __construct(
         CompareProductPageLoader $compareProductPageLoader,
@@ -56,7 +51,6 @@ class CompareProductController extends StorefrontController
 
     /**
      * @Route("/compare/offcanvas", name="frontend.compare.offcanvas", options={"seo"="false"}, methods={"POST"}, defaults={"XmlHttpRequest"=true})
-     *
      */
     public function offcanvas(Request $request, SalesChannelContext $context): Response
     {

@@ -4,10 +4,8 @@ namespace Frosh\FroshProductCompare\Page;
 
 use Shopware\Core\Content\Product\Aggregate\ProductReview\ProductReviewCollection;
 use Shopware\Core\Content\Product\Aggregate\ProductReview\ProductReviewEntity;
-use Shopware\Core\Content\Product\Events\ProductListingCriteriaEvent;
-use Shopware\Core\Content\Product\Events\ProductListingResultEvent;
+use Shopware\Core\Content\Product\Cart\ProductGateway;
 use Shopware\Core\Content\Product\ProductCollection;
-use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingLoader;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
 use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
@@ -24,6 +22,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
+use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Shopware\Storefront\Page\GenericPageLoaderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -32,39 +31,33 @@ class CompareProductPageLoader
 {
     const MAX_COMPARE_PRODUCT_ITEMS = 4;
 
-    /**
-     * @var GenericPageLoaderInterface
-     */
-    private $genericLoader;
-    /**
-     * @var ProductListingLoader
-     */
-    private $productListingLoader;
+    private GenericPageLoaderInterface $genericLoader;
 
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-    /**
-     * @var EntityRepositoryInterface
-     */
-    private $productReviewRepository;
+    private ProductGateway $productGateway;
+
+    private EventDispatcherInterface $eventDispatcher;
+
+    private EntityRepositoryInterface $productReviewRepository;
+
+    private SystemConfigService $systemConfigService;
 
     public function __construct(
-        ProductListingLoader $productListingLoader,
+        ProductGateway $productGateway,
         GenericPageLoaderInterface $genericLoader,
         EventDispatcherInterface $eventDispatcher,
-        EntityRepositoryInterface $productReviewRepository
+        EntityRepositoryInterface $productReviewRepository,
+        SystemConfigService $systemConfigService
     ) {
-        $this->productListingLoader = $productListingLoader;
+        $this->productGateway = $productGateway;
         $this->genericLoader = $genericLoader;
         $this->eventDispatcher = $eventDispatcher;
         $this->productReviewRepository = $productReviewRepository;
+        $this->systemConfigService = $systemConfigService;
     }
 
     public function loadPreview(array $productIds, Request $request, SalesChannelContext $salesChannelContext): CompareProductPage
     {
-        $productIds = array_filter($productIds, function ($id) {
+        $productIds = array_filter(array_slice($productIds, 0, self::MAX_COMPARE_PRODUCT_ITEMS), function ($id) {
             return Uuid::isValid($id);
         });
 
@@ -80,7 +73,7 @@ class CompareProductPageLoader
         $criteria = new Criteria();
         $criteria->setIds($productIds)->setLimit(self::MAX_COMPARE_PRODUCT_ITEMS);
 
-        $products = $this->productListingLoader->load($criteria, $salesChannelContext);
+        $products = $this->productGateway->get($productIds, $salesChannelContext);
 
         $result = ProductListingResult::createFrom($products);
 
@@ -110,30 +103,26 @@ class CompareProductPageLoader
             return $page;
         }
 
-        $criteria = $this->getCompareProductListCriteria($productIds);
-
-        $this->eventDispatcher->dispatch(
-            new ProductListingCriteriaEvent($request, $criteria, $salesChannelContext)
-        );
-
-        $products = $this->productListingLoader->load($criteria, $salesChannelContext);
+        $products = $this->productGateway->get($productIds, $salesChannelContext);
 
         $result = ProductListingResult::createFrom($products);
 
-        $result = $this->loadProductCompareData($result, $salesChannelContext->getContext());
-
-        $this->eventDispatcher->dispatch(
-            new ProductListingResultEvent($request, $result, $salesChannelContext)
-        );
+        $result = $this->loadProductCompareData($result, $salesChannelContext);
 
         $page->setProducts($result);
 
         return $page;
     }
 
-    private function sortProperties(SalesChannelProductEntity $product): PropertyGroupCollection
+    private function sortProperties(SalesChannelProductEntity $product, array $selectedProperties): PropertyGroupCollection
     {
         $properties = $product->getProperties();
+
+        if (!empty($selectedProperties)) {
+            $properties = $properties->filter(function (PropertyGroupOptionEntity $property) use ($selectedProperties) {
+                return in_array($property->getGroupId(), $selectedProperties);
+            });
+        }
 
         if ($properties === null) {
             return new PropertyGroupCollection();
@@ -169,29 +158,11 @@ class CompareProductPageLoader
         return $propertyGroupCollection;
     }
 
-    public function getCompareProductListCriteria(array $productIds): Criteria
-    {
-        $criteria = new Criteria();
-        $criteria->setIds($productIds)
-        ->addAssociation('media')
-        ->addAssociation('prices')
-        ->addAssociation('manufacturer')
-        ->addAssociation('manufacturer.media')
-        ->addAssociation('cover')
-        ->addAssociation('options.group')
-        ->addAssociation('properties.group')
-        ->addAssociation('properties.media')
-        ->addAssociation('mainCategories.category')
-        ->setLimit(self::MAX_COMPARE_PRODUCT_ITEMS);
-
-        return $criteria;
-    }
-
     private function loadProductReviews(array $productIds, Context $context): EntityCollection
     {
         $criteria = new Criteria();
         $criteria->addAggregation(new CountAggregation('count', 'id'));
-        $criteria->addFilter(new EqualsFilter('status',  true));
+        $criteria->addFilter(new EqualsFilter('status', true));
         $criteria->addFilter(
             new MultiFilter(MultiFilter::CONNECTION_OR, [
                 new EqualsAnyFilter('product.id', $productIds),
@@ -202,9 +173,19 @@ class CompareProductPageLoader
         return $this->productReviewRepository->search($criteria, $context)->getEntities();
     }
 
-    public function loadProductCompareData(ProductListingResult $products, Context $context): ProductListingResult
+    public function loadProductCompareData(ProductListingResult $products, SalesChannelContext $context): ProductListingResult
     {
-        $productReviews = $this->loadProductReviews($products->getIds(), $context);
+        $productReviews = $this->loadProductReviews($products->getIds(), $context->getContext());
+
+        $selectedProperties = [];
+        $showSelectedProperties = $this->systemConfigService->getBool('FroshProductCompare.config.showSelectedProperties', $context->getSalesChannelId());
+
+        if ($showSelectedProperties) {
+            $selectedProperties = $this->systemConfigService->get('FroshProductCompare.config.selectedProperties', $context->getSalesChannelId());
+            $selectedProperties = array_map(function ($property) {
+                return $property['id'];
+            }, $selectedProperties);
+        }
 
         /** @var SalesChannelProductEntity $product */
         foreach ($products as $product) {
@@ -220,7 +201,7 @@ class CompareProductPageLoader
                 }
             });
 
-            $sortedProperties = $this->sortProperties($product);
+            $sortedProperties = $this->sortProperties($product, $selectedProperties);
 
             $product->setSortedProperties($sortedProperties);
         }
