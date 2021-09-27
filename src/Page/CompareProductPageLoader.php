@@ -4,7 +4,7 @@ namespace Frosh\FroshProductCompare\Page;
 
 use Shopware\Core\Content\Product\Aggregate\ProductReview\ProductReviewCollection;
 use Shopware\Core\Content\Product\Aggregate\ProductReview\ProductReviewEntity;
-use Shopware\Core\Content\Product\Cart\ProductGateway;
+use Shopware\Core\Content\Product\Cart\ProductGatewayInterface;
 use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
@@ -33,7 +33,7 @@ class CompareProductPageLoader
 
     private GenericPageLoaderInterface $genericLoader;
 
-    private ProductGateway $productGateway;
+    private ProductGatewayInterface $productGateway;
 
     private EventDispatcherInterface $eventDispatcher;
 
@@ -42,7 +42,7 @@ class CompareProductPageLoader
     private SystemConfigService $systemConfigService;
 
     public function __construct(
-        ProductGateway $productGateway,
+        ProductGatewayInterface $productGateway,
         GenericPageLoaderInterface $genericLoader,
         EventDispatcherInterface $eventDispatcher,
         EntityRepositoryInterface $productReviewRepository,

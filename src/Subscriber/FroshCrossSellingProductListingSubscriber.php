@@ -4,7 +4,7 @@ namespace Frosh\FroshProductCompare\Subscriber;
 
 use Frosh\FroshProductCompare\CrossSellingComparable\CrossSellingComparableEntity;
 use Frosh\FroshProductCompare\Page\CompareProductPageLoader;
-use Shopware\Core\Content\Product\Cart\ProductGateway;
+use Shopware\Core\Content\Product\Cart\ProductGatewayInterface;
 use Shopware\Core\Content\Product\Events\ProductCrossSellingCriteriaEvent;
 use Shopware\Core\Content\Product\Events\ProductCrossSellingIdsCriteriaEvent;
 use Shopware\Core\Content\Product\Events\ProductCrossSellingsLoadedEvent;
@@ -22,11 +22,11 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
 {
     private CompareProductPageLoader $compareProductPageLoader;
 
-    private ProductGateway $productGateway;
+    private ProductGatewayInterface $productGateway;
 
     public function __construct(
         CompareProductPageLoader $compareProductPageLoader,
-        ProductGateway $productGateway
+        ProductGatewayInterface $productGateway
     ) {
         $this->compareProductPageLoader = $compareProductPageLoader;
         $this->productGateway = $productGateway;
