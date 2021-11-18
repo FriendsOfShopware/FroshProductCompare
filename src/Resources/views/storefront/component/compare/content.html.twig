@@ -1,6 +1,15 @@
 {% block frosh_product_compare_table_container %}
     <div class="comparison-table">
         {% set products = page.products %}
+        {% set hideAttributes = config('FroshProductCompare.config.hideAttributes') %}
+
+        {% set hideOverview = 'overview' in hideAttributes %}
+        {% set hideDescription = 'description' in hideAttributes %}
+        {% set hidePrice = 'price' in hideAttributes %}
+        {% set hideRating = 'rating' in hideAttributes %}
+        {% set hideManufacturer = 'manufacturer' in hideAttributes %}
+        {% set hideSpecs = 'specs' in hideAttributes %}
+
         {% set productsCount = products.count %}
         {% set isAjaxContent = app.request.attributes.get('_route') == 'frontend.compare.content' %}
         {% if productsCount is same as(0) %}
@@ -109,8 +118,12 @@
                             </tr>
                         </thead>
                     {% endblock %}
-                    {% sw_include '@Storefront/storefront/component/compare/section/overview.html.twig' %}
-                    {% sw_include '@Storefront/storefront/component/compare/section/specification.html.twig' %}
+                    {% if not hideOverview %}
+                        {% sw_include '@Storefront/storefront/component/compare/section/overview.html.twig' %}
+                    {% endif %}
+                    {% if not hideSpecs %}
+                        {% sw_include '@Storefront/storefront/component/compare/section/specification.html.twig' %}
+                    {% endif %}
                     {% if isAjaxContent %}
                         <tbody class="hide-on-print">
                         <tr>

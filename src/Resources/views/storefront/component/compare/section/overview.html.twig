@@ -3,21 +3,30 @@
         <tr>
             <th class="text-uppercase" colspan="{{ productsCount + 1 }}">{{ "froshProductCompare.section.overview.title"|trans|sw_sanitize }}</th>
         </tr>
+        {% if not hideManufacturer %}
         <tr>
             <th>{{ "froshProductCompare.section.overview.manufacturer"|trans|sw_sanitize }}</th>
             {% sw_include '@Storefront/storefront/component/compare/partial/translated-nested-attribute-cells.html.twig' with {
                 attribute: 'manufacturer'
             } %}
         </tr>
+        {% endif %}
+
+        {% if not hidePrice %}
         <tr>
             <th>{{ "froshProductCompare.section.overview.price"|trans|sw_sanitize }}</th>
             {% sw_include '@Storefront/storefront/component/compare/partial/price-cells.html.twig' %}
         </tr>
+        {% endif %}
+
+        {% if not hideDescription %}
         <tr>
             <th>{{ "froshProductCompare.section.overview.description"|trans|sw_sanitize }}</th>
             {% sw_include '@Storefront/storefront/component/compare/partial/description-cells.html.twig' %}
         </tr>
-        {% if shopware.config.detail.showReviews %}
+        {% endif %}
+
+        {% if not hideRating %}
             <tr>
                 <th>{{ "froshProductCompare.section.overview.rating"|trans|sw_sanitize }}</th>
                 {% sw_include '@Storefront/storefront/component/compare/partial/rating-cells.html.twig' %}

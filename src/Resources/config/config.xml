@@ -20,6 +20,45 @@
             <defaultValue>false</defaultValue>
         </component>
 
+        <input-field type="multi-select">
+            <name>hideAttributes</name>
+            <label>Hide attributes</label>
+            <label lang="de-DE">Attribute ausblenden</label>
+            <options>
+                <option>
+                    <id>description</id>
+                    <name>Description</name>
+                    <name lang="de-DE">Beschreibung</name>
+                </option>
+                <option>
+                    <id>manufacturer</id>
+                    <name>Manufacturer</name>
+                    <name lang="de-DE">Hersteller</name>
+                </option>
+                <option>
+                    <id>price</id>
+                    <name>Price</name>
+                    <name lang="de-DE">Preis</name>
+                </option>
+                <option>
+                    <id>rating</id>
+                    <name>Rating</name>
+                    <name lang="de-DE">Bewertung</name>
+                </option>
+                <option>
+                    <id>overview</id>
+                    <name>Overview (Hide Overview section)</name>
+                    <name lang="de-DE">Übersicht (Abschnitt Übersicht ausblenden)</name>
+                </option>
+                <option>
+                    <id>specs</id>
+                    <name>Specifications (Hide Specifications section)</name>
+                    <name lang="de-DE">Spezifikationen (Abschnitt Spezifikationen ausblenden)</name>
+                </option>
+
+            </options>
+        </input-field>
+
         <component name="sw-property-multi-select">
             <name>selectedProperties</name>
             <label>Only show these properties</label>
