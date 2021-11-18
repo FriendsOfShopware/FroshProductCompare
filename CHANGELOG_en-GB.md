@@ -1,3 +1,7 @@
+# 1.2.0
+- [Issue-20] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/20) Fixes cross-sellings compare does not work with product variants
+- [Issue-19] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/19) Added a new plugin's config to hide attributes (description/price/rating/manufacturer or the whole section)
+
 # 1.1.0
 - Shopware 6.4 compatibility
 - [Issue-14] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/14) Fixes cross-sellings compare does not work with product variants

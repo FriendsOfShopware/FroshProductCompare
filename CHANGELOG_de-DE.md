@@ -1,3 +1,7 @@
+# 1.2.0
+- [Issue-20] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/20) Fixes Cross-Sellings-Vergleich funktioniert nicht mit Produktvarianten
+- [Issue-19] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/19) Neue Plugin-Konfiguration hinzugefügt, um Attribute auszublenden (Beschreibung/Preis/Bewertung/Hersteller oder den ganzen Abschnitt)
+
 # 1.1.0
 - Shopware 6.4 Kompatibilität
 - [Issue-14] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/14) Behebt, dass der Cross-Sellings-Vergleich nicht mit Produktvarianten funktioniert

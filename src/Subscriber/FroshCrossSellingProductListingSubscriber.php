@@ -116,7 +116,7 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
 
             $products = ProductListingResult::createFrom($products);
 
-            $productWithComparableData = $this->compareProductPageLoader->loadProductCompareData($products, $context);
+            $productWithComparableData = $this->compareProductPageLoader->loadProductCompareData($products, $salesChannelContext);
 
             $crossSellingElement->setProducts(new ProductCollection($productWithComparableData));
         }
