@@ -35,10 +35,6 @@
             vertical-align: middle;
             border-top: $table-border-width solid $table-border-color;
             max-width: $comparison-item-max-width;
-
-            &.capitalize {
-                text-transform: capitalize;
-            }
         }
 
         .is-feature-item {
