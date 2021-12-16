@@ -96,6 +96,7 @@ class CompareProductPageLoader
 
         $page = $this->genericLoader->load($request, $salesChannelContext);
 
+        /** @var CompareProductPage $page */
         $page = CompareProductPage::createFrom($page);
 
         if (empty($productIds)) {
@@ -110,6 +111,22 @@ class CompareProductPageLoader
         $result = $this->loadProductCompareData($result, $salesChannelContext);
 
         $page->setProducts($result);
+
+        $properties = new PropertyGroupCollection();
+
+        /** @var SalesChannelProductEntity $product */
+        foreach ($result as $product) {
+            foreach ($product->getSortedProperties() as $group) {
+                // we don't need more data of the PropertyGroup so we just set id and translated instead of cloning
+                $propertyGroup = new PropertyGroupEntity();
+                $propertyGroup->setId($group->getId());
+                $propertyGroup->setTranslated($group->getTranslated());
+
+                $properties->add($propertyGroup);
+            }
+        }
+
+        $page->setProperties($properties);
 
         return $page;
     }
