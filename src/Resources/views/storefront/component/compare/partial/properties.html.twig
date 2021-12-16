@@ -21,7 +21,9 @@
         {% endfor %}
         {% if not matchProperty %}
             <td class="properties-value">
-                <span>N/A</span>
+                {% block frosh_product_compare_properties_item_notset %}
+                    <span>N/A</span>
+                {% endblock %}
             </td>
         {% endif %}
     {% endfor %}
