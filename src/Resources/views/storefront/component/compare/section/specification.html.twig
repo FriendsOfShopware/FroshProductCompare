@@ -4,13 +4,11 @@
             <th class="text-uppercase" colspan="{{ productsCount + 1 }}">{{ "froshProductCompare.section.specification.title"|trans|sw_sanitize }}</th>
         </tr>
 
-        {% set setProperties = products.first.sortedProperties %}
-
-        {% for property in setProperties %}
+        {% for property in page.properties %}
             <tr class="property">
                 <th class="capitalize">{{ property.translated.name|e }}</th>
                 {% sw_include '@Storefront/storefront/component/compare/partial/properties.html.twig' with {
-                    property: property,
+                    linePropertyId: property.id,
                 } %}
             </tr>
         {% endfor %}

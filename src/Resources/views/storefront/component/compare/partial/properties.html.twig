@@ -2,7 +2,7 @@
     {% for product in products %}
         {% set matchProperty = false %}
         {% for group in product.sortedProperties %}
-            {% if group.id == property.id %}
+            {% if group.id == linePropertyId %}
                 {% set matchProperty = true %}
                 {% block frosh_product_compare_properties_cell %}
                     <td class="properties-value">
@@ -21,7 +21,9 @@
         {% endfor %}
         {% if not matchProperty %}
             <td class="properties-value">
-                <span>N/A</span>
+                {% block frosh_product_compare_properties_item_notset %}
+                    <span>N/A</span>
+                {% endblock %}
             </td>
         {% endif %}
     {% endfor %}

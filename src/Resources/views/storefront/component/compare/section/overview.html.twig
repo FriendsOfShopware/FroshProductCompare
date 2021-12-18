@@ -26,7 +26,7 @@
         </tr>
         {% endif %}
 
-        {% if not hideRating %}
+        {% if not hideRating and config('core.listing.showReview') %}
             <tr>
                 <th>{{ "froshProductCompare.section.overview.rating"|trans|sw_sanitize }}</th>
                 {% sw_include '@Storefront/storefront/component/compare/partial/rating-cells.html.twig' %}
