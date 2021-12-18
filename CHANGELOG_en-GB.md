@@ -1,3 +1,8 @@
+# 1.2.1
+- Use plugin name as namespace for own templates: there are errors thrown on 6.4.5.0 for not findable template
+- Never show rating if review is disabled in shop
+- Collect all possible propertyGroups of each product for comparison: we are having some different properties. The customer should always see all properties related to compared products
+
 # 1.2.0
 - [Issue-20] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/20) Fixes cross-sellings compare does not work with product variants
 - [Issue-19] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/19) Added a new plugin's config to hide attributes (description/price/rating/manufacturer or the whole section)

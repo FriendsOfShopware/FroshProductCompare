@@ -19,9 +19,9 @@ http://shopware.thuong.lv/
 
 ## Requirements
 
-| Version 	| Requirements               	|
-|---------	|----------------------------	|
-| 1.2.0    	| Shopware 6.4 >=	            |
+| Version 	  | Requirements               	|
+|------------|----------------------------	|
+| 1.2.1    	 | Shopware 6.4 >=	            |
 
 ## License
     

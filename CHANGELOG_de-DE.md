@@ -1,3 +1,8 @@
+# 1.2.1
+- Plugin-Name als Namespace für eigene Templates verwenden: es gibt Fehler auf 6.4.5.0 für nicht auffindbare Templates
+- Zeige niemals eine Bewertung an, wenn die Bewertung im Shop deaktiviert ist
+- Sammle alle möglichen propertyGroups jedes Produkts zum Vergleich: wir haben einige verschiedene Eigenschaften. Der Kunde sollte immer alle Eigenschaften der zu vergleichenden Produkte sehen
+
 # 1.2.0
 - [Issue-20] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/20) Fixes Cross-Sellings-Vergleich funktioniert nicht mit Produktvarianten
 - [Issue-19] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/19) Neue Plugin-Konfiguration hinzugefügt, um Attribute auszublenden (Beschreibung/Preis/Bewertung/Hersteller oder den ganzen Abschnitt)

@@ -8,6 +8,7 @@
             <tr class="property">
                 <th class="capitalize">{{ property.translated.name|e }}</th>
                 {% sw_include '@Storefront/storefront/component/compare/partial/properties.html.twig' with {
+                    property: property,
                     linePropertyId: property.id,
                 } %}
             </tr>
