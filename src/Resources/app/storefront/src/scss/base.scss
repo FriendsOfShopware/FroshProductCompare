@@ -37,6 +37,22 @@
     margin-bottom: 1.5rem;
 }
 
+.compare-menu-btn {
+    .badge {
+        display: none;
+        position: absolute;
+        right: -5px;
+    }
+}
+
+.is-visible {
+    .compare-menu-btn {
+        .badge {
+            display: inline-block;
+        }
+    }
+}
+
 @media print {
     #footerColumns {
         display: none;
