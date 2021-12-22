@@ -72,19 +72,7 @@ export default class CompareWidgetPlugin extends Plugin {
         });
 
         this._printBtn.addEventListener('click', () => {
-            const body = document.body;
-            const footer = document.querySelector('footer');
-            const logo = document.querySelector('.header-logo-col');
-
-            body.classList.add('hide-on-print');
-            footer.classList.add('show-on-print');
-            logo.classList.add('show-on-print');
-
             window.print();
-
-            body.classList.remove('hide-on-print');
-            footer.classList.remove('show-on-print');
-            logo.classList.remove('show-on-print');
         });
     }
 }

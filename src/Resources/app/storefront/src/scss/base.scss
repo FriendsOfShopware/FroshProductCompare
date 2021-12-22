@@ -60,7 +60,23 @@
         visibility: hidden;
     }
 
+    body {
+        visibility: hidden;
+    }
+
+    footer {
+        visibility: visible;
+    }
+
+    .header-logo-col {
+        visibility: visible;
+    }
+
     .color-on-printer {
+        display: none;
+    }
+
+    .scroll-up-container {
         display: none;
     }
 
