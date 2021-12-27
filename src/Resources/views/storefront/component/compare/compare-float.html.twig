@@ -1,17 +1,20 @@
 {% block frosh_product_compare_float_button_inner %}
+    {% set buttonClasses = buttonClasses ?? 'btn-primary' %}
+    {% set floatingButtonClasses = floatingButtonClasses ?? 'compare-float-button' %}
+    {% set badgeClasses = badgeClasses ?? 'badge-danger' %}
     {% set compareFloatOptions = {
         maximumNumberCompareProductsText: "froshProductCompare.general.maximumCompareProducts"|trans|sw_sanitize
     } %}
 
     <div data-compare-float="true" data-compare-float-options="{{ compareFloatOptions|json_encode }}">
         {% block frosh_product_compare_float_button %}
-            <div class="compare-float-button js-compare-float-button">
+            <div class="{{ floatingButtonClasses }} js-compare-float-button">
                 <button
-                   class="btn btn-primary">
+                        class="btn {{ buttonClasses }}" title="{{ "froshProductCompare.offcanvas.compareNow"|trans }}">
                     {% block frosh_product_compare_float_icon %}
                         {% sw_icon 'bag-product' style { 'size': 'sm' } %}
                     {% endblock %}
-                    <span class="badge badge-danger"></span>
+                    <span class="badge {{ badgeClasses }}"></span>
                 </button>
             </div>
         {% endblock %}
