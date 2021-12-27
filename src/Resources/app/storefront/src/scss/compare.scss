@@ -32,7 +32,6 @@
 
         &.table-bordered th, &.table-bordered td {
             padding: $table-cell-padding;
-            vertical-align: middle;
             border-top: $table-border-width solid $table-border-color;
             max-width: $comparison-item-max-width;
         }
