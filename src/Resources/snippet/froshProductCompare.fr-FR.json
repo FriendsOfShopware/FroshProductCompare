@@ -1,0 +1,28 @@
+{
+  "froshProductCompare": {
+    "action": {
+      "clearAll": "Tout effacer",
+      "print": "Imprimer"
+    },
+    "general": {
+      "addToCompare": "Ajouter à la comparaison",
+      "empty": "Aucun produit n'a encore été ajouté pour comparer.",
+      "headline": "Comparer les produits",
+      "maximumCompareProducts": "Le nombre maximum de produits de référence est de 4",
+      "removeFromCompare": "Retirer de la comparaison"
+    },
+    "offcanvas": {
+      "compareNow": "Comparez maintenant",
+      "header": "Produits à comparer"
+    },
+    "section": {
+      "overview": {
+        "rating": "Évaluation",
+        "title": "Aperçu"
+      },
+      "specification": {
+        "title": "Spécifications"
+      }
+    }
+  }
+}
