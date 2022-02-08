@@ -90,6 +90,8 @@
                                             </div>
                                         {% endblock %}
                                         <a class="comparison-item-title" href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}" target="_blank">{{ name|u.truncate(60) }}</a>
+                                        {{ "detail.productNumberLabel"|trans|sw_sanitize }} {{ product.productNumber }}
+
                                         {% if product.variation %}
                                             {% block component_product_box_variant_characteristics %}
                                                 <div class="product-variant-characteristics">
