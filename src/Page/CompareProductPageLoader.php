@@ -117,6 +117,10 @@ class CompareProductPageLoader
         /** @var SalesChannelProductEntity $product */
         foreach ($result as $product) {
             foreach ($product->getSortedProperties() as $group) {
+                if ($properties->has($group->getId())) {
+                    continue;
+                }
+
                 // we don't need more data of the PropertyGroup so we just set id and translated instead of cloning
                 $propertyGroup = new PropertyGroupEntity();
                 $propertyGroup->setId($group->getId());
@@ -125,6 +129,13 @@ class CompareProductPageLoader
                 $properties->add($propertyGroup);
             }
         }
+
+        $properties->sort(function ($a, $b) {
+            if ($a->getTranslation('name') === $b->getTranslation('name')) {
+                return $a->getTranslation('position') - $b->getTranslation('position');
+            }
+            return strcasecmp($a->getTranslation('name'), $b->getTranslation('name'));
+        });
 
         $page->setProperties($properties);
 
