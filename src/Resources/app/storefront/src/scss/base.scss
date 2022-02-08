@@ -76,7 +76,7 @@
         visibility: hidden;
     }
 
-    body {
+    header {
         visibility: hidden;
     }
 
@@ -96,16 +96,44 @@
         display: none;
     }
 
-    .compare-product-container {
-        a {
-            text-decoration: none;
-        }
-        .action-row {
-            display:none;
+    .comparison-table {
+        > table {
+            width: 100%;
+            min-width: 0;
+
+            thead {
+                display: table-row-group;
+            }
+
+            td {
+                background-clip: padding-box;
+            }
         }
 
-        .btn-buy {
-            display: none;
+        .compare-product-container {
+            a {
+                text-decoration: none;
+            }
+            .action-row {
+                display:none;
+            }
+
+            .btn-buy {
+                display: none;
+            }
         }
     }
+
+    @-moz-document url-prefix() {
+        .comparison-table {
+            > table {
+                border: 2px solid $border-color !important;
+
+                td, th {
+                    border: 2px solid $border-color !important;
+                }
+            }
+        }
+    }
+
 }
