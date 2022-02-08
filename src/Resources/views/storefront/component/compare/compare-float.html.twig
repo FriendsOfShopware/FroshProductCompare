@@ -8,7 +8,8 @@
 
     <div data-compare-float="true" data-compare-float-options="{{ compareFloatOptions|json_encode }}">
         {% block frosh_product_compare_float_button %}
-            <div class="{{ floatingButtonClasses }} js-compare-float-button">
+            <div class="{{ floatingButtonClasses }} js-compare-float-button"
+                 title="{{ "froshProductCompare.offcanvas.compareNow"|trans }}">
                 <button
                         class="btn {{ buttonClasses }}" title="{{ "froshProductCompare.offcanvas.compareNow"|trans }}">
                     {% block frosh_product_compare_float_icon %}
