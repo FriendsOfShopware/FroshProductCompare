@@ -18,106 +18,10 @@
                 content: "froshProductCompare.general.empty"|trans|sw_sanitize
             } %}
         {% else %}
-            {% block  frosh_product_compare_table %}
+            {% block frosh_product_compare_table %}
                 <table class="table table-bordered">
+                    {% sw_include '@Storefront/storefront/component/compare/section/header.html.twig' %}
 
-                    {% block  frosh_product_compare_table_header %}
-                        <thead>
-                            <tr>
-                                <td class="align-middle hide-on-print">
-                                </td>
-                                {% for product in products %}
-                                    {% set name = product.translated.name %}
-                                    {% set id = product.id %}
-                                    {% set cover = product.cover.media %}
-
-                                    <td class="product-{{ product.id }}{% if not isAjaxContent and app.request.attributes.get('productId') == id %} is-feature-item {% endif %}">
-                                    <div class="comparison-item">
-                                        {% if isAjaxContent %}
-                                            {% set addToCompareOptions = {
-                                                productId: product.id
-                                            } %}
-                                              <button title="{{ "checkout.removeLineItem"|trans|striptags }}"
-                                                      data-add-to-compare-button="true"
-                                                      data-add-to-compare-button-options="{{ addToCompareOptions|json_encode }}"
-                                                      class="btn btn-buy btn-sm compare-item-remove-button is-added-to-compare hide-on-print">
-                                                        {% sw_icon 'x' style { 'size': 'xs' } %}
-                                                </button>
-                                        {% endif %}
-                                        {% block component_product_box_image %}
-                                            <div class="product-image-wrapper">
-                                                {# fallback if display mode is not set #}
-                                                {% set displayMode = displayMode ?: 'standard' %}
-
-                                                {# set display mode 'cover' for box-image with standard display mode #}
-                                                {% if layout == 'image' and displayMode == 'standard' %}
-                                                    {% set displayMode = 'cover' %}
-                                                {% endif %}
-
-                                                <a href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}"
-                                                   title="{{ name }}"
-                                                   target="_blank"
-                                                   class="product-image-link is-{{ displayMode }}">
-                                                    {% if cover.url %}
-                                                        {% set attributes = {
-                                                            'class': 'product-image is-'~displayMode,
-                                                            'alt': (cover.translated.alt ?: name),
-                                                            'title': (cover.translated.title ?: name)
-                                                        } %}
-
-                                                        {% if displayMode == 'cover' or displayMode == 'contain' %}
-                                                            {% set attributes = attributes|merge({ 'data-object-fit': displayMode }) %}
-                                                        {% endif %}
-
-                                                        {% sw_thumbnails 'product-image-thumbnails' with {
-                                                            media: cover,
-                                                            sizes: {
-                                                                'xs': '501px',
-                                                                'sm': '315px',
-                                                                'md': '427px',
-                                                                'lg': '333px',
-                                                                'xl': '284px'
-                                                            }
-                                                        } %}
-                                                    {% else %}
-                                                        <div class="product-image-placeholder">
-                                                            {% sw_icon 'placeholder' style {
-                                                                'size': 'fluid'
-                                                            } %}
-                                                        </div>
-                                                    {% endif %}
-                                                </a>
-                                            </div>
-                                        {% endblock %}
-                                        <a class="comparison-item-title" href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}" target="_blank">{{ name|u.truncate(60) }}</a>
-                                        {% if product.variation %}
-                                            {% block component_product_box_variant_characteristics %}
-                                                <div class="product-variant-characteristics">
-                                                    <div class="product-variant-characteristics-text text-center">
-                                                        {% for variation in product.variation %}
-                                                            {{ variation.group }}:
-                                                            <span class="product-variant-characteristics-option">
-                                                                {{ variation.option }}
-                                                            </span>
-
-                                                            {% if product.variation|last != variation %}
-                                                                {{ " | " }}
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    </div>
-                                                </div>
-                                            {% endblock %}
-                                        {% endif %}
-
-                                        <div class="hide-on-print">
-                                            {% sw_include '@Storefront/storefront/component/product/card/action.html.twig' %}
-                                        </div>
-                                    </div>
-                                </td>
-                                {% endfor %}
-                            </tr>
-                        </thead>
-                    {% endblock %}
                     {% if not hideOverview %}
                         {% sw_include '@Storefront/storefront/component/compare/section/overview.html.twig' %}
                     {% endif %}

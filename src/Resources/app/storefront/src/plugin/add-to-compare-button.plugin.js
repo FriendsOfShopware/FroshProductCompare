@@ -32,6 +32,14 @@ export default class AddToCompareButtonPlugin extends Plugin {
         if (this.options.showIconOnly) {
             return;
         }
+
+        // For decorating purpose
+        const buttonText = el.querySelector('.compare-button-text');
+        if (buttonText) {
+            buttonText.textContent = text;
+            return
+        }
+
         el.textContent = text;
     }
 

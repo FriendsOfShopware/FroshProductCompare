@@ -20,10 +20,10 @@ export default class CompareFloatPlugin extends Plugin {
     }
 
     _updateButtonCounter(products) {
-        const productNumber = products.length;
-        this._badge.innerText = productNumber;
+        const count = products.length;
+        this._badge.innerText = count;
 
-        if (productNumber === 0) {
+        if (count === 0) {
             this._button.classList.remove('is-visible');
         } else if (!this._button.classList.contains('is-visible')) {
             this._button.classList.add('is-visible');

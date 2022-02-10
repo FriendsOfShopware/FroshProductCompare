@@ -1,0 +1,28 @@
+{
+  "froshProductCompare": {
+    "action": {
+      "clearAll": "Alles wissen",
+      "print": "Afdrukken"
+    },
+    "general": {
+      "addToCompare": "Toevoegen ter vergelijking",
+      "empty": "Er zijn nog geen producten toegevoegd om te vergelijken.",
+      "headline": "Producten vergelijken",
+      "maximumCompareProducts": "Het maximum aantal vergelijkingsproducten is 4",
+      "removeFromCompare": "Uit vergelijking verwijderen"
+    },
+    "offcanvas": {
+      "compareNow": "Nu vergelijken",
+      "header": "Te vergelijken producten"
+    },
+    "section": {
+      "overview": {
+        "rating": "Beoordeling",
+        "title": "Overzicht"
+      },
+      "specification": {
+        "title": "Specificatie"
+      }
+    }
+  }
+}

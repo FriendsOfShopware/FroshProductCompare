@@ -1,0 +1,17 @@
+name: BuildPlugin
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        uses: FriendsOfShopware/workflows/.github/workflows/store.yml@main
+        with:
+            extensionName: FroshProductCompare
+            shopwareVersion: 6.4.1
+        secrets:
+            accountUser: ${{ secrets.ACCOUNT_USER }}
+            accountPassword: ${{ secrets.ACCOUNT_PASSWORD }}
+            ghToken: ${{ secrets.GITHUB_TOKEN }}
