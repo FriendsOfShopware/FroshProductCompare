@@ -1,3 +1,6 @@
+# 1.2.2
+- Leerzeichen zwischen Tags hinzufügen
+
 # 1.2.1
 - Use plugin name as namespace for own templates: there are errors thrown on 6.4.5.0 for not findable template
 - Never show rating if review is disabled in shop

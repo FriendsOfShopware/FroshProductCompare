@@ -1,3 +1,6 @@
+# 1.2.2
+- Add spaces between Tags
+
 # 1.2.1
 - Plugin-Name als Namespace für eigene Templates verwenden: es gibt Fehler auf 6.4.5.0 für nicht auffindbare Templates
 - Zeige niemals eine Bewertung an, wenn die Bewertung im Shop deaktiviert ist
