@@ -119,6 +119,10 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
             $productWithComparableData = $this->compareProductPageLoader->loadProductCompareData($products, $salesChannelContext);
 
             $crossSellingElement->setProducts(new ProductCollection($productWithComparableData));
+
+            $properties = $this->compareProductPageLoader->loadProperties($products);
+
+            $crossSelling->addExtension('compareProperties', $properties);
         }
     }
 
