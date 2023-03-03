@@ -112,30 +112,7 @@ class CompareProductPageLoader
 
         $page->setProducts($result);
 
-        $properties = new PropertyGroupCollection();
-
-        /** @var SalesChannelProductEntity $product */
-        foreach ($result as $product) {
-            foreach ($product->getSortedProperties() as $group) {
-                if ($properties->has($group->getId())) {
-                    continue;
-                }
-
-                // we don't need more data of the PropertyGroup so we just set id and translated instead of cloning
-                $propertyGroup = new PropertyGroupEntity();
-                $propertyGroup->setId($group->getId());
-                $propertyGroup->setTranslated($group->getTranslated());
-
-                $properties->add($propertyGroup);
-            }
-        }
-
-        $properties->sort(function ($a, $b) {
-            if ($a->getTranslation('name') === $b->getTranslation('name')) {
-                return $a->getTranslation('position') - $b->getTranslation('position');
-            }
-            return strcasecmp($a->getTranslation('name'), $b->getTranslation('name'));
-        });
+        $properties = $this->loadProperties($result);
 
         $page->setProperties($properties);
 
@@ -235,5 +212,35 @@ class CompareProductPageLoader
         }
 
         return $products;
+    }
+
+    public function loadProperties(ProductListingResult $products): PropertyGroupCollection
+    {
+        $properties = new PropertyGroupCollection();
+
+        /** @var SalesChannelProductEntity $product */
+        foreach ($products as $product) {
+            foreach ($product->getSortedProperties() as $group) {
+                if ($properties->has($group->getId())) {
+                    continue;
+                }
+
+                // we don't need more data of the PropertyGroup so we just set id and translated instead of cloning
+                $propertyGroup = new PropertyGroupEntity();
+                $propertyGroup->setId($group->getId());
+                $propertyGroup->setTranslated($group->getTranslated());
+
+                $properties->add($propertyGroup);
+            }
+        }
+
+        $properties->sort(function ($a, $b) {
+            if ($a->getTranslation('name') === $b->getTranslation('name')) {
+                return $a->getTranslation('position') - $b->getTranslation('position');
+            }
+            return strcasecmp($a->getTranslation('name'), $b->getTranslation('name'));
+        });
+
+        return $properties;
     }
 }

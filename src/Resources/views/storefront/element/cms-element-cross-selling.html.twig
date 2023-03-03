@@ -1,14 +1,16 @@
-{% sw_extends '@Storefront/storefront/page/product-detail/cross-selling/tabs.html.twig' %}
+{% sw_extends '@Storefront/storefront/element/cms-element-cross-selling.html.twig' %}
 
-{% block page_product_detail_cross_selling_tabs_content_container %}
+{% block cms_element_cross_selling_tabs_content_container %}
     <div class="tab-content">
-        {% for item in crossSellings|filter(item => item.total > 0 and item.crossSelling.active == true) %}
-            {% set id = item.crossSelling.id %}
+        {% for item in element.data.crossSellings.elements|filter(item => item.total > 0 and item.crossSelling.active == true) %}
+            {% set crossSelling = item.crossSelling %}
+            {% set products = item.products %}
+            {% set id = crossSelling.id %}
             {% set crossSellingComparable = item.crossSelling.extensions.crossSellingComparable %}
             {% if crossSellingComparable and crossSellingComparable.isComparable %}
                 {% set page = {
-                    products: item.getProducts(),
-                    properties: item.crossSelling.extensions.compareProperties
+                    products: products,
+                    properties: crossSelling.extensions.compareProperties
                 } %}
                 <div class="tab-pane fade show{% if loop.first %} active{% endif %}"
                      id="cs-{{ id }}-tab-pane"
@@ -21,12 +23,12 @@
                 </div>
             {% else %}
                 <div class="tab-pane fade show{% if loop.first %} active{% endif %}"
-                     id="cs-{{ id }}-tab-pane"
+                     id="cross-selling-tab-{{ id }}-pane"
                      role="tabpanel"
-                     aria-labelledby="cs-{{ id }}-tab">
+                     aria-labelledby="cross-selling-tab-{{ id }}">
                     {% set config = {
                         'title': {
-                            'value': item.crossSelling.name ?: item.crossSelling.translated.name
+                            'value': crossSelling.name ?: crossSelling.translated.name
                         },
                         'border': {
                             'value': false
@@ -35,36 +37,37 @@
                             'value': false
                         },
                         'products': {
-                            'value': item.getProducts()
+                            'value': products
                         },
                         'boxLayout': {
-                            'value': 'standard'
+                            'value': sliderConfig.boxLayout.value
                         },
                         'elMinWidth': {
-                            'value': '300px'
+                            'value': sliderConfig.elMinWidth.value
                         },
                         'navigation': {
                             'value': true
                         },
                         'displayMode': {
-                            'value': 'minimal'
+                            'value': sliderConfig.displayMode.value
                         },
                         'verticalAlign': {
-                            'value': 'top'
-                        },
-                    } %}
-
-                    {% sw_include "@Storefront/storefront/element/cms-element-product-slider.html.twig" with {
-                        sliderConfig: config,
-                        element: {
-                            'data': {
-                                'products': {
-                                    elements: item.getProducts()
-                                }
-                            },
-                            type: 'product-slider'
+                            'value': center
                         }
                     } %}
+
+                    {% block cms_element_cross_selling_tabs_content_container_slider %}
+                        {% sw_include "@Storefront/storefront/element/cms-element-product-slider.html.twig" with {
+                            sliderConfig: config,
+                            element: {
+                                'data': {
+                                    'products': products
+                                },
+                                type: 'product-slider'
+                            }
+                        } %}
+                    {% endblock %}
+
                 </div>
             {% endif %}
         {% endfor %}
