@@ -4,8 +4,6 @@
 
 ## Demo:
 
-http://shopware.thuong.lv/
-
 ![](https://media.giphy.com/media/l1sFyzhJQwbPxUU41f/giphy.gif)
 
 ![](https://media.giphy.com/media/ZZHGWfiajE5bNg0ras/giphy.gif)
