@@ -16,9 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CompareProductController extends StorefrontController
 {
-    private GenericPageLoaderInterface $compareProductPageLoader;
+    private CompareProductPageLoader $compareProductPageLoader;
 
-    private GenericPageLoader $genericPageLoader;
+    private GenericPageLoaderInterface $genericPageLoader;
 
     public function __construct(
         CompareProductPageLoader $compareProductPageLoader,
