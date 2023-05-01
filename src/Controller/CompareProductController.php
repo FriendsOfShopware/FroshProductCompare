@@ -6,7 +6,7 @@ use Frosh\FroshProductCompare\Page\CompareProductPageLoader;
 use Shopware\Core\Framework\Routing\Annotation\RouteScope;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
-use Shopware\Storefront\Page\GenericPageLoader;
+use Shopware\Storefront\Page\GenericPageLoaderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,13 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CompareProductController extends StorefrontController
 {
-    private CompareProductPageLoader $compareProductPageLoader;
+    private GenericPageLoaderInterface $compareProductPageLoader;
 
     private GenericPageLoader $genericPageLoader;
 
     public function __construct(
         CompareProductPageLoader $compareProductPageLoader,
-        GenericPageLoader $genericPageLoader
+        GenericPageLoaderInterface $genericPageLoader
     ) {
         $this->compareProductPageLoader = $compareProductPageLoader;
         $this->genericPageLoader = $genericPageLoader;
