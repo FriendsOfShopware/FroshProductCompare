@@ -20,30 +20,24 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterface
 {
-    private CompareProductPageLoader $compareProductPageLoader;
-
-    private ProductGatewayInterface $productGateway;
-
     public function __construct(
-        CompareProductPageLoader $compareProductPageLoader,
-        ProductGatewayInterface $productGateway
+        private readonly CompareProductPageLoader $compareProductPageLoader,
+        private readonly ProductGatewayInterface $productGateway
     ) {
-        $this->compareProductPageLoader = $compareProductPageLoader;
-        $this->productGateway = $productGateway;
     }
 
     public static function getSubscribedEvents()
     {
         return [
             ProductCrossSellingStreamCriteriaEvent::class => [
-                ['handleCriteriaLoadedRequest', 201]
+                ['handleCriteriaLoadedRequest', 201],
             ],
             ProductCrossSellingIdsCriteriaEvent::class => [
-                ['handleCriteriaLoadedRequest', 201]
+                ['handleCriteriaLoadedRequest', 201],
             ],
             ProductCrossSellingsLoadedEvent::class => [
-                ['handleCrossSellingLoadedEvent', 201]
-            ]
+                ['handleCrossSellingLoadedEvent', 201],
+            ],
         ];
     }
 
@@ -65,6 +59,7 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
             ->addAssociation('manufacturer')
             ->addAssociation('manufacturer.media')
             ->addAssociation('cover')
+            ->addAssociation('featureSet')
             ->addAssociation('options.group')
             ->addAssociation('properties.group')
             ->addAssociation('properties.media')
@@ -73,13 +68,11 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
             ->setLimit(CompareProductPageLoader::MAX_COMPARE_PRODUCT_ITEMS);
     }
 
-    public function handleCrossSellingLoadedEvent(ProductCrossSellingsLoadedEvent $event)
+    public function handleCrossSellingLoadedEvent(ProductCrossSellingsLoadedEvent $event): void
     {
         $crossSellings = $event->getCrossSellings();
 
-        $context = $event->getContext();
-
-        $salesChannelContext =  $event->getSalesChannelContext();
+        $salesChannelContext = $event->getSalesChannelContext();
 
         /** @var CrossSellingElement $crossSellingElement */
         foreach ($crossSellings as $crossSellingElement) {
@@ -99,6 +92,7 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
                 if ($product->getParentId() === $featureProductId) {
                     // if there's at least a variant that in the compare list, remove container product from compare list
                     $featureProductId = null;
+
                     break;
                 }
             }

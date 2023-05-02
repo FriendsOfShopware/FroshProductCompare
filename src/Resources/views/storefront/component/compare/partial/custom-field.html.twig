@@ -1,0 +1,47 @@
+{% block frosh_product_compare_custom_field_cells %}
+    {% set customFieldType = customField.config.customFieldType %}
+    {% set unsupportedTypes = ['json', 'media', 'entity'] %}
+    {% for product in products %}
+        {% block frosh_product_compare_attribute_cell %}
+            {% set customFieldValue = product.customFields[customField.name] %}
+            {% if customFieldType in ['text', 'int', 'float', 'number'] %}
+                {% set customFieldValue = customFieldValue|e %}
+            {% elseif customFieldType == 'select' %}
+                {% set optLabels = [] %}
+                {% for opt in customField.config.options %}
+                    {% if opt.value in customFieldValue or opt.value == customFieldValue  %}
+                        {% set optLabel = opt.label[app.request.locale] ?? opt.label['en-GB'] %}
+                        {% set optLabels = optLabels|merge([optLabel]) %}
+                    {% endif %}
+                {% endfor %}
+                {% set customFieldValue = optLabels|join(', ') %}
+            {% elseif customFieldType == 'colorpicker' %}
+                {% set customFieldValue %}
+                    <span class="filter-property-select-preview color-on-printer hide-on-print mr-2"
+                          style="background: {{ customFieldValue }}" />
+                    <span class="show-on-print-only">{{ customFieldValue|e }}</span>
+                {% endset %}
+            {% elseif customFieldType in ['bool', 'checkbox', 'switch'] %}
+                {% set customFieldValue %}
+                    <input class="form-check-input" type="checkbox" value="" {% if customFieldValue %}checked{% endif%} disabled />
+                {% endset %}
+            {% elseif customFieldType == 'price' %}
+                {% set customFieldValue = customFieldValue.first.gross|currency ~ "general.star"|trans|sw_sanitize %}
+            {% elseif customFieldType == 'date' %}
+                {% set customFieldValue = customFieldValue ? customFieldValue|format_date('short', locale=app.request.locale) : customFieldValue %}
+            {% elseif customFieldType == 'datetime' %}
+                {% set customFieldValue = customFieldValue ? customFieldValue|format_datetime('short', locale=app.request.locale) : customFieldValue %}
+            {% elseif customFieldType in unsupportedTypes %}
+                {% set customFieldValue = 'froshProductCompare.section.specification.notSpecified'|trans|sw_sanitize %}
+            {% endif %}
+            {% set customFieldValue = customFieldValue ?? 'froshProductCompare.section.specification.notSpecified'|trans|sw_sanitize %}
+            <td class="properties-value">
+                {% if customFieldType == 'textEditor' %}
+                    {{ customFieldValue|raw }}
+                {% else %}
+                    {{ customFieldValue }}
+                {% endif %}
+            </td>
+        {% endblock %}
+    {% endfor %}
+{% endblock %}

@@ -1,11 +1,15 @@
 {% block frosh_product_compare_specification_section %}
     <tbody id="specification">
         <tr>
-            <th class="text-uppercase" colspan="{{ productsCount + 1 }}">{{ "froshProductCompare.section.specification.title"|trans|sw_sanitize }}</th>
+            <th class="text-uppercase" colspan="{{ productsCount + 1 }}">
+                <a href="javascript:void(0);" target="_blank" class="accordion-button text-black p-0 bg-transparent text-decoration-none box-shadow-no"  type="button" data-bs-toggle="collapse" data-bs-target=".collapseSpecifications" aria-expanded="true" aria-controls="collapseSpecifications">
+                    {{ "froshProductCompare.section.specification.title"|trans|sw_sanitize }}
+                </a>
+            </th>
         </tr>
 
         {% for property in page.properties %}
-            <tr class="property">
+            <tr class="property collapseSpecifications accordion-collapse collapse show" data-bs-parent="#specification">
                 <th>{{ property.translated.name|e }}</th>
                 {% sw_include '@Storefront/storefront/component/compare/partial/properties.html.twig' with {
                     property: property,
@@ -13,5 +17,19 @@
                 } %}
             </tr>
         {% endfor %}
+
+
+        {% for customField in page.customFields %}
+            {% set customFieldLabel = customField.config.label[app.request.locale] ?? customField.config.label['en-GB'] %}
+            {% if customFieldLabel is not empty %}
+                <tr class="property collapseSpecifications accordion-collapse collapse show" data-bs-parent="#specification">
+                    <th>{{ customFieldLabel|e }}</th>
+                    {% sw_include '@Storefront/storefront/component/compare/partial/custom-field.html.twig' with {
+                        customField: customField,
+                    } %}
+            {% endif %}
+            </tr>
+        {% endfor %}
+
     </tbody>
 {% endblock %}

@@ -5,13 +5,7 @@ namespace Frosh\FroshProductCompare\CrossSellingComparable;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 
 /**
- * @method void                              add(CrossSellingComparableEntity $entity)
- * @method void                              set(string $key, CrossSellingComparableEntity $entity)
- * @method CrossSellingComparableEntity[]    getIterator()
- * @method CrossSellingComparableEntity[]    getElements()
- * @method CrossSellingComparableEntity|null get(string $key)
- * @method CrossSellingComparableEntity|null first()
- * @method CrossSellingComparableEntity|null last()
+ * @extends EntityCollection<CrossSellingComparableEntity>
  */
 class CrossSellingComparableCollection extends EntityCollection
 {

@@ -1,7 +1,7 @@
 {% block frosh_product_compare_add_to_compare_box %}
     {% set showIconOnly = config('FroshProductCompare.config.showIconOnly') %}
     {# @var product \Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity #}
-    <div class="compare-button">
+    <div class="compare-button d-grid">
         {% set addToCompareOptions = {
             productId: product.id,
             showIconOnly: showIconOnly,

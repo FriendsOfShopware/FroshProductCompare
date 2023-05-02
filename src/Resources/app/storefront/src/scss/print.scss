@@ -1,0 +1,99 @@
+.show-on-print-only {
+    display: none;
+}
+
+@media print {
+    .container {
+        padding: 0px!important;
+    }
+    .cookie-permission-container {
+        display: none!important;
+    }
+
+    #footerColumns {
+        display: none;
+    }
+
+    .footer-bottom {
+        .container {
+            display: none;
+        }
+    }
+
+    .show-on-print-only {
+        display: inline-block;
+    }
+
+    .show-on-print {
+        visibility: visible;
+    }
+
+    .hide-on-print {
+        visibility: hidden;
+    }
+
+    header {
+        visibility: hidden;
+    }
+
+    footer {
+        visibility: visible;
+    }
+
+    .header-logo-col {
+        visibility: visible;
+    }
+
+    .color-on-printer {
+        display: none;
+    }
+
+    .scroll-up-container {
+        display: none;
+    }
+
+    .comparison-table {
+        > table {
+            width: 100%;
+            min-width: 0;
+
+            thead {
+                display: table-row-group;
+            }
+
+            td {
+                background-clip: padding-box;
+            }
+        }
+
+        .compare-product-container {
+            a {
+                text-decoration: none;
+            }
+            .action-row {
+                display:none;
+            }
+
+            .btn-buy {
+                display: none;
+            }
+        }
+    }
+
+    .accordion-button::after {
+        visibility: hidden;
+    }
+
+    @-moz-document url-prefix() {
+        .comparison-table {
+            > table {
+                border: 2px solid $border-color !important;
+
+                td, th {
+                    border: 2px solid $border-color !important;
+                }
+            }
+        }
+    }
+
+}
