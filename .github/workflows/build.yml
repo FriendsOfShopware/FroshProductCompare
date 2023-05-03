@@ -3,7 +3,7 @@ name: BuildPlugin
 on:
     push:
         branches:
-            - master
+            - 1.x
 
 jobs:
     build:

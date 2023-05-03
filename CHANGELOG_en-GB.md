@@ -1,3 +1,6 @@
+# 1.2.3
+- Fixed GenericPageLoader interface
+
 # 1.2.2
 - Leerzeichen zwischen Tags hinzufügen
 
