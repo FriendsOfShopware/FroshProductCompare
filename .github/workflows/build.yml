@@ -3,14 +3,13 @@ name: BuildPlugin
 on:
     push:
         branches:
-            - 1.x
+            - main
 
 jobs:
     build:
-        uses: FriendsOfShopware/workflows/.github/workflows/store.yml@main
+        uses: FriendsOfShopware/workflows/.github/workflows/store-shopware-cli.yml@main
         with:
             extensionName: FroshProductCompare
-            shopwareVersion: 6.4.1
         secrets:
             accountUser: ${{ secrets.ACCOUNT_USER }}
             accountPassword: ${{ secrets.ACCOUNT_PASSWORD }}
