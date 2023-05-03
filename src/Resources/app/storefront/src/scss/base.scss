@@ -1,21 +1,17 @@
 @import 'abstract.scss';
 @import 'compare.scss';
+@import 'print.scss';
 
 .compare-button {
     margin-top: 10px;
     .btn-compare {
         @extend .btn-lg;
         @include button-variant($buy-btn-bg, $buy-btn-bg);
-        color: $buy-btn-color;
 
         &.is-added-to-compare {
             @include button-variant($disabled-btn-bg, $disabled-btn-bg);
         }
     }
-}
-
-.show-on-print-only {
-    display: none;
 }
 
 .compare-float-button {
@@ -51,89 +47,4 @@
             display: inline-block;
         }
     }
-}
-
-@media print {
-    #footerColumns {
-        display: none;
-    }
-
-    .footer-bottom {
-        .container {
-            display: none;
-        }
-    }
-
-    .show-on-print-only {
-        display: inline-block;
-    }
-
-    .show-on-print {
-        visibility: visible;
-    }
-
-    .hide-on-print {
-        visibility: hidden;
-    }
-
-    header {
-        visibility: hidden;
-    }
-
-    footer {
-        visibility: visible;
-    }
-
-    .header-logo-col {
-        visibility: visible;
-    }
-
-    .color-on-printer {
-        display: none;
-    }
-
-    .scroll-up-container {
-        display: none;
-    }
-
-    .comparison-table {
-        > table {
-            width: 100%;
-            min-width: 0;
-
-            thead {
-                display: table-row-group;
-            }
-
-            td {
-                background-clip: padding-box;
-            }
-        }
-
-        .compare-product-container {
-            a {
-                text-decoration: none;
-            }
-            .action-row {
-                display:none;
-            }
-
-            .btn-buy {
-                display: none;
-            }
-        }
-    }
-
-    @-moz-document url-prefix() {
-        .comparison-table {
-            > table {
-                border: 2px solid $border-color !important;
-
-                td, th {
-                    border: 2px solid $border-color !important;
-                }
-            }
-        }
-    }
-
 }

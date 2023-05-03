@@ -1,0 +1,9 @@
+{% sw_extends '@Storefront/storefront/layout/meta.html.twig' %}
+
+{% block layout_head_javascript_router %}
+    {{ parent() }}
+    <script>
+        window.router['frontend.compare.offcanvas'] = '{{ path('frontend.compare.offcanvas') }}';
+        window.router['frontend.compare.content'] = '{{ path('frontend.compare.content') }}';
+    </script>
+{% endblock %}

@@ -74,7 +74,6 @@ export default class CompareFloatPlugin extends Plugin {
     _openOffcanvas() {
         const data = {
             productIds: CompareLocalStorageHelper.getAddedProductsList(),
-            _csrf_token: this.el.querySelector('input[name=_csrf_token]').value
         };
 
         AjaxOffcanvas.open(window.router['frontend.compare.offcanvas'], JSON.stringify(data), (response) => {

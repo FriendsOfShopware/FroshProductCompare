@@ -25,65 +25,41 @@ class CrossSellingComparableEntity extends Entity
      */
     protected $isComparable;
 
-    /**
-     * @return string
-     */
     public function getProductCrossSellingId(): string
     {
         return $this->productCrossSellingId;
     }
 
-    /**
-     * @param  string  $productCrossSellingId
-     */
     public function setProductCrossSellingId(string $productCrossSellingId): void
     {
         $this->productCrossSellingId = $productCrossSellingId;
     }
 
-    /**
-     * @return ProductCrossSellingEntity
-     */
     public function getProductCrossSelling(): ProductCrossSellingEntity
     {
         return $this->productCrossSelling;
     }
 
-    /**
-     * @param  ProductCrossSellingEntity  $productCrossSelling
-     */
     public function setProductCrossSelling(ProductCrossSellingEntity $productCrossSelling): void
     {
         $this->productCrossSelling = $productCrossSelling;
     }
 
-    /**
-     * @return bool|null
-     */
     public function isComparable(): ?bool
     {
         return $this->isComparable;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getIsComparable(): ?bool
     {
         return $this->isComparable;
     }
 
-    /**
-     * @param  bool|null  $isComparable
-     */
     public function setIsComparable(?bool $isComparable): void
     {
         $this->isComparable = $isComparable;
     }
 
-    /**
-     * @param  bool|null  $isComparable
-     */
     public function setComparable(?bool $isComparable): void
     {
         $this->isComparable = $isComparable;

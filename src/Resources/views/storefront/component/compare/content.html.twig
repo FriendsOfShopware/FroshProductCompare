@@ -19,7 +19,7 @@
             } %}
         {% else %}
             {% block frosh_product_compare_table %}
-                <table class="table table-bordered">
+                <table class="table table-bordered accordion">
                     {% sw_include '@Storefront/storefront/component/compare/section/header.html.twig' %}
 
                     {% if not hideOverview %}
@@ -29,7 +29,7 @@
                         {% sw_include '@Storefront/storefront/component/compare/section/specification.html.twig' %}
                     {% endif %}
                     {% if isAjaxContent %}
-                        <tbody class="hide-on-print">
+                        <tbody class="hide-on-print d-print-none">
                         <tr>
                             <th></th>
                             {% for product in products %}

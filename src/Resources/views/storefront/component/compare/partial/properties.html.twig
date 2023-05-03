@@ -22,7 +22,7 @@
         {% if not matchProperty %}
             <td class="properties-value">
                 {% block frosh_product_compare_properties_item_notset %}
-                    <span>N/A</span>
+                    <span>{{ 'froshProductCompare.section.specification.notSpecified'|trans|sw_sanitize }}</span>
                 {% endblock %}
             </td>
         {% endif %}

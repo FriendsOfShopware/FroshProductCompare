@@ -24,6 +24,14 @@
             tr:first-child, th {
                 background-color: $comparison-heading-color;
             }
+
+            .accordion-button {
+                box-shadow: none!important;
+
+                &:focus {
+                    box-shadow: none!important;
+                }
+            }
         }
 
         tbody+tbody {
@@ -33,20 +41,11 @@
         &.table-bordered th, &.table-bordered td {
             padding: $table-cell-padding;
             border-top: $table-border-width solid $table-border-color;
-            max-width: $comparison-item-max-width;
         }
 
         .is-feature-item {
             .comparison-item-title {
                 color: $success;
-            }
-        }
-        .product-action {
-            margin-top: 0;
-
-            .btn {
-                max-width: $comparison-item-max-width / 2;
-                margin: 0 auto;
             }
         }
     }
@@ -110,5 +109,9 @@
         .product-price-unit {
             height: auto;
         }
+    }
+
+    .filter-property-select-preview.color-on-printer {
+        margin-right: 3px;
     }
 }

@@ -1,7 +1,7 @@
 {% block frosh_product_compare_float_button_inner %}
     {% set buttonClasses = buttonClasses ?? 'btn-primary' %}
     {% set floatingButtonClasses = floatingButtonClasses ?? 'compare-float-button' %}
-    {% set badgeClasses = badgeClasses ?? 'badge-danger' %}
+    {% set badgeClasses = badgeClasses ?? 'bg-danger' %}
     {% set compareFloatOptions = {
         maximumNumberCompareProductsText: "froshProductCompare.general.maximumCompareProducts"|trans|sw_sanitize
     } %}
@@ -19,6 +19,5 @@
                 </button>
             </div>
         {% endblock %}
-        {{ sw_csrf('frontend.compare.offcanvas') }}
     </div>
 {% endblock %}

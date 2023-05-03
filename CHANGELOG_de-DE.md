@@ -1,3 +1,11 @@
+# 2.0.0
+- [Issue-43] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/43) Kompatibilität mit Shopware 6.5
+- [Issue-33] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/33) Hinzufügen eines neuen Umschalters auf der Vergleichsseite, um nur die Eigenschaften anzuzeigen, die sich zwischen den Produkten unterscheiden
+- [Issue-41] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/41) Unterstützung für benutzerdefinierte Felder (außer Typ json, media, entity), die benutzerdefinierten Felder des Produkts werden in der Vergleichstabelle angezeigt, wenn sie in der Konfiguration des Plugins vorkonfiguriert sind
+- Behebung verschiedener UI-Bugs und Kompatibilität mit 6.5 Styles: Anpassung von Klassennamen, Blöcken und Styling
+- Bessere Druckausgabe - Entfernen von überflüssigen Zeilen, Leerzeichen und Cookie-Balken beim Drucken
+- Die Abschnitte Übersicht und Spezifikation sind jetzt zusammenklappbar
+
 # 1.2.2
 - Add spaces between Tags
 

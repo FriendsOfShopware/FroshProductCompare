@@ -9,49 +9,44 @@
 {% block frosh_product_compare_float_button %}{% endblock %}
 
 {% block base_content %}
-    <div class="container-main">
-        {% block page_content %}
-            {% block frosh_product_compare_page_header %}
-                <h1 class="product-compare-main-header show-on-print">
-                    {{ "froshProductCompare.general.headline"|trans|sw_sanitize }}
-                </h1>
-            {% endblock %}
+    {% block page_content %}
+        {% block frosh_product_compare_page_header %}
+            <h1 class="product-compare-main-header show-on-print">
+                {{ 'froshProductCompare.general.headline'|trans|sw_sanitize }}
+            </h1>
+        {% endblock %}
 
-            <div class="cms-page show-on-print">
-                {% block frosh_product_compare_page_content_block %}
-                    <div class="compare-product-container" data-compare-widget="true">
+        <div class="cms-page show-on-print">
+            {% block frosh_product_compare_page_content_block %}
+                <div class="compare-product-container" data-compare-widget="true">
 
-                        {% block frosh_product_compare_page_content_action %}
-                            <div class="row no-gutters mt-3 pb-3 hide-on-print action-row">
-                                <div class="col-12">
-                                    <button type="button" class="btn btn-outline-info mr-2 btn-printer" title="{{ "froshProductCompare.action.print"|trans|sw_sanitize }}">
-                                        {% sw_icon 'printer' style {'color': 'primary', 'size': 'sm'} %}
-                                        {{ "froshProductCompare.action.print"|trans|sw_sanitize }}
-                                    </button>
-                                    <button type="button" class="btn btn-outline-secondary btn-clear" title="{{ "froshProductCompare.action.clearAll"|trans|sw_sanitize }}">
-                                        {% sw_icon 'trash' style {'color': 'primary', 'size': 'sm'} %}
-                                        {{ "froshProductCompare.action.clearAll"|trans|sw_sanitize }}
-                                    </button>
+                    {% block frosh_product_compare_page_content_action %}
+                        <div class="row no-gutters mt-3 pb-3 hide-on-print action-row d-print-none">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-outline-info mr-2 btn-printer" title="{{ 'froshProductCompare.action.print'|trans|sw_sanitize }}">
+                                    {% sw_icon 'printer' style {'color': 'primary', 'size': 'sm'} %}
+                                    {{ 'froshProductCompare.action.print'|trans|sw_sanitize }}
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-clear" title="{{ 'froshProductCompare.action.clearAll'|trans|sw_sanitize }}">
+                                    {% sw_icon 'trash' style {'color': 'primary', 'size': 'sm'} %}
+                                    {{ 'froshProductCompare.action.clearAll'|trans|sw_sanitize }}
+                                </button>
+
+                                <div class="mt-3 form-check form-switch">
+                                    <input class="form-check-input btn-show-differences" type="checkbox" role="switch" id="flexShowDifferencesChecked">
+                                    <label class="form-check-label" for="flexShowDifferencesChecked">{{ 'froshProductCompare.action.showDifferences'|trans|sw_sanitize }}</label>
                                 </div>
                             </div>
+                        </div>
 
-                        {% endblock %}
+                    {% endblock %}
 
-                        {% block frosh_product_compare_page_content %}
-                            <div class="compare-product-content">
-                            </div>
-                            {{ sw_csrf('frontend.compare.content') }}
-                        {% endblock %}
-                    </div>
-                {% endblock %}
-            </div>
-        {% endblock %}
-    </div>
-{% endblock %}
-{% block base_script_router %}
-    {{ parent() }}
-    <script>
-        window.router['frontend.compare.offcanvas'] = '{{ path('frontend.compare.offcanvas') }}';
-        window.router['frontend.compare.content'] = '{{ path('frontend.compare.content') }}';
-    </script>
+                    {% block frosh_product_compare_page_content %}
+                        <div class="compare-product-content">
+                        </div>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </div>
+    {% endblock %}
 {% endblock %}

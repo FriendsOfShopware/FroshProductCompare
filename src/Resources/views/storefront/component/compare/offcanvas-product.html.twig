@@ -7,61 +7,44 @@
     {% set id = product.id %}
 
     {% block frosh_product_compare_offcanvas_container %}
-        <div class="cart-item offcanvas-comparison-item">
-            <div class="row cart-item-row">
-                {% block frosh_product_compare_offcanvas_product_image %}
-                    <div class="col-auto">
-                        {% block product_compare_offcanvas_product_image_inner %}
-                            <div class="cart-item-img">
-                                <a href="{{ seoUrl('frontend.detail.page', {'productId': productId}) }}"
-                                   class="cart-item-img-link"
-                                   title="{{ label }}">
-                                    {% if product.cover.media %}
-                                        {% sw_thumbnails 'cart-item-img-thumbnails' with {
-                                            media: product.cover.media,
-                                            sizes: {
-                                                'default': '100px'
-                                            },
-                                            attributes: {
-                                                'class': 'img-fluid cart-item-img-source',
-                                                'alt': label,
-                                                'title': label
-                                            }
-                                        } %}
-                                    {% else %}
-                                        {% sw_icon 'placeholder' style {
-                                            'size': 'fluid'
-                                        } %}
-                                    {% endif %}
-                                </a>
+        <div class="line-item line-item-product is-offcanvas js-cart-item offcanvas-comparison-item">
+            <div class="row line-item-row">
+                {% block frosh_product_compare_offcanvas_product_col_info %}
+                    <div class="line-item-info">
+                        <div class="row line-item-row">
+                            {% block frosh_product_compare_offcanvas_product_details %}
+                                <div class="line-item-details">
+                                    <div class="col-auto line-item-info-img">
+                                        <div class="line-item-img-container">
+                                            {% block component_line_item_type_product_image_inner %}
+                                                {% sw_include '@Storefront/storefront/component/line-item/element/image.html.twig' with {
+                                                    lineItem: {
+                                                        cover: product.cover.media
+                                                    },
+                                                    lineItemLink: seoUrl('frontend.detail.page', { 'productId': id }),
+                                                    lineItemModalLink: false,
+                                                } %}
+                                            {% endblock %}
+                                        </div>
+                                    </div>
 
-                            </div>
-                        {% endblock %}
-                    </div>
-                {% endblock %}
-
-                {% block frosh_product_compare_offcanvas_product_detail %}
-                    <div class="col cart-item-details">
-                        {% block frosh_product_compare_offcanvas_product_detail_inner %}
-                            <div class="cart-item-details-container">
-                                {% block frosh_product_compare_offcanvas_product_label %}
-                                    <div class="cart-item-details">
-                                        <a href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}"
-                                           class="cart-item-label"
+                                    <div class="line-item-details-container">
+                                        <a href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}"
+                                           class="line-item-label"
                                            target="_blank"
                                            title="{{ label }}">
-                                            {{ label|u.truncate(60) }}
+                                            {{ label|u.truncate(60, '...', false)|raw }}
                                         </a>
 
                                         {% if product.variation %}
-                                            {% block component_product_box_variant_characteristics %}
+                                            {% block frosh_product_compare_offcanvas_variant_characteristics %}
                                                 <div class="product-variant-characteristics">
                                                     <div class="product-variant-characteristics-text">
                                                         {% for variation in product.variation %}
                                                             {{ variation.group }}:
                                                             <span class="product-variant-characteristics-option">
-                                                    {{ variation.option }}
-                                                </span>
+                                                                {{ variation.option }}
+                                                            </span>
 
                                                             {% if product.variation|last != variation %}
                                                                 {{ " | " }}
@@ -71,24 +54,47 @@
                                                 </div>
                                             {% endblock %}
                                         {% endif %}
+                                        {% if product.featureSet.features is not empty %}
+                                            {% block component_line_item_type_product_features %}
+                                                {% sw_include '@Storefront/storefront/component/product/feature/list.html.twig' with {
+                                                    'features': product.featureSet.features
+                                                } %}
+                                            {% endblock %}
+                                        {% endif %}
+
+                                        {% block component_line_item_type_product_order_number %}
+                                            <div class="line-item-ordernumber">
+                                                {{ "checkout.cartItemInfoId"|trans|sw_sanitize }} {{ product.productNumber }}
+                                            </div>
+                                        {% endblock %}
+
+                                        {% if config('core.cart.wishlistEnabled') %}
+                                            {% block component_line_item_type_product_wishlist %}
+                                                {% sw_include '@Storefront/storefront/component/product/card/wishlist.html.twig' with {
+                                                    showText: true,
+                                                    size: 'sm',
+                                                    productId: id
+                                                } %}
+                                            {% endblock %}
+                                        {% endif %}
                                     </div>
-                                {% endblock %}
-                            </div>
-                        {% endblock %}
+                                </div>
+                            {% endblock %}
+                        </div>
                     </div>
                 {% endblock %}
 
                 {% block frosh_product_compare_offcanvas_product_remove %}
-                    <div class="col-2">
+                    <div class="line-item-remove">
                         {% block frosh_product_compareoffcanvas_product_remove_button %}
                             {% set addToCompareOptions = {
-                                productId: product.id
+                                productId: id
                             } %}
                             <button title="{{ "checkout.removeLineItem"|trans|striptags }}"
                                     data-add-to-compare-button="true"
                                     data-add-to-compare-button-options="{{ addToCompareOptions|json_encode }}"
-                                    class="btn btn-sm is-added-to-compare compare-item-remove-button">
-                                {% sw_icon 'x' style { 'size': 'xs' } %}
+                                    class="btn btn-sm is-added-to-compare compare-item-remove-button btn-light line-item-remove-button">
+                                {% sw_icon 'x' style { 'size': 'sm' } %}
                             </button>
                         {% endblock %}
                     </div>

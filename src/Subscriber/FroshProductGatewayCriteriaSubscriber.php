@@ -11,7 +11,7 @@ class FroshProductGatewayCriteriaSubscriber implements EventSubscriberInterface
     {
         return [
             ProductGatewayCriteriaEvent::class => [
-                ['handleCriteriaLoadedRequest', 201]
+                ['handleCriteriaLoadedRequest', 201],
             ],
         ];
     }

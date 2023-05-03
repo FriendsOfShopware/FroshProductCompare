@@ -8,8 +8,34 @@ export default class CompareWidgetPlugin extends Plugin {
         this._client = new HttpClient();
         this._clearBtn = this.el.querySelector('.btn-clear');
         this._printBtn = this.el.querySelector('.btn-printer');
+        this.registerShowDifferencesBtnEvent();
         this.insertStoredContent();
         this._registerEvents();
+    }
+
+    /**
+     *
+     */
+    registerShowDifferencesBtnEvent()
+    {
+        const btnShowDifferences = document.querySelector('.btn-show-differences');
+        btnShowDifferences.addEventListener('change', () => {
+            if (btnShowDifferences.checked) {
+                const propertyRows = document.querySelectorAll('tbody#specification tr.property:not(:first-child)');
+                propertyRows.forEach(row => {
+                    const columns = Array.from(row.querySelectorAll('td.properties-value')).map(column => column.textContent.trim());
+                    if (columns.every(column => column === columns[0])) {
+                        row.style.display = 'none';
+                    }
+                });
+            } else {
+                const allPropertyRows = document.querySelectorAll('tbody#specification tr.property');
+                allPropertyRows.forEach(row => {
+                    row.style.display = 'table-row';
+                });
+            }
+        });
+
     }
 
     /**
@@ -25,7 +51,6 @@ export default class CompareWidgetPlugin extends Plugin {
         const data = {};
 
         data.productIds = CompareLocalStorageHelper.getAddedProductsList();
-        data._csrf_token = document.querySelector('.compare-product-container > input[name=_csrf_token]').value;
 
         ElementLoadingIndicatorUtil.create(this.el);
 

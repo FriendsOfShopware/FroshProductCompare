@@ -3,7 +3,6 @@
 namespace Frosh\FroshProductCompare\Controller;
 
 use Frosh\FroshProductCompare\Page\CompareProductPageLoader;
-use Shopware\Core\Framework\Routing\Annotation\RouteScope;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
 use Shopware\Storefront\Page\GenericPageLoaderInterface;
@@ -11,50 +10,37 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @RouteScope(scopes={"storefront"})
- */
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class CompareProductController extends StorefrontController
 {
-    private CompareProductPageLoader $compareProductPageLoader;
-
-    private GenericPageLoaderInterface $genericPageLoader;
-
     public function __construct(
-        CompareProductPageLoader $compareProductPageLoader,
-        GenericPageLoaderInterface $genericPageLoader
+        private readonly CompareProductPageLoader $compareProductPageLoader,
+        private readonly GenericPageLoaderInterface $genericPageLoader
     ) {
-        $this->compareProductPageLoader = $compareProductPageLoader;
-        $this->genericPageLoader = $genericPageLoader;
     }
 
-    /**
-     * @Route("/compare", name="frontend.compare.page", options={"seo"="false"}, methods={"GET"})
-     */
+    #[Route(path: '/compare', name: 'frontend.compare.page', options: ['seo' => false], defaults: ['_httpCache' => false], methods: ['GET'])]
     public function comparePage(Request $request, SalesChannelContext $context): Response
     {
         $page = $this->genericPageLoader->load($request, $context);
+
         return $this->renderStorefront('@FroshProductCompare/storefront/page/compare.html.twig', compact('page'));
     }
 
-    /**
-     * @Route("/compare/content", name="frontend.compare.content", options={"seo"="false"}, methods={"POST"}, defaults={"XmlHttpRequest"=true}))
-     */
+    #[Route(path: '/compare/content', name: 'frontend.compare.content', options: ['seo' => false], defaults: ['_httpCache' => false, 'XmlHttpRequest' => true], methods: ['POST'])]
     public function comparePageContent(Request $request, SalesChannelContext $context): Response
     {
-        $productIds = $request->request->get('productIds', []);
+        $productIds = $request->get('productIds', []);
 
         $page = $this->compareProductPageLoader->load($productIds, $request, $context);
 
         return $this->renderStorefront('@FroshProductCompare/storefront/component/compare/content.html.twig', ['page' => $page]);
     }
 
-    /**
-     * @Route("/compare/offcanvas", name="frontend.compare.offcanvas", options={"seo"="false"}, methods={"POST"}, defaults={"XmlHttpRequest"=true})
-     */
+    #[Route(path: '/compare/offcanvas', name: 'frontend.compare.offcanvas', options: ['seo' => false], defaults: ['_httpCache' => false, 'XmlHttpRequest' => true], methods: ['POST'])]
     public function offcanvas(Request $request, SalesChannelContext $context): Response
     {
-        $productIds = $request->request->get('productIds', []);
+        $productIds = $request->get('productIds', []);
 
         $page = $this->compareProductPageLoader->loadPreview($productIds, $request, $context);
 

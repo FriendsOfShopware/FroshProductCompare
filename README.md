@@ -17,9 +17,10 @@
 
 ## Requirements
 
-| Version 	  | Requirements               	|
-|------------|----------------------------	|
-| 1.2.1    	 | Shopware 6.4 >=	            |
+| Version 	  | Requirements               	 |
+|------------|------------------------------|
+| 2.0.0    	 | Shopware 6.5 >=	             |
+| 1.2.1    	 | Shopware 6.4 >= 6.4.20.1	    |
 
 ## License
     

@@ -71,5 +71,13 @@
             <label>Only show these properties</label>
             <label lang="de-DE">Nur diese Eigenschaften anzeigen</label>
         </component>
+
+        <component name="sw-entity-multi-id-select">
+            <name>selectedCustomFields</name>
+            <entity>custom_field</entity>
+            <label>Show these custom fields in the comparison table</label>
+            <label lang="de-DE">Zeigen Sie diese benutzerdefinierten Felder in der Vergleichstabelle an</label>
+        </component>
+
     </card>
 </config>

@@ -2,7 +2,8 @@
   "froshProductCompare": {
     "action": {
       "clearAll": "Alles löschen",
-      "print": "Drucken"
+      "print": "Drucken",
+      "showDifferences": "Nur Unterschied"
     },
     "general": {
       "addToCompare": "Zum Vergleich hinzufügen",
@@ -21,7 +22,8 @@
         "title": "Überblick"
       },
       "specification": {
-        "title": "Spezifikation"
+        "title": "Spezifikation",
+        "notSpecified": "-"
       }
     }
   }

@@ -1,3 +1,11 @@
+# 2.0.0
+- [Issue-43] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/43) Shopware 6.5 compatibility
+- [Issue-33] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/33) Add a new toggle in the Comparison page to show only properties have differences between products
+- [Issue-41] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/41) Support for custom fields (except type json, media, entity), the product's custom fields will be shown in the comparison table if they're pre-configured in Plugin's configuration
+- Fix various UI bugs and compatible with 6.5 styles: adjust classes name, blocks, styling
+- Nicer print output - Remove redundant lines, spaces, and cookie bar on printing
+- Overview and Specification sections are now collapsible
+
 # 1.2.2
 - Leerzeichen zwischen Tags hinzufügen
 
