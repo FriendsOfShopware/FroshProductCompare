@@ -1,0 +1,57 @@
+store:
+    availabilities:
+        - German
+        - International
+    default_locale: en_GB
+    localizations:
+        - de_DE
+        - en_GB
+    categories:
+        - otherMarketingCommercials
+    type: extension
+    icon: src/Resources/store/icon.png
+    automatic_bugfix_version_compatibility: true
+    description:
+        de: file:src/Resources/store/de.md
+        en: file:src/Resources/store/en.md
+    tags:
+        de:
+            - cross-selling
+            - Produktvergleich
+        en:
+            - Cross selling
+            - product compare
+    highlights:
+        de:
+            - "Produkte vergleichen"
+        en:
+            - "Product Compare"
+    images:
+        - file: src/Resources/store/images/0.png
+          priority: 0
+          activate:
+            de: true
+            en: true
+          preview:
+            de: true
+            en: true
+        - file: src/Resources/store/images/1.png
+          priority: 1
+          activate:
+            de: true
+            en: true
+        - file: src/Resources/store/images/2.png
+          priority: 2
+          activate:
+            de: true
+            en: true
+        - file: src/Resources/store/images/3.png
+          priority: 3
+          activate:
+            de: true
+            en: true
+        - file: src/Resources/store/images/4.png
+          priority: 4
+          activate:
+            de: true
+            en: true
