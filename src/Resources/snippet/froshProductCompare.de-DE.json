@@ -21,6 +21,9 @@
         "rating": "Bewertung",
         "title": "Überblick"
       },
+      "content": {
+        "reviewLinkText": "{0} 0 Bewertungen | {1} 1 Bewertung|]1,Inf[ %count% Bewertungen"
+      },
       "specification": {
         "title": "Spezifikation",
         "notSpecified": "-"

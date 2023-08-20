@@ -21,6 +21,9 @@
         "rating": "Beoordeling",
         "title": "Overzicht"
       },
+      "content": {
+        "reviewLinkText": "{0} 0 beoordelingen | {1} 1 beoordeling|]1,Inf[ %count% beoordelingen"
+      },
       "specification": {
         "title": "Specificatie",
         "notSpecified": "-"
