@@ -3,7 +3,7 @@
     {% set unsupportedTypes = ['json', 'media', 'entity'] %}
     {% for product in products %}
         {% block frosh_product_compare_attribute_cell %}
-            {% set customFieldValue = product.customFields[customField.name] %}
+            {% set customFieldValue = product.translated.customFields[customField.name] %}
             {% if customFieldType in ['text', 'int', 'float', 'number'] %}
                 {% set customFieldValue = customFieldValue|e %}
             {% elseif customFieldType == 'select' %}

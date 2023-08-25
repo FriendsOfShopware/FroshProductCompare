@@ -11,7 +11,7 @@
         {% set hideSpecs = 'specs' in hideAttributes %}
 
         {% set productsCount = products.count %}
-        {% set isAjaxContent = app.request.attributes.get('_route') == 'frontend.compare.content' %}
+        {% set isAjaxContent = activeRoute == 'frontend.compare.content' %}
         {% if productsCount is same as(0) %}
             {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
                 type: "info",
