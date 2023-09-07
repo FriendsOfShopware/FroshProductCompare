@@ -5,34 +5,42 @@
                 <a href="javascript:void(0);" target="_blank" class="accordion-button text-black p-0 bg-transparent text-decoration-none box-shadow-no"  type="button" data-bs-toggle="collapse" data-bs-target=".collapseOverview" aria-expanded="true" aria-controls="collapseOverview">{{ "froshProductCompare.section.overview.title"|trans|sw_sanitize }}</a>
             </th>
         </tr>
-        {% if not hideManufacturer %}
-        <tr class="property collapseOverview accordion-collapse collapse show" data-bs-parent="#overview">
-            <th>{{ 'listing.filterManufacturerDisplayName'|trans|sw_sanitize }}</th>
-            {% sw_include '@Storefront/storefront/component/compare/partial/translated-nested-attribute-cells.html.twig' with {
-                attribute: 'manufacturer'
-            } %}
-        </tr>
-        {% endif %}
-
-        {% if not hidePrice %}
-        <tr class="property collapseOverview accordion-collapse collapse show">
-            <th>{{ 'listing.filterPriceDisplayName'|trans|sw_sanitize }}</th>
-            {% sw_include '@Storefront/storefront/component/compare/partial/price-cells.html.twig' %}
-        </tr>
-        {% endif %}
-
-        {% if not hideDescription %}
-        <tr class="property collapseOverview accordion-collapse collapse show">
-            <th>{{ 'detail.tabsDescription'|trans|sw_sanitize }}</th>
-            {% sw_include '@Storefront/storefront/component/compare/partial/description-cells.html.twig' %}
-        </tr>
-        {% endif %}
-
-        {% if not hideRating and config('core.listing.showReview') %}
-            <tr class="property collapseOverview accordion-collapse collapse show">
-                <th>{{ 'froshProductCompare.section.overview.rating'|trans|sw_sanitize }}</th>
-                {% sw_include '@Storefront/storefront/component/compare/partial/rating-cells.html.twig' %}
+        {% block frosh_product_compare_overview_section_manufacturer %}
+            {% if not hideManufacturer %}
+            <tr class="property collapseOverview accordion-collapse collapse show" data-bs-parent="#overview">
+                <th>{{ 'listing.filterManufacturerDisplayName'|trans|sw_sanitize }}</th>
+                {% sw_include '@Storefront/storefront/component/compare/partial/translated-nested-attribute-cells.html.twig' with {
+                    attribute: 'manufacturer'
+                } %}
             </tr>
-        {% endif %}
+            {% endif %}
+        {% endblock %}
+
+        {% block frosh_product_compare_overview_section_price %}
+            {% if not hidePrice %}
+            <tr class="property collapseOverview accordion-collapse collapse show">
+                <th>{{ 'listing.filterPriceDisplayName'|trans|sw_sanitize }}</th>
+                {% sw_include '@Storefront/storefront/component/compare/partial/price-cells.html.twig' %}
+            </tr>
+            {% endif %}
+        {% endblock %}
+
+        {% block frosh_product_compare_overview_section_description %}
+            {% if not hideDescription %}
+            <tr class="property collapseOverview accordion-collapse collapse show">
+                <th>{{ 'detail.tabsDescription'|trans|sw_sanitize }}</th>
+                {% sw_include '@Storefront/storefront/component/compare/partial/description-cells.html.twig' %}
+            </tr>
+            {% endif %}
+        {% endblock %}
+
+        {% block frosh_product_compare_overview_section_rating %}
+            {% if not hideRating and config('core.listing.showReview') %}
+                <tr class="property collapseOverview accordion-collapse collapse show">
+                    <th>{{ 'froshProductCompare.section.overview.rating'|trans|sw_sanitize }}</th>
+                    {% sw_include '@Storefront/storefront/component/compare/partial/rating-cells.html.twig' %}
+                </tr>
+            {% endif %}
+        {% endblock %}
     </tbody>
 {% endblock %}
