@@ -130,12 +130,12 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
 
     private function getProductCollection(ProductListingResult $productWithComparableData): ProductCollection
     {
-        if ($productWithComparableData->getTotal() === 0) {
-            return new ProductCollection();
-        }
-
         /** @var array<ProductEntity> $elements */
         $elements = $productWithComparableData->getElements();
+
+        if (count($elements) === 0) {
+            return new ProductCollection();
+        }
 
         return new ProductCollection($elements);
     }
