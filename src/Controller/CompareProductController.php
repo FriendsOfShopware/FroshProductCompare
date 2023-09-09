@@ -32,6 +32,10 @@ class CompareProductController extends StorefrontController
     {
         $productIds = $request->get('productIds', []);
 
+        if (!\is_array($productIds)) {
+            $productIds = [];
+        }
+
         $page = $this->compareProductPageLoader->load($productIds, $request, $context);
 
         return $this->renderStorefront('@FroshProductCompare/storefront/component/compare/content.html.twig', ['page' => $page]);
@@ -41,6 +45,10 @@ class CompareProductController extends StorefrontController
     public function offcanvas(Request $request, SalesChannelContext $context): Response
     {
         $productIds = $request->get('productIds', []);
+
+        if (!\is_array($productIds)) {
+            $productIds = [];
+        }
 
         $page = $this->compareProductPageLoader->loadPreview($productIds, $request, $context);
 
