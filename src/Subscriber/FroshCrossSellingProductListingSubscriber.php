@@ -15,6 +15,7 @@ use Shopware\Core\Content\Product\SalesChannel\CrossSelling\CrossSellingElement;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -27,7 +28,7 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ProductCrossSellingStreamCriteriaEvent::class => [
@@ -68,7 +69,7 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
             ->addAssociation('properties.group')
             ->addAssociation('properties.media')
             ->addAssociation('mainCategories.category')
-            ->addFilter(new NotFilter(NotFilter::CONNECTION_AND, [new EqualsFilter('id', $crossSelling->getProductId())]))
+            ->addFilter(new NotFilter(MultiFilter::CONNECTION_AND, [new EqualsFilter('id', $crossSelling->getProductId())]))
             ->setLimit(CompareProductPageLoader::MAX_COMPARE_PRODUCT_ITEMS);
     }
 

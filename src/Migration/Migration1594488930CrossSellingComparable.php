@@ -14,7 +14,7 @@ class Migration1594488930CrossSellingComparable extends MigrationStep
 
     public function update(Connection $connection): void
     {
-        $connection->executeUpdate('
+        $connection->executeStatement('
             CREATE TABLE `frosh_cross_selling_comparable` (
                 `id` BINARY(16) NOT NULL PRIMARY KEY,
                 `product_cross_selling_id` BINARY(16) NOT NULL,
