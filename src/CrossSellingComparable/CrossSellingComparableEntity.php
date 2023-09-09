@@ -10,20 +10,11 @@ class CrossSellingComparableEntity extends Entity
 {
     use EntityIdTrait;
 
-    /**
-     * @var string
-     */
-    protected $productCrossSellingId;
+    protected string $productCrossSellingId;
 
-    /**
-     * @var ProductCrossSellingEntity
-     */
-    protected $productCrossSelling;
+    protected ProductCrossSellingEntity $productCrossSelling;
 
-    /**
-     * @var bool|null
-     */
-    protected $isComparable;
+    protected ?bool $isComparable;
 
     public function getProductCrossSellingId(): string
     {

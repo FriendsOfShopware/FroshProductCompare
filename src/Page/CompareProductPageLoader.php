@@ -40,7 +40,7 @@ class CompareProductPageLoader
      */
     public function loadPreview(array $productIds, Request $request, SalesChannelContext $salesChannelContext): CompareProductPage
     {
-        $productIds = array_filter(\array_slice($productIds, 0, self::MAX_COMPARE_PRODUCT_ITEMS), function ($id) {
+        $productIds = array_filter(\array_slice($productIds, 0, self::MAX_COMPARE_PRODUCT_ITEMS), function (string $id) {
             return Uuid::isValid($id);
         });
 
@@ -72,7 +72,7 @@ class CompareProductPageLoader
      */
     public function load(array $productIds, Request $request, SalesChannelContext $salesChannelContext): CompareProductPage
     {
-        $productIds = array_filter($productIds, function ($id) {
+        $productIds = array_filter($productIds, function (string $id) {
             return Uuid::isValid($id);
         });
 
@@ -159,12 +159,26 @@ class CompareProductPageLoader
             }
         }
 
-        $properties->sort(function ($a, $b) {
-            if ($a->getTranslation('name') === $b->getTranslation('name')) {
-                return $a->getTranslation('position') - $b->getTranslation('position');
+        $properties->sort(function (PropertyGroupEntity $a, PropertyGroupEntity $b) {
+            $nameA = $a->getTranslation('name');
+            $nameB = $b->getTranslation('name');
+
+            if (!\is_string($nameA) || !\is_string($nameB)) {
+                return 0;
             }
 
-            return strcasecmp($a->getTranslation('name'), $b->getTranslation('name'));
+            if ($a->getTranslation('name') === $b->getTranslation('name')) {
+                $positionA = $a->getTranslation('position');
+                $positionB = $b->getTranslation('position');
+
+                if (!\is_int($positionA) || !\is_int($positionB)) {
+                    return 0;
+                }
+
+                return $positionA - $positionB;
+            }
+
+            return strcasecmp($nameA, $nameB);
         });
 
         return $properties;
