@@ -10,6 +10,7 @@ use Shopware\Core\Content\Product\Events\ProductCrossSellingIdsCriteriaEvent;
 use Shopware\Core\Content\Product\Events\ProductCrossSellingsLoadedEvent;
 use Shopware\Core\Content\Product\Events\ProductCrossSellingStreamCriteriaEvent;
 use Shopware\Core\Content\Product\ProductCollection;
+use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Content\Product\SalesChannel\CrossSelling\CrossSellingElement;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
@@ -44,10 +45,13 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
     public function handleCriteriaLoadedRequest(ProductCrossSellingCriteriaEvent $event): void
     {
         $crossSelling = $event->getCrossSelling();
-        /** @var CrossSellingComparableEntity $crossSellingComparable */
         $crossSellingComparable = $crossSelling->getExtension('crossSellingComparable');
 
-        if (!$crossSellingComparable || !$crossSellingComparable->isComparable()) {
+        if (!$crossSellingComparable instanceof CrossSellingComparableEntity) {
+            return;
+        }
+
+        if (!$crossSellingComparable->isComparable()) {
             return;
         }
 
@@ -81,8 +85,12 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
             /** @var CrossSellingComparableEntity $crossSellingComparable */
             $crossSellingComparable = $crossSelling->getExtension('crossSellingComparable');
 
-            if (!$crossSellingComparable || !$crossSellingComparable->isComparable()) {
-                continue;
+            if (!$crossSellingComparable instanceof CrossSellingComparableEntity) {
+                return;
+            }
+
+            if (!$crossSellingComparable->isComparable()) {
+                return;
             }
 
             $featureProductId = $crossSelling->getProductId();
@@ -112,12 +120,24 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
 
             $productWithComparableData = $this->compareProductPageLoader->loadProductCompareData($products, $salesChannelContext);
 
-            $crossSellingElement->setProducts(new ProductCollection($productWithComparableData));
+            $crossSellingElement->setProducts($this->getProductCollection($productWithComparableData));
 
             $properties = $this->compareProductPageLoader->loadProperties($products);
 
             $crossSelling->addExtension('compareProperties', $properties);
         }
+    }
+
+    private function getProductCollection(ProductListingResult $productWithComparableData): ProductCollection
+    {
+        if ($productWithComparableData->getTotal() === 0) {
+            return new ProductCollection();
+        }
+
+        /** @var array<ProductEntity> $elements */
+        $elements = $productWithComparableData->getElements();
+
+        return new ProductCollection($elements);
     }
 
     private function getFeaturedProduct(string $productId, SalesChannelContext $context): SalesChannelProductEntity

@@ -26,9 +26,6 @@ class CompareProductPageLoader
 {
     public const MAX_COMPARE_PRODUCT_ITEMS = 4;
 
-    /**
-     * @param EntityRepository<CustomFieldCollection> $customFieldRepository
-     */
     public function __construct(
         private readonly ProductGatewayInterface $productGateway,
         private readonly GenericPageLoaderInterface $genericLoader,
@@ -38,6 +35,9 @@ class CompareProductPageLoader
     ) {
     }
 
+    /**
+     * @param array<string> $productIds
+     */
     public function loadPreview(array $productIds, Request $request, SalesChannelContext $salesChannelContext): CompareProductPage
     {
         $productIds = array_filter(\array_slice($productIds, 0, self::MAX_COMPARE_PRODUCT_ITEMS), function ($id) {
@@ -105,14 +105,15 @@ class CompareProductPageLoader
 
     public function loadProductCompareData(ProductListingResult $products, SalesChannelContext $context): ProductListingResult
     {
-        $selectedProperties = [];
+        $selectedPropertyIds = [];
         $showSelectedProperties = $this->systemConfigService->getBool('FroshProductCompare.config.showSelectedProperties', $context->getSalesChannelId());
 
         if ($showSelectedProperties) {
             $selectedProperties = $this->systemConfigService->get('FroshProductCompare.config.selectedProperties', $context->getSalesChannelId());
-            $selectedProperties = array_map(function ($property) {
-                return $property['id'];
-            }, $selectedProperties);
+
+            if (\is_array($selectedProperties)) {
+                $selectedPropertyIds = \array_column($selectedProperties, 'id');
+            }
         }
 
         $reviewAllowed = $this->isReviewAllowed($context);
@@ -126,7 +127,7 @@ class CompareProductPageLoader
                 $product->setProductReviews(new ProductReviewCollection());
             }
 
-            $sortedProperties = $this->sortProperties($product, $selectedProperties);
+            $sortedProperties = $this->sortProperties($product, $selectedPropertyIds);
 
             $product->setSortedProperties($sortedProperties);
         }
@@ -140,6 +141,10 @@ class CompareProductPageLoader
 
         /** @var SalesChannelProductEntity $product */
         foreach ($products as $product) {
+            if ($product->getSortedProperties() === null) {
+                continue;
+            }
+
             foreach ($product->getSortedProperties() as $group) {
                 if ($properties->has($group->getId())) {
                     continue;
@@ -180,27 +185,30 @@ class CompareProductPageLoader
         return !\in_array('rating', $hiddenAttributes, true);
     }
 
-    private function sortProperties(SalesChannelProductEntity $product, array $selectedProperties): PropertyGroupCollection
+    /**
+     * @param array<string> $selectedPropertyIds
+     */
+    private function sortProperties(SalesChannelProductEntity $product, array $selectedPropertyIds): PropertyGroupCollection
     {
         $properties = $product->getProperties();
 
-        if (!empty($selectedProperties)) {
-            $properties = $properties->filter(function (PropertyGroupOptionEntity $property) use ($selectedProperties) {
-                return \in_array($property->getGroupId(), $selectedProperties, true);
-            });
-        }
-
         if ($properties === null) {
             return new PropertyGroupCollection();
+        }
+
+        if (!empty($selectedPropertyIds)) {
+            $properties = $properties->filter(function (PropertyGroupOptionEntity $property) use ($selectedPropertyIds) {
+                return \in_array($property->getGroupId(), $selectedPropertyIds, true);
+            });
         }
 
         $sorted = [];
 
         /** @var PropertyGroupOptionEntity $option */
         foreach ($properties as $option) {
-            $group = $sorted[$option->getGroupId()] ?? PropertyGroupEntity::createFrom($option->getGroup());
+            $group = $this->getGroupByProperty($sorted, $option);
 
-            if (!$group) {
+            if ($group === null) {
                 continue;
             }
 
@@ -224,18 +232,39 @@ class CompareProductPageLoader
         return $propertyGroupCollection;
     }
 
+    /**
+     * @param array<string, PropertyGroupEntity> $sorted
+     */
+    private function getGroupByProperty(array $sorted, PropertyGroupOptionEntity $option): ?PropertyGroupEntity
+    {
+        if (!empty($sorted[$option->getGroupId()]) && $sorted[$option->getGroupId()] instanceof PropertyGroupEntity) {
+            return $sorted[$option->getGroupId()];
+        }
+
+        if ($option->getGroup() === null) {
+            return null;
+        }
+
+        return PropertyGroupEntity::createFrom($option->getGroup());
+    }
+
     private function loadProductReviews(SalesChannelProductEntity $product, SalesChannelContext $context): ProductReviewCollection
     {
         $request = new Request();
         $request->request->set('parentId', $product->getParentId());
         $request->request->set('productId', $product->getId());
-        $reviews = $this->productReviewLoader->load($request, $context);
+        $reviews = $this->productReviewLoader->load($request, $context)->getEntities();
 
-        return $reviews->getEntities();
+        if ($reviews instanceof ProductReviewCollection) {
+            return $reviews;
+        }
+
+        return new ProductReviewCollection();
     }
 
     private function loadCustomFields(SalesChannelContext $context): CustomFieldCollection
     {
+        /** @var array<string> $selectedCustomFields */
         $selectedCustomFields = (array) $this->systemConfigService->get('FroshProductCompare.config.selectedCustomFields', $context->getSalesChannelId());
 
         if (empty($selectedCustomFields)) {
@@ -245,6 +274,12 @@ class CompareProductPageLoader
         $criteria = new Criteria($selectedCustomFields);
         $criteria->addSorting(new FieldSorting('name', 'ASC'));
 
-        return $this->customFieldRepository->search($criteria, $context->getContext())->getEntities();
+        $customFields = $this->customFieldRepository->search($criteria, $context->getContext())->getEntities();
+
+        if ($customFields instanceof CustomFieldCollection) {
+            return $customFields;
+        }
+
+        return new CustomFieldCollection();
     }
 }

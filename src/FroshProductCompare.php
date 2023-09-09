@@ -3,11 +3,11 @@
 namespace Frosh\FroshProductCompare;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 class FroshProductCompare extends Plugin
@@ -33,11 +33,14 @@ class FroshProductCompare extends Plugin
     }
 
     /**
-     * @throws DBALException
      * @throws \Doctrine\DBAL\ConnectionException
      */
     public function cleanRelatedData(): void
     {
+        if (!$this->container instanceof ContainerInterface) {
+            return;
+        }
+
         /** @var Connection $connection */
         $connection = $this->container->get(Connection::class);
 
