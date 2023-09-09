@@ -37,11 +37,11 @@ class CompareProductPage extends Page
 
     public function getCustomFields(): CustomFieldCollection
     {
-        return $this->customFieldCollection;
+        return $this->customFields;
     }
 
-    public function setCustomFields(CustomFieldCollection $customFieldCollection): void
+    public function setCustomFields(CustomFieldCollection $customFields): void
     {
-        $this->customFieldCollection = $customFieldCollection;
+        $this->customFields = $customFields;
     }
 }
