@@ -6,7 +6,7 @@ on:
       - 'feat/phpstan'
     tags-ignore:
       - '*'
-  pull_request:
+  pull_request_target:
   schedule:
     - cron: "5 15 * * *"
 
@@ -22,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Test
+      - name: Prepare
         run: |
           start-mysql
           mysql -V
@@ -30,15 +30,6 @@ jobs:
           cp -r "./" "/plugins/FroshProductCompare"
           cd /plugins/FroshProductCompare
           composer update -d /opt/shopware
-          php -d pcov.enabled=1 /opt/shopware/vendor/bin/phpunit  --coverage-clover clover.xml
-
-      - uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        with:
-          files: ./clover.xml
-          root_dir: /plugins/FroshProductCompare
-          working-directory: /plugins/FroshProductCompare
 
       - name: Install dependencies for PHPStan
         if: matrix.version == 'v6.5.0'
