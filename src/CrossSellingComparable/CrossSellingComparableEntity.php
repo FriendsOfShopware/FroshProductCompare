@@ -10,13 +10,13 @@ class CrossSellingComparableEntity extends Entity
 {
     use EntityIdTrait;
 
-    protected string $productCrossSellingId;
+    protected ?string $productCrossSellingId;
 
-    protected ProductCrossSellingEntity $productCrossSelling;
+    protected ?ProductCrossSellingEntity $productCrossSelling;
 
     protected ?bool $isComparable;
 
-    public function getProductCrossSellingId(): string
+    public function getProductCrossSellingId(): ?string
     {
         return $this->productCrossSellingId;
     }
@@ -26,7 +26,7 @@ class CrossSellingComparableEntity extends Entity
         $this->productCrossSellingId = $productCrossSellingId;
     }
 
-    public function getProductCrossSelling(): ProductCrossSellingEntity
+    public function getProductCrossSelling(): ?ProductCrossSellingEntity
     {
         return $this->productCrossSelling;
     }
