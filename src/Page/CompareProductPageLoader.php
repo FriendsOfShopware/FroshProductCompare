@@ -13,6 +13,7 @@ use Shopware\Core\Content\Property\PropertyGroupCollection;
 use Shopware\Core\Content\Property\PropertyGroupEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\CustomField\CustomFieldCollection;
@@ -98,7 +99,7 @@ class CompareProductPageLoader
         $properties = $this->loadProperties($result);
 
         $page->setProperties($properties);
-        $page->setCustomFields($this->loadCustomFields($salesChannelContext));
+        $page->setCustomFields($this->loadCustomFields($salesChannelContext, $products));
 
         return $page;
     }
@@ -276,7 +277,7 @@ class CompareProductPageLoader
         return new ProductReviewCollection();
     }
 
-    private function loadCustomFields(SalesChannelContext $context): CustomFieldCollection
+    private function loadCustomFields(SalesChannelContext $context, ProductCollection $products): CustomFieldCollection
     {
         /** @var array<string> $selectedCustomFields */
         $selectedCustomFields = (array) $this->systemConfigService->get('FroshProductCompare.config.selectedCustomFields', $context->getSalesChannelId());
@@ -288,6 +289,11 @@ class CompareProductPageLoader
         $criteria = new Criteria($selectedCustomFields);
         $criteria->addSorting(new FieldSorting('name', 'ASC'));
 
+        if ($this->systemConfigService->getBool('FroshProductCompare.config.hideEmptyCustomFields', $context->getSalesChannelId())) {
+            $availableCustomFieldNames = $this->getAvailableCustomFieldNames($products);
+            $criteria->addFilter(new EqualsAnyFilter('name', $availableCustomFieldNames));
+        }
+
         $customFields = $this->customFieldRepository->search($criteria, $context->getContext())->getEntities();
 
         if ($customFields instanceof CustomFieldCollection) {
@@ -295,5 +301,27 @@ class CompareProductPageLoader
         }
 
         return new CustomFieldCollection();
+    }
+
+    /**
+     * @return array<string>
+     */
+    private function getAvailableCustomFieldNames(ProductCollection $products): array
+    {
+        $availableCustomFieldNames = [];
+
+        foreach ($products as $product) {
+            $productCustomFields = $product->getTranslation('customFields');
+            if (!\is_array($productCustomFields)) {
+                continue;
+            }
+
+            /** @var array<string> $productsCustomFieldNames */
+            $productsCustomFieldNames = \array_keys($productCustomFields);
+
+            array_push($availableCustomFieldNames, ...$productsCustomFieldNames);
+        }
+
+        return $availableCustomFieldNames;
     }
 }
