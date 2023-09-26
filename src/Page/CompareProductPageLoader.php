@@ -3,7 +3,6 @@
 namespace Frosh\FroshProductCompare\Page;
 
 use Shopware\Core\Content\Product\Aggregate\ProductReview\ProductReviewCollection;
-use Shopware\Core\Content\Product\Aggregate\ProductReview\ProductReviewEntity;
 use Shopware\Core\Content\Product\Cart\ProductGatewayInterface;
 use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
@@ -12,32 +11,30 @@ use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOp
 use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionEntity;
 use Shopware\Core\Content\Property\PropertyGroupCollection;
 use Shopware\Core\Content\Property\PropertyGroupEntity;
-use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\CountAggregation;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\CustomField\CustomFieldCollection;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Shopware\Storefront\Page\GenericPageLoaderInterface;
+use Shopware\Storefront\Page\Product\Review\ProductReviewLoader;
 use Symfony\Component\HttpFoundation\Request;
 
 class CompareProductPageLoader
 {
     public const MAX_COMPARE_PRODUCT_ITEMS = 4;
 
+    /**
+     * @param EntityRepository<CustomFieldCollection> $customFieldRepository
+     */
     public function __construct(
         private readonly ProductGatewayInterface $productGateway,
         private readonly GenericPageLoaderInterface $genericLoader,
-        private readonly EntityRepository $productReviewRepository,
         private readonly EntityRepository $customFieldRepository,
-        private readonly SystemConfigService $systemConfigService
+        private readonly SystemConfigService $systemConfigService,
+        private readonly ProductReviewLoader $productReviewLoader
     ) {
     }
 
@@ -108,8 +105,6 @@ class CompareProductPageLoader
 
     public function loadProductCompareData(ProductListingResult $products, SalesChannelContext $context): ProductListingResult
     {
-        $productReviews = $this->loadProductReviews($products->getIds(), $context->getContext());
-
         $selectedProperties = [];
         $showSelectedProperties = $this->systemConfigService->getBool('FroshProductCompare.config.showSelectedProperties', $context->getSalesChannelId());
 
@@ -120,19 +115,16 @@ class CompareProductPageLoader
             }, $selectedProperties);
         }
 
+        $reviewAllowed = $this->isReviewAllowed($context);
+
         /** @var SalesChannelProductEntity $product */
         foreach ($products as $product) {
-            if (!$product->getProductReviews()) {
+            if ($reviewAllowed) {
+                $product->setProductReviews($this->loadProductReviews($product, $context));
+            } else {
+                $product->setRatingAverage(null);
                 $product->setProductReviews(new ProductReviewCollection());
             }
-
-            $productReviews->filter(function (ProductReviewEntity $productReviewEntity) use ($product, $productReviews): void {
-                if ($productReviewEntity->getProductId() === $product->getId()) {
-                    $product->getProductReviews()->add($productReviewEntity);
-
-                    $productReviews->remove($productReviewEntity->getId());
-                }
-            });
 
             $sortedProperties = $this->sortProperties($product, $selectedProperties);
 
@@ -153,7 +145,7 @@ class CompareProductPageLoader
                     continue;
                 }
 
-                // we don't need more data of the PropertyGroup so we just set id and translated instead of cloning
+                // we don't need more data of the PropertyGroup, so we just set id and translated instead of cloning
                 $propertyGroup = new PropertyGroupEntity();
                 $propertyGroup->setId($group->getId());
                 $propertyGroup->setTranslated($group->getTranslated());
@@ -171,6 +163,21 @@ class CompareProductPageLoader
         });
 
         return $properties;
+    }
+
+    private function isReviewAllowed(SalesChannelContext $context): bool
+    {
+        if (!$this->systemConfigService->getBool('core.listing.showReview', $context->getSalesChannelId())) {
+            return false;
+        }
+
+        $hiddenAttributes = $this->systemConfigService->get('FroshProductCompare.config.hideAttributes', $context->getSalesChannelId());
+
+        if (!\is_array($hiddenAttributes)) {
+            return true;
+        }
+
+        return !\in_array('rating', $hiddenAttributes, true);
     }
 
     private function sortProperties(SalesChannelProductEntity $product, array $selectedProperties): PropertyGroupCollection
@@ -217,19 +224,14 @@ class CompareProductPageLoader
         return $propertyGroupCollection;
     }
 
-    private function loadProductReviews(array $productIds, Context $context): EntityCollection
+    private function loadProductReviews(SalesChannelProductEntity $product, SalesChannelContext $context): ProductReviewCollection
     {
-        $criteria = new Criteria();
-        $criteria->addAggregation(new CountAggregation('count', 'id'));
-        $criteria->addFilter(new EqualsFilter('status', true));
-        $criteria->addFilter(
-            new MultiFilter(MultiFilter::CONNECTION_OR, [
-                new EqualsAnyFilter('product.id', $productIds),
-                new EqualsAnyFilter('product.parentId', $productIds),
-            ])
-        );
+        $request = new Request();
+        $request->request->set('parentId', $product->getParentId());
+        $request->request->set('productId', $product->getId());
+        $reviews = $this->productReviewLoader->load($request, $context);
 
-        return $this->productReviewRepository->search($criteria, $context)->getEntities();
+        return $reviews->getEntities();
     }
 
     private function loadCustomFields(SalesChannelContext $context): CustomFieldCollection
