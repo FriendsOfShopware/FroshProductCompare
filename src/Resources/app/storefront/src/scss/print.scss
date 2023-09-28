@@ -3,9 +3,14 @@
 }
 
 @media print {
+    .compare-float-button {
+        display: none;
+    }
+
     .container {
         padding: 0px!important;
     }
+
     .cookie-permission-container {
         display: none!important;
     }

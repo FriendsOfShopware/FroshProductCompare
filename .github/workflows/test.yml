@@ -1,0 +1,42 @@
+name: Test
+on:
+  push:
+    branches:
+      - 'main'
+    tags-ignore:
+      - '*'
+  pull_request_target:
+  schedule:
+    - cron: "5 15 * * *"
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        version: [ "v6.5.0", "v6.5.1", "v6.5.2", "v6.5.3", "v6.5.4", "trunk" ]
+    container: ghcr.io/friendsofshopware/platform-plugin-dev:${{ matrix.version }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Prepare
+        run: |
+          start-mysql
+          mysql -V
+          php -v
+          cp -r "./" "/plugins/FroshProductCompare"
+          cd /plugins/FroshProductCompare
+          composer update -d /opt/shopware
+
+      - name: Install dependencies for PHPStan
+        if: matrix.version == 'v6.5.0'
+        run: |
+          cd /opt/shopware/
+          composer require tomasvotruba/type-coverage --dev --no-scripts
+
+      - name: PHPStan
+        run: |
+          cd /plugins/FroshProductCompare
+          /opt/shopware/vendor/bin/phpstan analyse -c phpstan.neon.dist

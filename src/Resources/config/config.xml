@@ -19,14 +19,6 @@
             <defaultValue>false</defaultValue>
         </input-field>
 
-        <component name="sw-switch-field">
-            <name>showSelectedProperties</name>
-            <bordered>bordered</bordered>
-            <label>When active, only show selected properties in the below multi-select</label>
-            <label lang="de-DE">Nur ausgewählte Eigenschaften in der unteren Mehrfachauswahl anzeigen</label>
-            <defaultValue>false</defaultValue>
-        </component>
-
         <input-field type="multi-select">
             <name>hideAttributes</name>
             <label>Hide attributes</label>
@@ -65,19 +57,40 @@
 
             </options>
         </input-field>
+    </card>
+
+    <card>
+        <title>Properties</title>
+        <title lang="de-DE">Eigenschaften</title>
+        <component name="sw-switch-field">
+            <name>showSelectedProperties</name>
+            <bordered>bordered</bordered>
+            <label>Only show selected properties</label>
+            <label lang="de-DE">Zeige nur ausgewählte Eigenschaften</label>
+            <defaultValue>false</defaultValue>
+        </component>
 
         <component name="sw-property-multi-select">
             <name>selectedProperties</name>
-            <label>Only show these properties</label>
-            <label lang="de-DE">Nur diese Eigenschaften anzeigen</label>
+            <label>Selected properties</label>
+            <label lang="de-DE">Ausgewählte Eigenschaften</label>
         </component>
+    </card>
 
+    <card>
         <component name="sw-entity-multi-id-select">
             <name>selectedCustomFields</name>
             <entity>custom_field</entity>
-            <label>Show these custom fields in the comparison table</label>
-            <label lang="de-DE">Zeigen Sie diese benutzerdefinierten Felder in der Vergleichstabelle an</label>
+            <label>Custom fields in the comparison table</label>
+            <label lang="de-DE">Benutzerdefinierte Felder in der Vergleichstabelle</label>
         </component>
 
+        <component name="sw-switch-field">
+            <name>hideEmptyCustomFields</name>
+            <bordered>bordered</bordered>
+            <label>Hide empty Custom Fields</label>
+            <label lang="de-DE">Verstecke leere benutzerdefinierte Felder</label>
+            <defaultValue>false</defaultValue>
+        </component>
     </card>
 </config>

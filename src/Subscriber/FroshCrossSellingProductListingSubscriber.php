@@ -10,10 +10,12 @@ use Shopware\Core\Content\Product\Events\ProductCrossSellingIdsCriteriaEvent;
 use Shopware\Core\Content\Product\Events\ProductCrossSellingsLoadedEvent;
 use Shopware\Core\Content\Product\Events\ProductCrossSellingStreamCriteriaEvent;
 use Shopware\Core\Content\Product\ProductCollection;
+use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Content\Product\SalesChannel\CrossSelling\CrossSellingElement;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -26,7 +28,7 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ProductCrossSellingStreamCriteriaEvent::class => [
@@ -44,10 +46,13 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
     public function handleCriteriaLoadedRequest(ProductCrossSellingCriteriaEvent $event): void
     {
         $crossSelling = $event->getCrossSelling();
-        /** @var CrossSellingComparableEntity $crossSellingComparable */
         $crossSellingComparable = $crossSelling->getExtension('crossSellingComparable');
 
-        if (!$crossSellingComparable || !$crossSellingComparable->isComparable()) {
+        if (!$crossSellingComparable instanceof CrossSellingComparableEntity) {
+            return;
+        }
+
+        if (!$crossSellingComparable->isComparable()) {
             return;
         }
 
@@ -64,7 +69,7 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
             ->addAssociation('properties.group')
             ->addAssociation('properties.media')
             ->addAssociation('mainCategories.category')
-            ->addFilter(new NotFilter(NotFilter::CONNECTION_AND, [new EqualsFilter('id', $crossSelling->getProductId())]))
+            ->addFilter(new NotFilter(MultiFilter::CONNECTION_AND, [new EqualsFilter('id', $crossSelling->getProductId())]))
             ->setLimit(CompareProductPageLoader::MAX_COMPARE_PRODUCT_ITEMS);
     }
 
@@ -81,8 +86,12 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
             /** @var CrossSellingComparableEntity $crossSellingComparable */
             $crossSellingComparable = $crossSelling->getExtension('crossSellingComparable');
 
-            if (!$crossSellingComparable || !$crossSellingComparable->isComparable()) {
-                continue;
+            if (!$crossSellingComparable instanceof CrossSellingComparableEntity) {
+                return;
+            }
+
+            if (!$crossSellingComparable->isComparable()) {
+                return;
             }
 
             $featureProductId = $crossSelling->getProductId();
@@ -112,12 +121,24 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
 
             $productWithComparableData = $this->compareProductPageLoader->loadProductCompareData($products, $salesChannelContext);
 
-            $crossSellingElement->setProducts(new ProductCollection($productWithComparableData));
+            $crossSellingElement->setProducts($this->getProductCollection($productWithComparableData));
 
             $properties = $this->compareProductPageLoader->loadProperties($products);
 
             $crossSelling->addExtension('compareProperties', $properties);
         }
+    }
+
+    private function getProductCollection(ProductListingResult $productWithComparableData): ProductCollection
+    {
+        /** @var array<ProductEntity> $elements */
+        $elements = $productWithComparableData->getElements();
+
+        if (count($elements) === 0) {
+            return new ProductCollection();
+        }
+
+        return new ProductCollection($elements);
     }
 
     private function getFeaturedProduct(string $productId, SalesChannelContext $context): SalesChannelProductEntity
