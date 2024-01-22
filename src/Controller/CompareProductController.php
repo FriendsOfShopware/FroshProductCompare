@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Frosh\FroshProductCompare\Controller;
 
@@ -16,8 +18,7 @@ class CompareProductController extends StorefrontController
     public function __construct(
         private readonly CompareProductPageLoader $compareProductPageLoader,
         private readonly GenericPageLoaderInterface $genericPageLoader
-    ) {
-    }
+    ) {}
 
     #[Route(path: '/compare', name: 'frontend.compare.page', options: ['seo' => false], defaults: ['_httpCache' => false], methods: ['GET'])]
     public function comparePage(Request $request, SalesChannelContext $context): Response

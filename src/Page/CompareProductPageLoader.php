@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Frosh\FroshProductCompare\Page;
 
@@ -33,8 +35,7 @@ class CompareProductPageLoader
         private readonly EntityRepository $customFieldRepository,
         private readonly SystemConfigService $systemConfigService,
         private readonly ProductReviewLoader $productReviewLoader
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<string> $productIds

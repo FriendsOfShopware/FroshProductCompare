@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Frosh\FroshProductCompare\Migration;
 
@@ -28,7 +30,5 @@ class Migration1594488930CrossSellingComparable extends MigrationStep
         ');
     }
 
-    public function updateDestructive(Connection $connection): void
-    {
-    }
+    public function updateDestructive(Connection $connection): void {}
 }
