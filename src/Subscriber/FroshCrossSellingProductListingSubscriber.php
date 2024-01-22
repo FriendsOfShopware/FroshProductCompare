@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Frosh\FroshProductCompare\Subscriber;
 
@@ -25,8 +27,7 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
     public function __construct(
         private readonly CompareProductPageLoader $compareProductPageLoader,
         private readonly ProductGatewayInterface $productGateway
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
