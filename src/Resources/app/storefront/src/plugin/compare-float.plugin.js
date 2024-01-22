@@ -1,10 +1,8 @@
-import Plugin from 'src/plugin-system/plugin.class';
-import DeviceDetection from 'src/helper/device-detection.helper';
 import AjaxOffcanvas from 'src/plugin/offcanvas/ajax-offcanvas.plugin';
 import PseudoModalUtil from 'src/utility/modal-extension/pseudo-modal.util';
 import CompareLocalStorageHelper from '../helper/compare-local-storage.helper';
 
-export default class CompareFloatPlugin extends Plugin {
+export default class CompareFloatPlugin extends window.PluginBaseClass {
     static options = {
         buttonSelector: '.js-compare-float-button'
     };
@@ -36,7 +34,7 @@ export default class CompareFloatPlugin extends Plugin {
      * @private
      */
     _registerEvents() {
-        const submitEvent = (DeviceDetection.isTouchDevice()) ? 'touchstart' : 'click';
+        const submitEvent = ('ontouchstart' in document.documentElement) ? 'touchstart' : 'click';
 
         if (this._button) {
             this._button.addEventListener(submitEvent, () => {

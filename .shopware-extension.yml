@@ -55,3 +55,9 @@ store:
           activate:
             de: true
             en: true
+
+build:
+  zip:
+    assets:
+      npm_strict: true
+
