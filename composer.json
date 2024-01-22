@@ -15,8 +15,8 @@
         }
     ],
     "require": {
-        "shopware/core": "^6.5",
-        "shopware/storefront": "^6.5"
+        "shopware/core": "^6.6",
+        "shopware/storefront": "^6.6"
     },
     "extra": {
         "shopware-plugin-class": "Frosh\\FroshProductCompare\\FroshProductCompare",

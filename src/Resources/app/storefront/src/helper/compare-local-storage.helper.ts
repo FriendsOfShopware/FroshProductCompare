@@ -1,15 +1,13 @@
-import Storage from 'src/helper/storage/storage.helper';
-
 class CompareLocalStorageHelper {
     static key = 'compare-widget-added-products';
 
     static maximumCompareProducts = 4;
 
     static getAddedProductsList() {
-        let products = Storage.getItem(this.key);
+        let products;
 
         try {
-            products = JSON.parse(products) || [];
+            products = JSON.parse(window.localStorage.getItem(this.key)) || [];
         } catch {
             this.clear();
             products = {};
@@ -60,13 +58,13 @@ class CompareLocalStorageHelper {
     }
 
     static persist(products) {
-        Storage.setItem(this.key, JSON.stringify(products));
+        window.localStorage.setItem(this.key, JSON.stringify(products));
 
         document.$emitter.publish('changedProductCompare', { products });
     }
 
     static clear() {
-        Storage.setItem(this.key, null);
+        window.localStorage.removeItem(this.key);
     }
 
     static _checkCompareProductStorage(products) {
