@@ -1,11 +1,8 @@
-import Plugin from 'src/plugin-system/plugin.class';
-import HttpClient from 'src/service/http-client.service';
 import ElementLoadingIndicatorUtil from 'src/utility/loading-indicator/element-loading-indicator.util';
 import CompareLocalStorageHelper from '../helper/compare-local-storage.helper';
 
-export default class CompareWidgetPlugin extends Plugin {
+export default class CompareWidgetPlugin extends window.PluginBaseClass {
     init() {
-        this._client = new HttpClient();
         this._clearBtn = this.el.querySelector('.btn-clear');
         this._printBtn = this.el.querySelector('.btn-printer');
         this.registerShowDifferencesBtnEvent();
@@ -54,13 +51,19 @@ export default class CompareWidgetPlugin extends Plugin {
 
         ElementLoadingIndicatorUtil.create(this.el);
 
-        this._client.post(window.router['frontend.compare.content'], JSON.stringify(data), (response) => {
+        fetch(window.router['frontend.compare.content'], {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        }).then(r => r.text()).then((text) => {
             ElementLoadingIndicatorUtil.remove(this.el);
 
-            this.renderCompareProducts(response);
+            this.renderCompareProducts(text);
 
-            this.$emitter.publish('insertStoredContent', { response });
-        });
+            this.$emitter.publish('insertStoredContent', { response: text });
+        })
     }
 
     renderCompareProducts(html) {

@@ -1,7 +1,6 @@
-import Plugin from 'src/plugin-system/plugin.class';
 import CompareLocalStorageHelper from '../helper/compare-local-storage.helper';
 
-export default class AddToCompareButtonPlugin extends Plugin {
+export default class AddToCompareButtonPlugin extends window.PluginBaseClass {
     static options = {
         isAddedToCompareClass: 'is-added-to-compare'
     };
