@@ -153,10 +153,11 @@ class CompareProductPageLoader
                     continue;
                 }
 
-                // we don't need more data of the PropertyGroup so we just set id and translated instead of cloning
+                // we don't need more data of the PropertyGroup, so we just set id, translated and visibleOnProductDetailPage instead of cloning
                 $propertyGroup = new PropertyGroupEntity();
                 $propertyGroup->setId($group->getId());
                 $propertyGroup->setTranslated($group->getTranslated());
+                $propertyGroup->setVisibleOnProductDetailPage($group->getVisibleOnProductDetailPage());
 
                 $properties->add($propertyGroup);
             }
