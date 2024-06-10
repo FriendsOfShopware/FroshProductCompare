@@ -1,4 +1,5 @@
 import Storage from 'src/helper/storage/storage.helper';
+import HttpClient from 'src/service/http-client.service';
 
 class CompareLocalStorageHelper {
     static key = 'compare-widget-added-products';

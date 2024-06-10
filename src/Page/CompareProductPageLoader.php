@@ -343,7 +343,10 @@ class CompareProductPageLoader
         }
 
         $products = $this->productGateway->get($productIds, $salesChannelContext);
+        if(!$products->count()) {
+            return [];
+        }
 
-        return array_values(map($products, fn($product) => $product->getId()));
+        return array_values($products->map(fn($product) => $product->getId()));
     }
 }

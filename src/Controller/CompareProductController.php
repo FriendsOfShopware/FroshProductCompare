@@ -60,8 +60,8 @@ class CompareProductController extends StorefrontController
     public function verifyProducts(Request $request, SalesChannelContext $context): Response
     {
         $productIds = $request->get('productIds', []);
-        $productIds = $this->compareProductPageLoader->verifyProducts($productIds, $context);
+        $validProductIds = $this->compareProductPageLoader->verifyProducts($productIds, $context);
 
-        return new JsonResponse($productIds, 200);
+        return new JsonResponse($validProductIds, 200);
     }
 }
