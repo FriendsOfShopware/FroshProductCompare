@@ -17,14 +17,14 @@ class CompareLocalStorageHelper {
                 const failed = !response || response.status >= 400
                     || !responseText;
 
-                // test99
-                // if (failed) {
-                //     this.persist([]);
-                //     fulfill();
-                // }
-                //
-                // const res = JSON.parse(responseText);
-                //this.persist(["03d407427a42499dc0dfb6fb0384caf7","045aa4a5d4e3cdfd971c07ec5cd6cb3a","05a4d8f5be03b47773f5ba8bb6742a37"]);
+                if (failed) {
+                    this.persist([]);
+                    fulfill();
+                    return;
+                }
+
+                const productIds = JSON.parse(responseText);
+                this.persist(productIds);
                 fulfill();
             });
         });

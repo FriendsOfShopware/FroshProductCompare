@@ -16,9 +16,9 @@ export default class CompareFloatPlugin extends Plugin {
 
         CompareLocalStorageHelper.verifyAddedProductsList().then(() => {
             this._updateButtonCounter(CompareLocalStorageHelper.getAddedProductsList());
+            this._addBodyPadding();
+            this._registerEvents();
         });
-        this._addBodyPadding();
-        this._registerEvents();
     }
 
     _updateButtonCounter(products) {
