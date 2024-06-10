@@ -14,7 +14,9 @@ export default class CompareFloatPlugin extends Plugin {
         this._defaultPadding = window.getComputedStyle(this._button).getPropertyValue('bottom');
         this._badge = this._button.querySelector('.badge');
 
-        this._updateButtonCounter(CompareLocalStorageHelper.getAddedProductsList());
+        CompareLocalStorageHelper.verifyAddedProductsList().then(() => {
+            this._updateButtonCounter(CompareLocalStorageHelper.getAddedProductsList());
+        });
         this._addBodyPadding();
         this._registerEvents();
     }

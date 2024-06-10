@@ -6,6 +6,7 @@ use Frosh\FroshProductCompare\Page\CompareProductPageLoader;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
 use Shopware\Storefront\Page\GenericPageLoaderInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -53,5 +54,14 @@ class CompareProductController extends StorefrontController
         $page = $this->compareProductPageLoader->loadPreview($productIds, $request, $context);
 
         return $this->renderStorefront('@FroshProductCompare/storefront/component/compare/offcanvas-compare-list.html.twig', ['page' => $page]);
+    }
+
+    #[Route(path: '/compare/verify-products', name: 'frontend.compare.verify-products', options: ['seo' => false], defaults: ['_httpCache' => false, 'XmlHttpRequest' => true], methods: ['POST'])]
+    public function verifyProducts(Request $request, SalesChannelContext $context): Response
+    {
+        $productIds = $request->get('productIds', []);
+        $productIds = $this->compareProductPageLoader->verifyProducts($productIds, $context);
+
+        return new JsonResponse($productIds, 200);
     }
 }

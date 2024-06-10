@@ -326,4 +326,24 @@ class CompareProductPageLoader
 
         return $availableCustomFieldNames;
     }
+
+    /**
+     * @param array $productIds
+     * @param SalesChannelContext $salesChannelContext
+     * @return array<string>
+     */
+    public function verifyProducts(array $productIds, SalesChannelContext $salesChannelContext): array
+    {
+        $productIds = array_filter(\array_slice($productIds, 0, self::MAX_COMPARE_PRODUCT_ITEMS), function ($id) {
+            return Uuid::isValid($id);
+        });
+
+        if (empty($productIds)) {
+            return [];
+        }
+
+        $products = $this->productGateway->get($productIds, $salesChannelContext);
+
+        return array_values(map($products, fn($product) => $product->getId()));
+    }
 }
