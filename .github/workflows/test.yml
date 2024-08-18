@@ -2,7 +2,7 @@ name: Test
 on:
   push:
     branches:
-      - 'main'
+      - '2.0'
     tags-ignore:
       - '*'
   pull_request_target:
@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [ "v6.5.0", "v6.5.1", "v6.5.2", "v6.5.3", "v6.5.4", "trunk" ]
+        version: [ "v6.5.8" ]
     container: ghcr.io/friendsofshopware/platform-plugin-dev:${{ matrix.version }}
     runs-on: ubuntu-latest
     steps:

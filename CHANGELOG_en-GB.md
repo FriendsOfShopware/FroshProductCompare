@@ -1,3 +1,6 @@
+# 2.0.1
+- Rebuild assets for Shopware 6.5.8
+
 # 2.0.0
 - [Issue-43] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/43) Shopware 6.5 compatibility
 - [Issue-33] (https://github.com/FriendsOfShopware/FroshProductCompare/issues/33) Add a new toggle in the Comparison page to show only properties have differences between products
