@@ -30,7 +30,7 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: actions/checkout@v4
         with:
-          ref: v4
+          ref: '2.0'
           path: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
 
       - name: Checkout Pull Request
