@@ -11,32 +11,35 @@ on:
 
 jobs:
   test:
+    env:
+      PLUGIN_NAME: FroshProductCompare
     strategy:
       fail-fast: false
       matrix:
-        version: [ "v6.5.8" ]
-    container: ghcr.io/friendsofshopware/platform-plugin-dev:${{ matrix.version }}
+        version: [ "v6.5.8.7", "6.5.x" ]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Setup Shopware
+        uses: shopware/setup-shopware@main
+        with:
+          shopware-version: ${{ matrix.version }}
+          php-version: 8.2
+          php-extensions: pcov
 
-      - name: Prepare
-        run: |
-          start-mysql
-          mysql -V
-          php -v
-          cp -r "./" "/plugins/FroshProductCompare"
-          cd /plugins/FroshProductCompare
-          composer update -d /opt/shopware
+      - name: Checkout 2.0
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          ref: v4
+          path: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
 
-      - name: Install dependencies for PHPStan
-        if: matrix.version == 'v6.5.0'
-        run: |
-          cd /opt/shopware/
-          composer require tomasvotruba/type-coverage --dev --no-scripts
+      - name: Checkout Pull Request
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          path: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
 
-      - name: PHPStan
+      - name: PHPUnit
+        working-directory: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
         run: |
-          cd /plugins/FroshProductCompare
-          /opt/shopware/vendor/bin/phpstan analyse -c phpstan.neon.dist
+          ${{ github.workspace }}/vendor/bin/phpstan analyse -c ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}/phpstan.neon.dist
