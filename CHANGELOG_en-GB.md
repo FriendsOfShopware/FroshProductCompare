@@ -1,3 +1,6 @@
+# 3.0.1
+- Changed snippet of title in buttons of product compare
+
 # 3.0.0
 - Add support for Shopware 6.6
 
