@@ -90,7 +90,7 @@
                             {% set addToCompareOptions = {
                                 productId: id
                             } %}
-                            <button title="{{ 'checkout.removeLineItem'|trans({ '%lineItemLabel%': label })|striptags }}"
+                            <button title="{{ "froshProductCompare.general.removeFromCompare"|trans|striptags }}"
                                     data-add-to-compare-button="true"
                                     data-add-to-compare-button-options="{{ addToCompareOptions|json_encode }}"
                                     class="btn btn-sm is-added-to-compare compare-item-remove-button btn-light line-item-remove-button">
