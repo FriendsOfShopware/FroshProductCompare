@@ -17,6 +17,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use Shopware\Core\Framework\Struct\ArrayStruct;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\CustomField\CustomFieldCollection;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
@@ -123,10 +124,10 @@ class CompareProductPageLoader
         /** @var SalesChannelProductEntity $product */
         foreach ($products as $product) {
             if ($reviewAllowed) {
-                $product->setProductReviews($this->loadProductReviews($product, $context));
+                $product->addExtension('productReviews', new ArrayStruct(['reviewTotal' => $this->loadProductReviewCount($product, $context)]));
             } else {
                 $product->setRatingAverage(null);
-                $product->setProductReviews(new ProductReviewCollection());
+                $product->addExtension('productReviews', new ArrayStruct(['reviewTotal' => 0]));
             }
 
             $sortedProperties = $this->sortProperties($product, $selectedPropertyIds);
@@ -264,18 +265,17 @@ class CompareProductPageLoader
         return PropertyGroupEntity::createFrom($option->getGroup());
     }
 
-    private function loadProductReviews(SalesChannelProductEntity $product, SalesChannelContext $context): ProductReviewCollection
-    {
+    private function loadProductReviewCount(SalesChannelProductEntity $product, SalesChannelContext $context): int {
         $request = new Request();
         $request->request->set('parentId', $product->getParentId());
         $request->request->set('productId', $product->getId());
-        $reviews = $this->productReviewLoader->load($request, $context)->getEntities();
+        $reviews = $this->productReviewLoader->load($request, $context);
 
-        if ($reviews instanceof ProductReviewCollection) {
-            return $reviews;
+        if ($reviews->getEntities() instanceof ProductReviewCollection) {
+            return $reviews->getTotalReviews();
         }
 
-        return new ProductReviewCollection();
+        return 0;
     }
 
     private function loadCustomFields(SalesChannelContext $context, ProductCollection $products): CustomFieldCollection
