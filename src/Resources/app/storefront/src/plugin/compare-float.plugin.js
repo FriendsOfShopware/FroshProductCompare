@@ -34,7 +34,7 @@ export default class CompareFloatPlugin extends window.PluginBaseClass {
      * @private
      */
     _registerEvents() {
-        const submitEvent = ('ontouchstart' in document.documentElement) ? 'touchstart' : 'click';
+        const submitEvent = 'click';
 
         if (this._button) {
             this._button.addEventListener(submitEvent, () => {
