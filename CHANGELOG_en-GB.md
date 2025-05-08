@@ -1,3 +1,6 @@
+# 3.0.2
+- Fix: made compare button on mobile react on tap
+
 # 3.0.1
 - Changed snippet of title in buttons of product compare
 
