@@ -1,3 +1,7 @@
+# 3.1.0
+- Improved responsive support
+- Fixed behaviour on android phones
+
 # 3.0.1
 - Changed snippet of title in buttons of product compare
 
