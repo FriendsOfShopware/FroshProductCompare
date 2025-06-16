@@ -12,7 +12,7 @@
     -ms-overflow-style: -ms-autohiding-scrollbar;
 
     table {
-        width: unset!important;
+        width: 100%!important;
         min-width: 41rem;
         table-layout: fixed;
 
@@ -38,11 +38,6 @@
             border-top-width: 1px;
         }
 
-        &.table-bordered th, &.table-bordered td {
-            padding: $table-cell-padding;
-            border-top: $table-border-width solid $table-border-color;
-        }
-
         .is-feature-item {
             .comparison-item-title {
                 color: $success;
@@ -50,10 +45,37 @@
         }
     }
 
-    .table-bordered thead {
-        td {
-            border-bottom-width: 1px;
-            background-color: $white;
+    .table-bordered {
+        border-collapse: separate;
+        border-spacing: 0;
+
+        thead {
+            td {
+                border-bottom-width: 1px;
+                background-color: $white;
+            }
+        }
+
+        th, td {
+            padding: $table-cell-padding;
+            border-top: $table-border-width solid $table-border-color;
+
+            &:first-child {
+                position: sticky;
+                left: 0;
+                z-index: 100;
+                width: 150px;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    height: 100%;
+                    width: 4px;
+                    top: 0;
+                    left: -3px;
+                    background: white;
+                }
+            }
         }
     }
 

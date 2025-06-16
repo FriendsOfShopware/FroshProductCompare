@@ -1,11 +1,13 @@
 {% block frosh_product_compare_specification_section %}
     <tbody id="specification">
         <tr>
-            <th class="text-uppercase" colspan="{{ productsCount + 1 }}">
+            <th class="text-uppercase">
                 <a href="javascript:void(0);" target="_blank" class="accordion-button text-black p-0 bg-transparent text-decoration-none box-shadow-no"  type="button" data-bs-toggle="collapse" data-bs-target=".collapseSpecifications" aria-expanded="true" aria-controls="collapseSpecifications">
                     {{ "froshProductCompare.section.specification.title"|trans|sw_sanitize }}
                 </a>
             </th>
+
+            <th colspan="{{ productsCount }}"></th>
         </tr>
 
         {% for property in page.properties %}
@@ -27,9 +29,8 @@
                     {% sw_include '@Storefront/storefront/component/compare/partial/custom-field.html.twig' with {
                         customField: customField,
                     } %}
+                </tr>
             {% endif %}
-            </tr>
         {% endfor %}
-
     </tbody>
 {% endblock %}

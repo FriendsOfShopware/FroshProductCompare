@@ -1,9 +1,11 @@
 {% block frosh_product_compare_overview_section %}
     <tbody id="overview" data-filter="target" class="accordion-item">
         <tr>
-            <th class="text-uppercase" colspan="{{ productsCount + 1 }}">
+            <th class="text-uppercase">
                 <a href="javascript:void(0);" target="_blank" class="accordion-button text-black p-0 bg-transparent text-decoration-none box-shadow-no"  type="button" data-bs-toggle="collapse" data-bs-target=".collapseOverview" aria-expanded="true" aria-controls="collapseOverview">{{ "froshProductCompare.section.overview.title"|trans|sw_sanitize }}</a>
             </th>
+
+            <th colspan="{{ productsCount }}"></th>
         </tr>
         {% block frosh_product_compare_overview_section_manufacturer %}
             {% if not hideManufacturer %}
