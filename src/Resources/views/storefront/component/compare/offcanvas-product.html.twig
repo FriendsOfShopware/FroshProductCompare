@@ -21,7 +21,7 @@
                                                     lineItem: {
                                                         cover: product.cover.media
                                                     },
-                                                    lineItemLink: seoUrl('frontend.detail.page', { 'productId': id }),
+                                                    lineItemLink: path('frontend.detail.page', { 'productId': id }),
                                                     lineItemModalLink: false,
                                                 } %}
                                             {% endblock %}
@@ -29,7 +29,7 @@
                                     </div>
 
                                     <div class="line-item-details-container">
-                                        <a href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}"
+                                        <a href="{{ path('frontend.detail.page', {'productId': id}) }}"
                                            class="line-item-label"
                                            target="_blank"
                                            title="{{ label }}">

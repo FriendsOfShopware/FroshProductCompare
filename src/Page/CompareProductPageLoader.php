@@ -8,6 +8,7 @@ use Shopware\Core\Content\Product\Aggregate\ProductReview\ProductReviewCollectio
 use Shopware\Core\Content\Product\Cart\ProductGatewayInterface;
 use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
+use Shopware\Core\Content\Product\SalesChannel\Review\AbstractProductReviewLoader;
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
 use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
 use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionEntity;
@@ -23,7 +24,6 @@ use Shopware\Core\System\CustomField\CustomFieldCollection;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Shopware\Storefront\Page\GenericPageLoaderInterface;
-use Shopware\Storefront\Page\Product\Review\ProductReviewLoader;
 use Symfony\Component\HttpFoundation\Request;
 
 class CompareProductPageLoader
@@ -35,7 +35,7 @@ class CompareProductPageLoader
         private readonly GenericPageLoaderInterface $genericLoader,
         private readonly EntityRepository $customFieldRepository,
         private readonly SystemConfigService $systemConfigService,
-        private readonly ProductReviewLoader $productReviewLoader
+        private readonly AbstractProductReviewLoader $productReviewLoader
     ) {}
 
     /**
@@ -266,16 +266,7 @@ class CompareProductPageLoader
     }
 
     private function loadProductReviewCount(SalesChannelProductEntity $product, SalesChannelContext $context): int {
-        $request = new Request();
-        $request->request->set('parentId', $product->getParentId());
-        $request->request->set('productId', $product->getId());
-        $reviews = $this->productReviewLoader->load($request, $context);
-
-        if ($reviews->getEntities() instanceof ProductReviewCollection) {
-            return $reviews->getTotalReviews();
-        }
-
-        return 0;
+        return $this->productReviewLoader->load(new Request(), $context, $product->getId(), $product->getParentId())->count();
     }
 
     private function loadCustomFields(SalesChannelContext $context, ProductCollection $products): CustomFieldCollection

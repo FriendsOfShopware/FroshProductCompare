@@ -45,7 +45,7 @@ class CompareProductController extends StorefrontController
     #[Route(path: '/compare/offcanvas', name: 'frontend.compare.offcanvas', options: ['seo' => false], defaults: ['_httpCache' => false, 'XmlHttpRequest' => true], methods: ['POST'])]
     public function offcanvas(Request $request, SalesChannelContext $context): Response
     {
-        $productIds = $request->get('productIds', []);
+        $productIds = json_decode($request->get('productIds', '[]'));
 
         if (!\is_array($productIds)) {
             $productIds = [];
