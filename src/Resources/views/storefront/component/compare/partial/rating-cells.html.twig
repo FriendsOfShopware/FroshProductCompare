@@ -10,7 +10,7 @@
                    target="_blank"
                    href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}#review-tab-pane"
                    aria-controls="review-tab-pane">
-                    {{ "froshProductCompare.section.content.reviewLinkText"|trans({'%count%': product.productReviews.count})|sw_sanitize }}
+                    {{ "froshProductCompare.section.content.reviewLinkText"|trans({'%count%': product.extensions.productReviews.reviewTotal})|sw_sanitize }}
                 </a>
             </td>
         {% endblock %}
