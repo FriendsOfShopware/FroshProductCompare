@@ -25,17 +25,13 @@ class CompareProductController extends StorefrontController
     {
         $page = $this->genericPageLoader->load($request, $context);
 
-        return $this->renderStorefront('@FroshProductCompare/storefront/page/compare.html.twig', compact('page'));
+        return $this->renderStorefront('@FroshProductCompare/storefront/page/compare.html.twig', ['page' => $page]);
     }
 
     #[Route(path: '/compare/content', name: 'frontend.compare.content', options: ['seo' => false], defaults: ['_httpCache' => false, 'XmlHttpRequest' => true], methods: ['POST'])]
     public function comparePageContent(Request $request, SalesChannelContext $context): Response
     {
-        $productIds = $request->get('productIds', []);
-
-        if (!\is_array($productIds)) {
-            $productIds = [];
-        }
+        $productIds = $request->request->all('productIds');
 
         $page = $this->compareProductPageLoader->load($productIds, $request, $context);
 
@@ -45,11 +41,7 @@ class CompareProductController extends StorefrontController
     #[Route(path: '/compare/offcanvas', name: 'frontend.compare.offcanvas', options: ['seo' => false], defaults: ['_httpCache' => false, 'XmlHttpRequest' => true], methods: ['POST'])]
     public function offcanvas(Request $request, SalesChannelContext $context): Response
     {
-        $productIds = json_decode($request->request->get('productIds', '[]'), true, 512, \JSON_THROW_ON_ERROR);
-
-        if (!\is_array($productIds)) {
-            $productIds = [];
-        }
+        $productIds = $request->request->all('productIds');
 
         $page = $this->compareProductPageLoader->loadPreview($productIds, $request, $context);
 
