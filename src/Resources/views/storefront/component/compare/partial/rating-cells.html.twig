@@ -8,7 +8,7 @@
                 } %}
                 <a class="product-detail-reviews-link"
                    target="_blank"
-                   href="{{ path('frontend.detail.page', {'productId': product.id}) }}#review-tab-pane"
+                   href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}#review-tab-pane"
                    aria-controls="review-tab-pane">
                     {{ "froshProductCompare.section.content.reviewLinkText"|trans({'%count%': product.extensions.productReviews.reviewTotal})|sw_sanitize }}
                 </a>

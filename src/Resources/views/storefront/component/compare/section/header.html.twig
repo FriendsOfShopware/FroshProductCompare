@@ -31,7 +31,7 @@
                                 {% set displayMode = 'cover' %}
                             {% endif %}
 
-                            <a href="{{ path('frontend.detail.page', {'productId': id}) }}"
+                            <a href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}"
                                title="{{ name }}"
                                target="_blank"
                                class="product-image-link is-{{ displayMode }}">
@@ -66,7 +66,7 @@
                             </a>
                         </div>
                     {% endblock %}
-                    <a class="comparison-item-title" href="{{ path('frontend.detail.page', {'productId': id}) }}" target="_blank">{{ name|u.truncate(60) }}</a>
+                    <a class="comparison-item-title" href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}" target="_blank">{{ name|u.truncate(60) }}</a>
                     {{ "detail.productNumberLabel"|trans|sw_sanitize }} {{ product.productNumber }}
                     {% if product.variation %}
                         {% block component_product_box_variant_characteristics %}
