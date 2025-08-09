@@ -45,18 +45,17 @@ export default class CompareWidgetPlugin extends window.PluginBaseClass {
     }
 
     fetch() {
-        const data = {};
+        const data = new FormData();
 
-        data.productIds = CompareLocalStorageHelper.getAddedProductsList();
+        for (const productId of CompareLocalStorageHelper.getAddedProductsList()) {
+            data.append('productIds[]', productId)
+        }
 
         ElementLoadingIndicatorUtil.create(this.el);
 
         fetch(window.router['frontend.compare.content'], {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data),
+            body: data,
         }).then(r => r.text()).then((text) => {
             ElementLoadingIndicatorUtil.remove(this.el);
 
