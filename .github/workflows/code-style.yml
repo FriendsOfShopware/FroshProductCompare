@@ -14,5 +14,5 @@ jobs:
     uses: shopware/github-actions/.github/workflows/phpstan.yml@main
     with:
       extensionName: FroshProductCompare
-      shopwareVersion: v6.6.0.0-rc1
+      shopwareVersion: v6.7.0.0
 
