@@ -1,17 +1,18 @@
 {% block sw_prduct_cross_selling_form_active_field %}
     {% parent %}
-    <sw-switch-field
-        v-model:value="crossSelling.extensions.crossSellingComparable.isComparable"
+    <mt-switch
+        v-model="crossSelling.extensions.crossSellingComparable.isComparable"
         class="sw-product-detail-cross-selling__comparable-switch"
-        :label="$tc('frosh-product-compare.crossSelling.compareLayout')">
-    </sw-switch-field>
+        :label="$tc('frosh-product-compare.crossSelling.compareLayout')"
+        bordered>
+    </mt-switch>
 {% endblock %}
 
 {% block sw_prduct_cross_selling_form_limit_field %}
-    <sw-number-field
+    <mt-number-field
         numberType="int"
         :disabled="allowEditLimit"
         :label="$tc('sw-product.crossselling.inputCrossSellingLimit')"
-        v-model:value="crossSelling.limit">
-    </sw-number-field>
+        v-model="crossSelling.limit">
+    </mt-number-field>
 {% endblock %}
