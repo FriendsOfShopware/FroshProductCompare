@@ -10,7 +10,7 @@
 {% block sw_prduct_cross_selling_form_limit_field %}
     <sw-number-field
         numberType="int"
-        :disabled="crossSelling.extensions.crossSellingComparable.isComparable"
+        :disabled="allowEditLimit"
         :label="$tc('sw-product.crossselling.inputCrossSellingLimit')"
         v-model:value="crossSelling.limit">
     </sw-number-field>

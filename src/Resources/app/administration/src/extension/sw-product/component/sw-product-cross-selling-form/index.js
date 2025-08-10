@@ -36,5 +36,10 @@ Component.override('sw-product-cross-selling-form', {
         if (Utils.get(this.crossSelling, 'extensions.crossSellingComparable.isComparable', false)) {
             this.crossSelling.limit = MAXIMUM_COMPARE_PRODUCT_ITEMS;
         }
+    },
+    computed: {
+        allowEditLimit() {
+            return this.crossSelling.extensions.crossSellingComparable.isComparable || !this.allowEdit
+        }
     }
 });
