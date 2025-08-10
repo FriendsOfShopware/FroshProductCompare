@@ -26,7 +26,7 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
 {
     public function __construct(
         private readonly CompareProductPageLoader $compareProductPageLoader,
-        private readonly ProductGatewayInterface $productGateway
+        private readonly ProductGatewayInterface $productGateway,
     ) {}
 
     public static function getSubscribedEvents(): array

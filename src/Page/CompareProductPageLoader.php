@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Frosh\FroshProductCompare\Page;
 
-use Shopware\Core\Content\Product\Aggregate\ProductReview\ProductReviewCollection;
 use Shopware\Core\Content\Product\Cart\ProductGatewayInterface;
 use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
@@ -35,7 +34,7 @@ class CompareProductPageLoader
         private readonly GenericPageLoaderInterface $genericLoader,
         private readonly EntityRepository $customFieldRepository,
         private readonly SystemConfigService $systemConfigService,
-        private readonly AbstractProductReviewLoader $productReviewLoader
+        private readonly AbstractProductReviewLoader $productReviewLoader,
     ) {}
 
     /**
@@ -265,7 +264,8 @@ class CompareProductPageLoader
         return PropertyGroupEntity::createFrom($option->getGroup());
     }
 
-    private function loadProductReviewCount(SalesChannelProductEntity $product, SalesChannelContext $context): int {
+    private function loadProductReviewCount(SalesChannelProductEntity $product, SalesChannelContext $context): int
+    {
         return $this->productReviewLoader->load(new Request(), $context, $product->getId(), $product->getParentId())->count();
     }
 
