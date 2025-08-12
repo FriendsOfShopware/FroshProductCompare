@@ -84,7 +84,6 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
         foreach ($crossSellings as $crossSellingElement) {
             $crossSelling = $crossSellingElement->getCrossSelling();
 
-            /** @var CrossSellingComparableEntity $crossSellingComparable */
             $crossSellingComparable = $crossSelling->getExtension('crossSellingComparable');
 
             if (!$crossSellingComparable instanceof CrossSellingComparableEntity) {

@@ -253,7 +253,7 @@ class CompareProductPageLoader
      */
     private function getGroupByProperty(array $sorted, PropertyGroupOptionEntity $option): ?PropertyGroupEntity
     {
-        if (!empty($sorted[$option->getGroupId()]) && $sorted[$option->getGroupId()] instanceof PropertyGroupEntity) {
+        if (!empty($sorted[$option->getGroupId()])) {
             return $sorted[$option->getGroupId()];
         }
 
@@ -296,7 +296,7 @@ class CompareProductPageLoader
     }
 
     /**
-     * @return array<string>
+     * @return list<string>
      */
     private function getAvailableCustomFieldNames(ProductCollection $products): array
     {

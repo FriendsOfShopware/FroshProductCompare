@@ -32,6 +32,7 @@ class CompareProductController extends StorefrontController
     public function comparePageContent(Request $request, SalesChannelContext $context): Response
     {
         $productIds = $request->request->all('productIds');
+        $productIds = array_filter($productIds, is_string(...));
 
         $page = $this->compareProductPageLoader->load($productIds, $request, $context);
 
@@ -42,6 +43,7 @@ class CompareProductController extends StorefrontController
     public function offcanvas(Request $request, SalesChannelContext $context): Response
     {
         $productIds = $request->request->all('productIds');
+        $productIds = array_filter($productIds, is_string(...));
 
         $page = $this->compareProductPageLoader->loadPreview($productIds, $request, $context);
 
