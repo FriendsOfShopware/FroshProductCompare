@@ -70,8 +70,9 @@
             <defaultValue>false</defaultValue>
         </component>
 
-        <component name="sw-property-multi-select">
+        <component name="sw-entity-multi-id-select">
             <name>selectedProperties</name>
+            <entity>property_group</entity>
             <label>Selected properties</label>
             <label lang="de-DE">Ausgewählte Eigenschaften</label>
         </component>

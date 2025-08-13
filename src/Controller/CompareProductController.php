@@ -32,7 +32,7 @@ class CompareProductController extends StorefrontController
     public function comparePageContent(Request $request, SalesChannelContext $context): Response
     {
         $productIds = $request->request->all('productIds');
-        $productIds = array_filter($productIds, is_string(...));
+        $productIds = array_values(array_filter($productIds, is_string(...)));
 
         $page = $this->compareProductPageLoader->load($productIds, $request, $context);
 
