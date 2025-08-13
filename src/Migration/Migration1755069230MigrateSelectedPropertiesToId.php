@@ -20,8 +20,20 @@ class Migration1755069230MigrateSelectedPropertiesToId extends MigrationStep
         $systemConfigEntries = $connection->fetchAllKeyValue("SELECT LOWER(HEX(id)), configuration_value FROM system_config WHERE configuration_key = 'FroshProductCompare.config.selectedProperties'");
 
         foreach ($systemConfigEntries as $systemConfigId => $rawConfigurationValue) {
+            if(!is_string($rawConfigurationValue)) {
+                continue;
+            }
+
             $migratedPropertyIds = [];
-            $selectedPropertiesConfig = json_decode($rawConfigurationValue, true, 512, JSON_THROW_ON_ERROR)['_value'] ?? [];
+            $selectedPropertiesConfig = json_decode($rawConfigurationValue, true, 512, JSON_THROW_ON_ERROR);
+            if (!is_array($selectedPropertiesConfig)) {
+                continue;
+            }
+            $selectedPropertiesConfig = $selectedPropertiesConfig['_value'] ?? [];
+
+            if(!is_array($selectedPropertiesConfig)) {
+                continue;
+            }
 
             foreach ($selectedPropertiesConfig as $propertyData) {
                 $extractedPropertyId = !is_array($propertyData) ? $propertyData : ($propertyData['id'] ?? null);
