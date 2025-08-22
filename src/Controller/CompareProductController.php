@@ -17,7 +17,7 @@ class CompareProductController extends StorefrontController
 {
     public function __construct(
         private readonly CompareProductPageLoader $compareProductPageLoader,
-        private readonly GenericPageLoaderInterface $genericPageLoader
+        private readonly GenericPageLoaderInterface $genericPageLoader,
     ) {}
 
     #[Route(path: '/compare', name: 'frontend.compare.page', options: ['seo' => false], defaults: ['_httpCache' => false], methods: ['GET'])]
@@ -25,17 +25,14 @@ class CompareProductController extends StorefrontController
     {
         $page = $this->genericPageLoader->load($request, $context);
 
-        return $this->renderStorefront('@FroshProductCompare/storefront/page/compare.html.twig', compact('page'));
+        return $this->renderStorefront('@FroshProductCompare/storefront/page/compare.html.twig', ['page' => $page]);
     }
 
     #[Route(path: '/compare/content', name: 'frontend.compare.content', options: ['seo' => false], defaults: ['_httpCache' => false, 'XmlHttpRequest' => true], methods: ['POST'])]
     public function comparePageContent(Request $request, SalesChannelContext $context): Response
     {
-        $productIds = $request->get('productIds', []);
-
-        if (!\is_array($productIds)) {
-            $productIds = [];
-        }
+        $productIds = $request->request->all('productIds');
+        $productIds = array_values(array_filter($productIds, is_string(...)));
 
         $page = $this->compareProductPageLoader->load($productIds, $request, $context);
 
@@ -45,11 +42,8 @@ class CompareProductController extends StorefrontController
     #[Route(path: '/compare/offcanvas', name: 'frontend.compare.offcanvas', options: ['seo' => false], defaults: ['_httpCache' => false, 'XmlHttpRequest' => true], methods: ['POST'])]
     public function offcanvas(Request $request, SalesChannelContext $context): Response
     {
-        $productIds = $request->get('productIds', []);
-
-        if (!\is_array($productIds)) {
-            $productIds = [];
-        }
+        $productIds = $request->request->all('productIds');
+        $productIds = array_filter($productIds, is_string(...));
 
         $page = $this->compareProductPageLoader->loadPreview($productIds, $request, $context);
 

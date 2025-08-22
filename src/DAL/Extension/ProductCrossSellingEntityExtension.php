@@ -16,12 +16,17 @@ class ProductCrossSellingEntityExtension extends EntityExtension
     public function extendFields(FieldCollection $collection): void
     {
         $collection->add(
-            (new OneToOneAssociationField('crossSellingComparable', 'id', 'product_cross_selling_id', CrossSellingComparableDefinition::class))->addFlags(new CascadeDelete())
+            (new OneToOneAssociationField('crossSellingComparable', 'id', 'product_cross_selling_id', CrossSellingComparableDefinition::class))->addFlags(new CascadeDelete()),
         );
     }
 
     public function getDefinitionClass(): string
     {
         return ProductCrossSellingDefinition::class;
+    }
+
+    public function getEntityName(): string
+    {
+        return ProductCrossSellingDefinition::ENTITY_NAME;
     }
 }

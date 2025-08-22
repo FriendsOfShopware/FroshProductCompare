@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Frosh\FroshProductCompare\Page;
 
-use Shopware\Core\Content\Product\Aggregate\ProductReview\ProductReviewCollection;
 use Shopware\Core\Content\Product\Cart\ProductGatewayInterface;
 use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
+use Shopware\Core\Content\Product\SalesChannel\Review\AbstractProductReviewLoader;
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
 use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
 use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionEntity;
@@ -23,7 +23,6 @@ use Shopware\Core\System\CustomField\CustomFieldCollection;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Shopware\Storefront\Page\GenericPageLoaderInterface;
-use Shopware\Storefront\Page\Product\Review\ProductReviewLoader;
 use Symfony\Component\HttpFoundation\Request;
 
 class CompareProductPageLoader
@@ -35,7 +34,7 @@ class CompareProductPageLoader
         private readonly GenericPageLoaderInterface $genericLoader,
         private readonly EntityRepository $customFieldRepository,
         private readonly SystemConfigService $systemConfigService,
-        private readonly ProductReviewLoader $productReviewLoader
+        private readonly AbstractProductReviewLoader $productReviewLoader,
     ) {}
 
     /**
@@ -112,11 +111,8 @@ class CompareProductPageLoader
         $showSelectedProperties = $this->systemConfigService->getBool('FroshProductCompare.config.showSelectedProperties', $context->getSalesChannelId());
 
         if ($showSelectedProperties) {
-            $selectedProperties = $this->systemConfigService->get('FroshProductCompare.config.selectedProperties', $context->getSalesChannelId());
-
-            if (\is_array($selectedProperties)) {
-                $selectedPropertyIds = \array_column($selectedProperties, 'id');
-            }
+            /** @var list<string> $selectedPropertyIds */
+            $selectedPropertyIds = $this->systemConfigService->get('FroshProductCompare.config.selectedProperties', $context->getSalesChannelId());
         }
 
         $reviewAllowed = $this->isReviewAllowed($context);
@@ -254,7 +250,7 @@ class CompareProductPageLoader
      */
     private function getGroupByProperty(array $sorted, PropertyGroupOptionEntity $option): ?PropertyGroupEntity
     {
-        if (!empty($sorted[$option->getGroupId()]) && $sorted[$option->getGroupId()] instanceof PropertyGroupEntity) {
+        if (!empty($sorted[$option->getGroupId()])) {
             return $sorted[$option->getGroupId()];
         }
 
@@ -265,17 +261,9 @@ class CompareProductPageLoader
         return PropertyGroupEntity::createFrom($option->getGroup());
     }
 
-    private function loadProductReviewCount(SalesChannelProductEntity $product, SalesChannelContext $context): int {
-        $request = new Request();
-        $request->request->set('parentId', $product->getParentId());
-        $request->request->set('productId', $product->getId());
-        $reviews = $this->productReviewLoader->load($request, $context);
-
-        if ($reviews->getEntities() instanceof ProductReviewCollection) {
-            return $reviews->getTotalReviews();
-        }
-
-        return 0;
+    private function loadProductReviewCount(SalesChannelProductEntity $product, SalesChannelContext $context): int
+    {
+        return $this->productReviewLoader->load(new Request(), $context, $product->getId(), $product->getParentId())->count();
     }
 
     private function loadCustomFields(SalesChannelContext $context, ProductCollection $products): CustomFieldCollection
@@ -305,7 +293,7 @@ class CompareProductPageLoader
     }
 
     /**
-     * @return array<string>
+     * @return list<string>
      */
     private function getAvailableCustomFieldNames(ProductCollection $products): array
     {

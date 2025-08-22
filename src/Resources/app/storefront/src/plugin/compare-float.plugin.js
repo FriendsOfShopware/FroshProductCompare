@@ -71,11 +71,13 @@ export default class CompareFloatPlugin extends window.PluginBaseClass {
     }
 
     _openOffcanvas() {
-        const data = {
-            productIds: CompareLocalStorageHelper.getAddedProductsList(),
-        };
+        const formData = new FormData();
 
-        AjaxOffcanvas.open(window.router['frontend.compare.offcanvas'], JSON.stringify(data), (response) => {
+        for (const productId of CompareLocalStorageHelper.getAddedProductsList()) {
+            formData.append('productIds[]', productId);
+        }
+
+        AjaxOffcanvas.open(window.router['frontend.compare.offcanvas'], formData, (response) => {
             this.$emitter.publish('insertStoredContent', { response });
         });
     }
