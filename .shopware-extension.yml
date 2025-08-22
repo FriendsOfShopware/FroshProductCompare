@@ -60,4 +60,5 @@ build:
   zip:
     assets:
       npm_strict: true
-
+changelog:
+  enabled: true
