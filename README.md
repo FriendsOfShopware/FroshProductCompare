@@ -13,13 +13,14 @@
 - Add up to 4 products into compare list.
 - Show compare list separated in products compare page or in product detail's cross-selling tab.
 - Compare all properties or selected properties, configurable in plugin's config
-- Read CHANGELOG for detail.
 
 ## Requirements
 
-| Version 	  | Requirements               	 |
+| Version 	  | Requirements               	|
 |------------|------------------------------|
-| 2.0.0    	 | Shopware 6.5 >=	             |
+| 4.0.0    	 | Shopware 6.7	                |
+| 3.0.0    	 | Shopware 6.6	                |
+| 2.0.0    	 | Shopware 6.5	                |
 | 1.2.1    	 | Shopware 6.4 >= 6.4.20.1	    |
 
 ## License
