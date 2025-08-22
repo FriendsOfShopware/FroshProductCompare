@@ -1,0 +1,25 @@
+{
+  "base": "/bundles/froshproductcompare/administration/",
+  "entryPoints": {
+    "frosh-product-compare": {
+      "css": [
+        "/bundles/froshproductcompare/administration/assets/frosh-product-compare-o8J2jA-S.css"
+      ],
+      "dynamic": [],
+      "js": [
+        "/bundles/froshproductcompare/administration/assets/frosh-product-compare-hJ0fURwJ.js"
+      ],
+      "legacy": false,
+      "preload": []
+    }
+  },
+  "legacy": false,
+  "metadatas": {},
+  "version": [
+    "7.1.0",
+    7,
+    1,
+    0
+  ],
+  "viteServer": null
+}

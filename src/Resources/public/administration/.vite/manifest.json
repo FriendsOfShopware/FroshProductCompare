@@ -1,0 +1,11 @@
+{
+  "main.js": {
+    "file": "assets/frosh-product-compare-hJ0fURwJ.js",
+    "name": "frosh-product-compare",
+    "src": "main.js",
+    "isEntry": true,
+    "css": [
+      "assets/frosh-product-compare-o8J2jA-S.css"
+    ]
+  }
+}
