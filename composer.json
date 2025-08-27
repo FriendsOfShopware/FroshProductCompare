@@ -44,9 +44,5 @@
             "Frosh\\FroshProductCompare\\": "src/"
         }
     },
-    "conflict": {
-        "shopware/storefront": "<6,>=7",
-        "shopware/administration": "<6,>=7"
-    },
     "prefer-stable": true
 }
