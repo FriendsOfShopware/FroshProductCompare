@@ -112,11 +112,8 @@ class CompareProductPageLoader
         $showSelectedProperties = $this->systemConfigService->getBool('FroshProductCompare.config.showSelectedProperties', $context->getSalesChannelId());
 
         if ($showSelectedProperties) {
-            $selectedProperties = $this->systemConfigService->get('FroshProductCompare.config.selectedProperties', $context->getSalesChannelId());
-
-            if (\is_array($selectedProperties)) {
-                $selectedPropertyIds = \array_column($selectedProperties, 'id');
-            }
+            /** @var list<string> $selectedPropertyIds */
+            $selectedPropertyIds = $this->systemConfigService->get('FroshProductCompare.config.selectedProperties', $context->getSalesChannelId());
         }
 
         $reviewAllowed = $this->isReviewAllowed($context);
