@@ -3,7 +3,7 @@
 {% block layout_header_search_toggle %}
     {{ parent() }}
 
-    {% if config('FroshProductCompare.config.showInHeader') %}
+    {% if config('FroshProductCompare.config.active') and config('FroshProductCompare.config.showInHeader') %}
         {% block frosh_product_compare_widget_button %}
             <div class="col-auto">
                 {% sw_include '@Storefront/storefront/component/compare/compare-float.html.twig' with {

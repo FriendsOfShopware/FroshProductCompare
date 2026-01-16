@@ -6,6 +6,13 @@
         <title lang="de-DE">Produktvergleichskonfiguration</title>
 
         <input-field type="bool">
+            <name>active</name>
+            <label>Enable Product Compare</label>
+            <label lang="de-DE">Produktvergleich aktivieren</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
             <name>showIconOnly</name>
             <label>Add to compare with icon only</label>
             <label lang="de-DE">Hinzufügen, um nur mit dem Symbol zu vergleichen</label>

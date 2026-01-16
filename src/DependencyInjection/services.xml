@@ -26,6 +26,7 @@
         <service id="Frosh\FroshProductCompare\Controller\CompareProductController" public="true">
             <argument type="service" id="Frosh\FroshProductCompare\Page\CompareProductPageLoader"/>
             <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
@@ -35,10 +36,12 @@
         <service id="Frosh\FroshProductCompare\Subscriber\FroshCrossSellingProductListingSubscriber">
             <argument type="service" id="Frosh\FroshProductCompare\Page\CompareProductPageLoader"/>
             <argument type="service" id="Shopware\Core\Content\Product\Cart\ProductGateway"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <tag name="kernel.event_subscriber"/>
         </service>
 
         <service id="Frosh\FroshProductCompare\Subscriber\FroshProductGatewayCriteriaSubscriber">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <tag name="kernel.event_subscriber"/>
         </service>
 

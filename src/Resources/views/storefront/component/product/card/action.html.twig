@@ -3,7 +3,7 @@
 {% block component_product_box_action_buy %}
     {{ parent() }}
 
-    {% if activeRoute != 'frontend.compare.content' %}
+    {% if config('FroshProductCompare.config.active') and activeRoute != 'frontend.compare.content' %}
         {% block component_product_box_action_add_to_compare_button %}
             {% sw_include '@Storefront/storefront/component/product/card/compare-button.html.twig' %}
         {% endblock %}
@@ -13,7 +13,7 @@
 {% block component_product_box_action_detail %}
     {{ parent() }}
 
-    {% if activeRoute != 'frontend.compare.content' %}
+    {% if config('FroshProductCompare.config.active') and activeRoute != 'frontend.compare.content' %}
         {% block component_product_box_action_detail_add_to_compare_button %}
             {% sw_include '@Storefront/storefront/component/product/card/compare-button.html.twig' %}
         {% endblock %}

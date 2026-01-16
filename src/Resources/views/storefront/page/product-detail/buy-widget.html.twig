@@ -3,13 +3,15 @@
 {% block page_product_detail_buy_container %}
     {{ parent() }}
 
-    {% block page_product_detail_add_to_compare_button %}
-        <div class="mb-2">
-            {% sw_include '@Storefront/storefront/component/product/card/compare-button.html.twig' with {
-                navigationTree: page.header.navigation.tree,
-                categoryTree: page.product.categoryTree|last,
-                product: page.product
-            } only %}
-        </div>
-    {% endblock %}
+    {% if config('FroshProductCompare.config.active') %}
+        {% block page_product_detail_add_to_compare_button %}
+            <div class="mb-2">
+                {% sw_include '@Storefront/storefront/component/product/card/compare-button.html.twig' with {
+                    navigationTree: page.header.navigation.tree,
+                    categoryTree: page.product.categoryTree|last,
+                    product: page.product
+                } only %}
+            </div>
+        {% endblock %}
+    {% endif %}
 {% endblock %}
