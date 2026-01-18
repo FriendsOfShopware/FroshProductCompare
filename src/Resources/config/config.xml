@@ -9,7 +9,7 @@
             <name>active</name>
             <label>Enable Product Compare</label>
             <label lang="de-DE">Produktvergleich aktivieren</label>
-            <defaultValue>false</defaultValue>
+            <defaultValue>true</defaultValue>
         </input-field>
 
         <input-field type="bool">
