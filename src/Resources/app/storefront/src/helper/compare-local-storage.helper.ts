@@ -65,6 +65,8 @@ class CompareLocalStorageHelper {
 
     static clear() {
         window.localStorage.removeItem(this.key);
+
+        document.$emitter.publish('changedProductCompare', { products: [] });
     }
 
     static _checkCompareProductStorage(products) {
