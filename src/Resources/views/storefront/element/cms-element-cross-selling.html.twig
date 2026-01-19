@@ -7,7 +7,7 @@
             {% set products = item.products %}
             {% set id = crossSelling.id %}
             {% set crossSellingComparable = item.crossSelling.extensions.crossSellingComparable %}
-            {% if crossSellingComparable and crossSellingComparable.isComparable %}
+            {% if config('FroshProductCompare.config.active') and crossSellingComparable and crossSellingComparable.isComparable %}
                 {% set page = {
                     products: products,
                     properties: crossSelling.extensions.compareProperties

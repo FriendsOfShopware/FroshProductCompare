@@ -20,6 +20,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
+use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterface
@@ -27,6 +28,7 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
     public function __construct(
         private readonly CompareProductPageLoader $compareProductPageLoader,
         private readonly ProductGatewayInterface $productGateway,
+        private readonly SystemConfigService $systemConfigService,
     ) {}
 
     public static function getSubscribedEvents(): array
@@ -46,6 +48,12 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
 
     public function handleCriteriaLoadedRequest(ProductCrossSellingCriteriaEvent $event): void
     {
+        $context = $event->getSalesChannelContext();
+
+        if (!$this->systemConfigService->getBool('FroshProductCompare.config.active', $context->getSalesChannelId())) {
+            return;
+        }
+
         $crossSelling = $event->getCrossSelling();
         $crossSellingComparable = $crossSelling->getExtension('crossSellingComparable');
 
@@ -76,9 +84,13 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
 
     public function handleCrossSellingLoadedEvent(ProductCrossSellingsLoadedEvent $event): void
     {
-        $crossSellings = $event->getCrossSellings();
-
         $salesChannelContext = $event->getSalesChannelContext();
+
+        if (!$this->systemConfigService->getBool('FroshProductCompare.config.active', $salesChannelContext->getSalesChannelId())) {
+            return;
+        }
+
+        $crossSellings = $event->getCrossSellings();
 
         /** @var CrossSellingElement $crossSellingElement */
         foreach ($crossSellings as $crossSellingElement) {
