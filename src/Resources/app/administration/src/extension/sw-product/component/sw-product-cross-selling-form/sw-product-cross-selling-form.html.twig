@@ -1,18 +1,21 @@
 {% block sw_prduct_cross_selling_form_active_field %}
-    {% parent %}
-    <mt-switch
-        v-model="crossSelling.extensions.crossSellingComparable.isComparable"
-        class="sw-product-detail-cross-selling__comparable-switch"
-        :label="$tc('frosh-product-compare.crossSelling.compareLayout')"
-        bordered>
+{% parent() %}
+
+<mt-switch
+    v-model="crossSelling.extensions.crossSellingComparable.isComparable"
+    class="sw-product-detail-cross-selling__comparable-switch"
+    :label="$tc('frosh-product-compare.crossSelling.compareLayout')"
+    bordered
+>
     </mt-switch>
 {% endblock %}
 
 {% block sw_prduct_cross_selling_form_limit_field %}
-    <mt-number-field
-        numberType="int"
-        :disabled="allowEditLimit"
-        :label="$tc('sw-product.crossselling.inputCrossSellingLimit')"
-        v-model="crossSelling.limit">
+<mt-number-field
+    numberType="int"
+    :disabled="allowEditLimit"
+    :label="$tc('sw-product.crossselling.inputCrossSellingLimit')"
+    v-model="crossSelling.limit"
+>
     </mt-number-field>
 {% endblock %}

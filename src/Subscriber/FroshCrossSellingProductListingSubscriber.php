@@ -29,7 +29,8 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
         private readonly CompareProductPageLoader $compareProductPageLoader,
         private readonly ProductGatewayInterface $productGateway,
         private readonly SystemConfigService $systemConfigService,
-    ) {}
+    ) {
+    }
 
     public static function getSubscribedEvents(): array
     {
@@ -146,7 +147,7 @@ class FroshCrossSellingProductListingSubscriber implements EventSubscriberInterf
         /** @var array<ProductEntity> $elements */
         $elements = $productWithComparableData->getElements();
 
-        if (count($elements) === 0) {
+        if (\count($elements) === 0) {
             return new ProductCollection();
         }
 

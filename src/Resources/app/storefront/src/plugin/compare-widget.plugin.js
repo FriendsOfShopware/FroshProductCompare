@@ -13,26 +13,32 @@ export default class CompareWidgetPlugin extends window.PluginBaseClass {
     /**
      *
      */
-    registerShowDifferencesBtnEvent()
-    {
-        const btnShowDifferences = document.querySelector('.btn-show-differences');
+    registerShowDifferencesBtnEvent() {
+        const btnShowDifferences = document.querySelector(
+            '.btn-show-differences'
+        );
         btnShowDifferences.addEventListener('change', () => {
             if (btnShowDifferences.checked) {
-                const propertyRows = document.querySelectorAll('tbody#specification tr.property:not(:first-child)');
-                propertyRows.forEach(row => {
-                    const columns = Array.from(row.querySelectorAll('td.properties-value')).map(column => column.textContent.trim());
-                    if (columns.every(column => column === columns[0])) {
+                const propertyRows = document.querySelectorAll(
+                    'tbody#specification tr.property:not(:first-child)'
+                );
+                propertyRows.forEach((row) => {
+                    const columns = Array.from(
+                        row.querySelectorAll('td.properties-value')
+                    ).map((column) => column.textContent.trim());
+                    if (columns.every((column) => column === columns[0])) {
                         row.style.display = 'none';
                     }
                 });
             } else {
-                const allPropertyRows = document.querySelectorAll('tbody#specification tr.property');
-                allPropertyRows.forEach(row => {
+                const allPropertyRows = document.querySelectorAll(
+                    'tbody#specification tr.property'
+                );
+                allPropertyRows.forEach((row) => {
                     row.style.display = 'table-row';
                 });
             }
         });
-
     }
 
     /**
@@ -48,7 +54,7 @@ export default class CompareWidgetPlugin extends window.PluginBaseClass {
         const data = new FormData();
 
         for (const productId of CompareLocalStorageHelper.getAddedProductsList()) {
-            data.append('productIds[]', productId)
+            data.append('productIds[]', productId);
         }
 
         ElementLoadingIndicatorUtil.create(this.el);
@@ -56,13 +62,17 @@ export default class CompareWidgetPlugin extends window.PluginBaseClass {
         fetch(window.router['frontend.compare.content'], {
             method: 'POST',
             body: data,
-        }).then(r => r.text()).then((text) => {
-            ElementLoadingIndicatorUtil.remove(this.el);
-
-            this.renderCompareProducts(text);
-
-            this.$emitter.publish('insertStoredContent', { response: text });
         })
+            .then((r) => r.text())
+            .then((text) => {
+                ElementLoadingIndicatorUtil.remove(this.el);
+
+                this.renderCompareProducts(text);
+
+                this.$emitter.publish('insertStoredContent', {
+                    response: text,
+                });
+            });
     }
 
     renderCompareProducts(html) {

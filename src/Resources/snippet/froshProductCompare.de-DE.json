@@ -1,33 +1,33 @@
 {
-  "froshProductCompare": {
-    "action": {
-      "clearAll": "Alles löschen",
-      "print": "Drucken",
-      "showDifferences": "Nur Unterschied"
-    },
-    "general": {
-      "addToCompare": "Zum Vergleich hinzufügen",
-      "empty": "Bisher wurden keine Produkte zum Vergleich hinzugefügt.",
-      "headline": "Produkte vergleichen",
-      "maximumCompareProducts": "Die maximale Anzahl von Vergleichsprodukten beträgt 4",
-      "removeFromCompare": "Aus dem Vergleich entfernen"
-    },
-    "offcanvas": {
-      "compareNow": "Jetzt vergleichen",
-      "header": "Produkte zum Vergleichen"
-    },
-    "section": {
-      "overview": {
-        "rating": "Bewertung",
-        "title": "Überblick"
-      },
-      "content": {
-        "reviewLinkText": "{0} 0 Bewertungen | {1} 1 Bewertung|]1,Inf[ %count% Bewertungen"
-      },
-      "specification": {
-        "title": "Spezifikation",
-        "notSpecified": "-"
-      }
+    "froshProductCompare": {
+        "action": {
+            "clearAll": "Alles löschen",
+            "print": "Drucken",
+            "showDifferences": "Nur Unterschied"
+        },
+        "general": {
+            "addToCompare": "Zum Vergleich hinzufügen",
+            "empty": "Bisher wurden keine Produkte zum Vergleich hinzugefügt.",
+            "headline": "Produkte vergleichen",
+            "maximumCompareProducts": "Die maximale Anzahl von Vergleichsprodukten beträgt 4",
+            "removeFromCompare": "Aus dem Vergleich entfernen"
+        },
+        "offcanvas": {
+            "compareNow": "Jetzt vergleichen",
+            "header": "Produkte zum Vergleichen"
+        },
+        "section": {
+            "overview": {
+                "rating": "Bewertung",
+                "title": "Überblick"
+            },
+            "content": {
+                "reviewLinkText": "{0} 0 Bewertungen | {1} 1 Bewertung|]1,Inf[ %count% Bewertungen"
+            },
+            "specification": {
+                "title": "Spezifikation",
+                "notSpecified": "-"
+            }
+        }
     }
-  }
 }

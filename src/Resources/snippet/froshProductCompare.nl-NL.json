@@ -1,33 +1,33 @@
 {
-  "froshProductCompare": {
-    "action": {
-      "clearAll": "Alles wissen",
-      "print": "Afdrukken",
-      "showDifferences": "Enige Verschil"
-    },
-    "general": {
-      "addToCompare": "Toevoegen ter vergelijking",
-      "empty": "Er zijn nog geen producten toegevoegd om te vergelijken.",
-      "headline": "Producten vergelijken",
-      "maximumCompareProducts": "Het maximum aantal vergelijkingsproducten is 4",
-      "removeFromCompare": "Uit vergelijking verwijderen"
-    },
-    "offcanvas": {
-      "compareNow": "Nu vergelijken",
-      "header": "Te vergelijken producten"
-    },
-    "section": {
-      "overview": {
-        "rating": "Beoordeling",
-        "title": "Overzicht"
-      },
-      "content": {
-        "reviewLinkText": "{0} 0 beoordelingen | {1} 1 beoordeling|]1,Inf[ %count% beoordelingen"
-      },
-      "specification": {
-        "title": "Specificatie",
-        "notSpecified": "-"
-      }
+    "froshProductCompare": {
+        "action": {
+            "clearAll": "Alles wissen",
+            "print": "Afdrukken",
+            "showDifferences": "Enige Verschil"
+        },
+        "general": {
+            "addToCompare": "Toevoegen ter vergelijking",
+            "empty": "Er zijn nog geen producten toegevoegd om te vergelijken.",
+            "headline": "Producten vergelijken",
+            "maximumCompareProducts": "Het maximum aantal vergelijkingsproducten is 4",
+            "removeFromCompare": "Uit vergelijking verwijderen"
+        },
+        "offcanvas": {
+            "compareNow": "Nu vergelijken",
+            "header": "Te vergelijken producten"
+        },
+        "section": {
+            "overview": {
+                "rating": "Beoordeling",
+                "title": "Overzicht"
+            },
+            "content": {
+                "reviewLinkText": "{0} 0 beoordelingen | {1} 1 beoordeling|]1,Inf[ %count% beoordelingen"
+            },
+            "specification": {
+                "title": "Specificatie",
+                "notSpecified": "-"
+            }
+        }
     }
-  }
 }

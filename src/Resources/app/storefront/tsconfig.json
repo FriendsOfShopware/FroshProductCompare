@@ -1,7 +1,7 @@
 {
-  "compilerOptions": {
-    "types": ["@friendsofshopware/storefront-types"],
-    "target": "ES2020",
-    "module": "CommonJS"
-  }
+    "compilerOptions": {
+        "types": ["@friendsofshopware/storefront-types"],
+        "target": "ES2020",
+        "module": "CommonJS"
+    }
 }

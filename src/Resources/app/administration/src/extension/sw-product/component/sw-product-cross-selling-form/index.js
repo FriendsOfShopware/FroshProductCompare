@@ -9,8 +9,8 @@ Component.override('sw-product-cross-selling-form', {
 
     data() {
         return {
-            originalLimit: this.crossSelling.limit
-        }
+            originalLimit: this.crossSelling.limit,
+        };
     },
 
     watch: {
@@ -18,28 +18,45 @@ Component.override('sw-product-cross-selling-form', {
             deep: true,
             immediate: true,
             handler(value) {
-                this.crossSelling.limit = value ? MAXIMUM_COMPARE_PRODUCT_ITEMS : this.originalLimit;
-            }
-        }
+                this.crossSelling.limit = value
+                    ? MAXIMUM_COMPARE_PRODUCT_ITEMS
+                    : this.originalLimit;
+            },
+        },
     },
 
     created() {
-        let crossSellingComparable = Utils.get(this.crossSelling, 'extensions.crossSellingComparable', null);
+        let crossSellingComparable = Utils.get(
+            this.crossSelling,
+            'extensions.crossSellingComparable',
+            null
+        );
 
         if (!crossSellingComparable) {
-            crossSellingComparable =
-                this.repositoryFactory.create('frosh_cross_selling_comparable').create(Shopware.Context.api);
+            crossSellingComparable = this.repositoryFactory
+                .create('frosh_cross_selling_comparable')
+                .create(Shopware.Context.api);
             crossSellingComparable.isComparable = false;
-            this.crossSelling.extensions.crossSellingComparable = crossSellingComparable;
+            this.crossSelling.extensions.crossSellingComparable =
+                crossSellingComparable;
         }
 
-        if (Utils.get(this.crossSelling, 'extensions.crossSellingComparable.isComparable', false)) {
+        if (
+            Utils.get(
+                this.crossSelling,
+                'extensions.crossSellingComparable.isComparable',
+                false
+            )
+        ) {
             this.crossSelling.limit = MAXIMUM_COMPARE_PRODUCT_ITEMS;
         }
     },
     computed: {
         allowEditLimit() {
-            return this.crossSelling.extensions.crossSellingComparable.isComparable || !this.allowEdit
-        }
-    }
+            return (
+                this.crossSelling.extensions.crossSellingComparable
+                    .isComparable || !this.allowEdit
+            );
+        },
+    },
 });

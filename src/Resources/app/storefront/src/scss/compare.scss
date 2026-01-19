@@ -6,13 +6,13 @@
 
 .comparison-table {
     width: 100%;
-    font-size: .875rem;
+    font-size: 0.875rem;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
 
     table {
-        width: 100%!important;
+        width: 100% !important;
         min-width: 41rem;
         table-layout: fixed;
 
@@ -21,20 +21,21 @@
         }
 
         tbody {
-            tr:first-child, th {
+            tr:first-child,
+            th {
                 background-color: $comparison-heading-color;
             }
 
             .accordion-button {
-                box-shadow: none!important;
+                box-shadow: none !important;
 
                 &:focus {
-                    box-shadow: none!important;
+                    box-shadow: none !important;
                 }
             }
         }
 
-        tbody+tbody {
+        tbody + tbody {
             border-top-width: 1px;
         }
 
@@ -56,7 +57,8 @@
             }
         }
 
-        th, td {
+        th,
+        td {
             padding: $table-cell-padding;
             border-top: $table-border-width solid $table-border-color;
 
@@ -67,7 +69,7 @@
                 width: 150px;
 
                 &:before {
-                    content: "";
+                    content: '';
                     position: absolute;
                     height: 100%;
                     width: 4px;
@@ -88,13 +90,13 @@
             display: block;
             width: 5rem;
             margin-right: auto;
-            margin-bottom: .75rem;
+            margin-bottom: 0.75rem;
             margin-left: auto;
         }
 
-        .comparison-item-thumb>img {
+        .comparison-item-thumb > img {
             display: block;
-            width: 100%
+            width: 100%;
         }
 
         .product-image-link {
@@ -107,7 +109,7 @@
             margin-bottom: 14px;
             color: #222;
             font-weight: 600;
-            text-decoration: none
+            text-decoration: none;
         }
 
         .compare-item-remove-button {

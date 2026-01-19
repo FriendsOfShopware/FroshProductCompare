@@ -27,7 +27,7 @@ class CompareLocalStorageHelper {
         const productCount = products.length;
 
         document.$emitter.publish('beforeAddProductCompare', {
-            productCount
+            productCount,
         });
 
         if (productCount + 1 > this.maximumCompareProducts) {

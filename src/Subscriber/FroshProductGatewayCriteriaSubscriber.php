@@ -12,7 +12,8 @@ class FroshProductGatewayCriteriaSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private readonly SystemConfigService $systemConfigService,
-    ) {}
+    ) {
+    }
 
     public static function getSubscribedEvents(): array
     {

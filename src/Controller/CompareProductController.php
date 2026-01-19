@@ -21,7 +21,8 @@ class CompareProductController extends StorefrontController
         private readonly CompareProductPageLoader $compareProductPageLoader,
         private readonly GenericPageLoaderInterface $genericPageLoader,
         private readonly SystemConfigService $systemConfigService,
-    ) {}
+    ) {
+    }
 
     #[Route(path: '/compare', name: 'frontend.compare.page', options: ['seo' => false], defaults: ['_httpCache' => false], methods: ['GET'])]
     public function comparePage(Request $request, SalesChannelContext $context): Response

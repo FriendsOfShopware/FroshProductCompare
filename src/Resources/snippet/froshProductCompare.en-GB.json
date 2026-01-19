@@ -1,33 +1,33 @@
 {
-  "froshProductCompare": {
-    "action": {
-      "clearAll": "Clear All",
-      "print": "Print",
-      "showDifferences": "Show only differences"
-    },
-    "general": {
-      "addToCompare": "Add to compare",
-      "empty": "No products have been added to compare yet.",
-      "headline": "Compare products",
-      "maximumCompareProducts": "Maximum number of compare products is 4",
-      "removeFromCompare": "Remove from compare"
-    },
-    "offcanvas": {
-      "compareNow": "Compare Now",
-      "header": "Products to Compare"
-    },
-    "section": {
-      "overview": {
-        "rating": "Rating",
-        "title": "Overview"
-      },
-      "content": {
-        "reviewLinkText": "{0} 0 reviews | {1} 1 review|]1,Inf[ %count% reviews"
-      },
-      "specification": {
-        "title": "Specification",
-        "notSpecified": "-"
-      }
+    "froshProductCompare": {
+        "action": {
+            "clearAll": "Clear All",
+            "print": "Print",
+            "showDifferences": "Show only differences"
+        },
+        "general": {
+            "addToCompare": "Add to compare",
+            "empty": "No products have been added to compare yet.",
+            "headline": "Compare products",
+            "maximumCompareProducts": "Maximum number of compare products is 4",
+            "removeFromCompare": "Remove from compare"
+        },
+        "offcanvas": {
+            "compareNow": "Compare Now",
+            "header": "Products to Compare"
+        },
+        "section": {
+            "overview": {
+                "rating": "Rating",
+                "title": "Overview"
+            },
+            "content": {
+                "reviewLinkText": "{0} 0 reviews | {1} 1 review|]1,Inf[ %count% reviews"
+            },
+            "specification": {
+                "title": "Specification",
+                "notSpecified": "-"
+            }
+        }
     }
-  }
 }

@@ -30,5 +30,7 @@ class Migration1594488930CrossSellingComparable extends MigrationStep
         ');
     }
 
-    public function updateDestructive(Connection $connection): void {}
+    public function updateDestructive(Connection $connection): void
+    {
+    }
 }

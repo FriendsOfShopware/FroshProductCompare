@@ -8,6 +8,6 @@ Component.override('sw-product-detail', {
             criteria.addAssociation('crossSellings.crossSellingComparable');
 
             return criteria;
-        }
-    }
+        },
+    },
 });

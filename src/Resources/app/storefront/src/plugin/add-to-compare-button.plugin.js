@@ -2,7 +2,7 @@ import CompareLocalStorageHelper from '../helper/compare-local-storage.helper';
 
 export default class AddToCompareButtonPlugin extends window.PluginBaseClass {
     static options = {
-        isAddedToCompareClass: 'is-added-to-compare'
+        isAddedToCompareClass: 'is-added-to-compare',
     };
 
     init() {
@@ -36,7 +36,7 @@ export default class AddToCompareButtonPlugin extends window.PluginBaseClass {
         const buttonText = el.querySelector('.compare-button-text');
         if (buttonText) {
             buttonText.textContent = text;
-            return
+            return;
         }
 
         el.textContent = text;
@@ -45,10 +45,7 @@ export default class AddToCompareButtonPlugin extends window.PluginBaseClass {
     _registerCompareButtonSelection() {
         const compareButton = this.el;
 
-        const {
-            isAddedToCompareClass,
-            productId
-        } = this.options;
+        const { isAddedToCompareClass, productId } = this.options;
 
         compareButton.addEventListener('click', () => {
             try {
@@ -70,31 +67,27 @@ export default class AddToCompareButtonPlugin extends window.PluginBaseClass {
     }
 
     _handleBeforeRemove() {
-        const {
-            defaultText,
-            isAddedToCompareClass,
-            productId
-        } = this.options;
+        const { defaultText, isAddedToCompareClass, productId } = this.options;
 
         const product = { productId };
 
         if (this.el.closest('td')) {
             product.productRow = this.el.closest('td').cellIndex;
         } else if (this.el.closest('.offcanvas-comparison-item')) {
-            this.el.closest('.offcanvas-comparison-item').style.display = 'none';
+            this.el.closest('.offcanvas-comparison-item').style.display =
+                'none';
         } else {
             this._toggleText(this.el, defaultText);
             this.el.classList.remove(isAddedToCompareClass);
         }
 
-        document.$emitter.publish(this.REMOVE_COMPARE_PRODUCT_EVENT, { product });
+        document.$emitter.publish(this.REMOVE_COMPARE_PRODUCT_EVENT, {
+            product,
+        });
     }
 
     _handleBeforeAdd() {
-        const {
-            addedText,
-            isAddedToCompareClass
-        } = this.options;
+        const { addedText, isAddedToCompareClass } = this.options;
 
         this._toggleText(this.el, addedText);
         this.el.classList.add(isAddedToCompareClass);
@@ -105,11 +98,14 @@ export default class AddToCompareButtonPlugin extends window.PluginBaseClass {
 
         const { productId, isAddedToCompareClass, defaultText } = this.options;
 
-        document.$emitter.subscribe(this.REMOVE_COMPARE_PRODUCT_EVENT, event => {
-            if (event.detail.product.productId === productId) {
-                this._toggleText(this.el, defaultText);
-                this.el.classList.remove(isAddedToCompareClass);
+        document.$emitter.subscribe(
+            this.REMOVE_COMPARE_PRODUCT_EVENT,
+            (event) => {
+                if (event.detail.product.productId === productId) {
+                    this._toggleText(this.el, defaultText);
+                    this.el.classList.remove(isAddedToCompareClass);
+                }
             }
-        });
+        );
     }
 }

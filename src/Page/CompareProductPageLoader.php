@@ -35,7 +35,8 @@ class CompareProductPageLoader
         private readonly EntityRepository $customFieldRepository,
         private readonly SystemConfigService $systemConfigService,
         private readonly AbstractProductReviewLoader $productReviewLoader,
-    ) {}
+    ) {
+    }
 
     /**
      * @param array<string> $productIds
@@ -70,7 +71,7 @@ class CompareProductPageLoader
     }
 
     /**
-     * @param  list<string>  $productIds
+     * @param list<string> $productIds
      */
     public function load(array $productIds, Request $request, SalesChannelContext $salesChannelContext): CompareProductPage
     {

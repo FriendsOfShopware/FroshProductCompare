@@ -4,15 +4,19 @@ import CompareLocalStorageHelper from '../helper/compare-local-storage.helper';
 
 export default class CompareFloatPlugin extends window.PluginBaseClass {
     static options = {
-        buttonSelector: '.js-compare-float-button'
+        buttonSelector: '.js-compare-float-button',
     };
 
     init() {
         this._button = this.el.querySelector(this.options.buttonSelector);
-        this._defaultPadding = window.getComputedStyle(this._button).getPropertyValue('bottom');
+        this._defaultPadding = window
+            .getComputedStyle(this._button)
+            .getPropertyValue('bottom');
         this._badge = this._button.querySelector('.badge');
 
-        this._updateButtonCounter(CompareLocalStorageHelper.getAddedProductsList());
+        this._updateButtonCounter(
+            CompareLocalStorageHelper.getAddedProductsList()
+        );
         this._addBodyPadding();
         this._registerEvents();
     }
@@ -34,27 +38,32 @@ export default class CompareFloatPlugin extends window.PluginBaseClass {
      * @private
      */
     _registerEvents() {
-        const submitEvent = ('ontouchstart' in document.documentElement) ? 'touchstart' : 'click';
+        const submitEvent =
+            'ontouchstart' in document.documentElement ? 'touchstart' : 'click';
 
         if (this._button) {
             this._button.addEventListener(submitEvent, (event) => {
-              event.preventDefault();
-              this._openOffcanvas();
-              this.$emitter.publish('onClickCompareFloatButton');
+                event.preventDefault();
+                this._openOffcanvas();
+                this.$emitter.publish('onClickCompareFloatButton');
             });
         }
 
-        document.$emitter.subscribe('beforeAddProductCompare', event => {
+        document.$emitter.subscribe('beforeAddProductCompare', (event) => {
             const { productCount } = event.detail;
 
-            if (productCount >= CompareLocalStorageHelper.maximumCompareProducts) {
-                const pseudoModal = new PseudoModalUtil(this.options.maximumNumberCompareProductsText);
+            if (
+                productCount >= CompareLocalStorageHelper.maximumCompareProducts
+            ) {
+                const pseudoModal = new PseudoModalUtil(
+                    this.options.maximumNumberCompareProductsText
+                );
 
                 pseudoModal.open();
             }
         });
 
-        document.$emitter.subscribe('changedProductCompare', event => {
+        document.$emitter.subscribe('changedProductCompare', (event) => {
             this._updateButtonCounter(event.detail.products);
         });
 
@@ -62,7 +71,7 @@ export default class CompareFloatPlugin extends window.PluginBaseClass {
         const observer = new MutationObserver(this._addBodyPadding.bind(this));
         observer.observe(document.body, {
             attributes: true,
-            attributeFilter: ['style']
+            attributeFilter: ['style'],
         });
     }
 
@@ -77,8 +86,12 @@ export default class CompareFloatPlugin extends window.PluginBaseClass {
             formData.append('productIds[]', productId);
         }
 
-        AjaxOffcanvas.open(window.router['frontend.compare.offcanvas'], formData, (response) => {
-            this.$emitter.publish('insertStoredContent', { response });
-        });
+        AjaxOffcanvas.open(
+            window.router['frontend.compare.offcanvas'],
+            formData,
+            (response) => {
+                this.$emitter.publish('insertStoredContent', { response });
+            }
+        );
     }
 }

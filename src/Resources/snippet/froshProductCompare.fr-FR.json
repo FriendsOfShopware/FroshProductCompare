@@ -1,33 +1,33 @@
 {
-  "froshProductCompare": {
-    "action": {
-      "clearAll": "Tout effacer",
-      "print": "Imprimer",
-      "showDifferences": "Seule Différence"
-    },
-    "general": {
-      "addToCompare": "Ajouter à la comparaison",
-      "empty": "Aucun produit n'a encore été ajouté pour comparer.",
-      "headline": "Comparer les produits",
-      "maximumCompareProducts": "Le nombre maximum de produits de référence est de 4",
-      "removeFromCompare": "Retirer de la comparaison"
-    },
-    "offcanvas": {
-      "compareNow": "Comparez maintenant",
-      "header": "Produits à comparer"
-    },
-    "section": {
-      "overview": {
-        "rating": "Évaluation",
-        "title": "Aperçu"
-      },
-      "content": {
-        "reviewLinkText": "{0} 0 évaluations | {1} 1 évaluation|]1,Inf[ %count% évaluations"
-      },
-      "specification": {
-        "title": "Spécifications",
-        "notSpecified": "-"
-      }
+    "froshProductCompare": {
+        "action": {
+            "clearAll": "Tout effacer",
+            "print": "Imprimer",
+            "showDifferences": "Seule Différence"
+        },
+        "general": {
+            "addToCompare": "Ajouter à la comparaison",
+            "empty": "Aucun produit n'a encore été ajouté pour comparer.",
+            "headline": "Comparer les produits",
+            "maximumCompareProducts": "Le nombre maximum de produits de référence est de 4",
+            "removeFromCompare": "Retirer de la comparaison"
+        },
+        "offcanvas": {
+            "compareNow": "Comparez maintenant",
+            "header": "Produits à comparer"
+        },
+        "section": {
+            "overview": {
+                "rating": "Évaluation",
+                "title": "Aperçu"
+            },
+            "content": {
+                "reviewLinkText": "{0} 0 évaluations | {1} 1 évaluation|]1,Inf[ %count% évaluations"
+            },
+            "specification": {
+                "title": "Spécifications",
+                "notSpecified": "-"
+            }
+        }
     }
-  }
 }
