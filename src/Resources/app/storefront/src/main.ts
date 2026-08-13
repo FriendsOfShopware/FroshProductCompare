@@ -1,19 +1,17 @@
-import CompareWidgetPlugin from './plugin/compare-widget.plugin';
-import AddToCompareButtonPlugin from './plugin/add-to-compare-button.plugin';
-import CompareFloatPlugin from './plugin/compare-float.plugin';
+const PluginManager = window.PluginManager;
 
-window.PluginManager.register(
+PluginManager.register(
     'AddToCompareButton',
-    AddToCompareButtonPlugin,
+    () => import('./plugin/add-to-compare-button.plugin'),
     '[data-add-to-compare-button]'
 );
-window.PluginManager.register(
+PluginManager.register(
     'CompareWidget',
-    CompareWidgetPlugin,
+    () => import('./plugin/compare-widget.plugin'),
     '[data-compare-widget]'
 );
-window.PluginManager.register(
+PluginManager.register(
     'CompareFloat',
-    CompareFloatPlugin,
+    () => import('./plugin/compare-float.plugin'),
     '[data-compare-float]'
 );
