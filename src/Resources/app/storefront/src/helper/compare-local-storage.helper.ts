@@ -63,6 +63,18 @@ class CompareLocalStorageHelper {
         document.$emitter.publish('changedProductCompare', { products });
     }
 
+    static sync(validProductIds) {
+        const stored = this.getAddedProductsList();
+        const cleaned = stored.filter((id) => validProductIds.includes(id));
+        const removedCount = stored.length - cleaned.length;
+
+        if (removedCount > 0) {
+            this.persist(cleaned);
+        }
+
+        return removedCount;
+    }
+
     static clear() {
         window.localStorage.removeItem(this.key);
 

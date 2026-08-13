@@ -12,7 +12,7 @@
     {% block component_offcanvas_product_compare %}
         {% set isCompareProductsNotEmpty = (page.products|length > 0) %}
 
-        <div class="offcanvas-cart">
+        <div class="offcanvas-cart" data-valid-product-ids="{{ page.products.ids|json_encode }}">
 
             {% block component_offcanvas_product_compare_header %}
                 <div class="row align-items-center h4 offcanvas-cart-header">

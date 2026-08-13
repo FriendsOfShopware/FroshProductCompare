@@ -10,7 +10,8 @@
             "empty": "Bisher wurden keine Produkte zum Vergleich hinzugefügt.",
             "headline": "Produkte vergleichen",
             "maximumCompareProducts": "Die maximale Anzahl von Vergleichsprodukten beträgt 4",
-            "removeFromCompare": "Aus dem Vergleich entfernen"
+            "removeFromCompare": "Aus dem Vergleich entfernen",
+            "productsRemoved": "%count% nicht mehr verfügbare(s) Produkt(e) wurde(n) aus dem Vergleich entfernt."
         },
         "offcanvas": {
             "compareNow": "Jetzt vergleichen",

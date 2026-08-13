@@ -4,14 +4,6 @@
 
 .compare-button {
     margin-top: 10px;
-    .btn-compare {
-        @extend .btn-lg;
-        @include button-variant($buy-btn-bg, $buy-btn-bg);
-
-        &.is-added-to-compare {
-            @include button-variant($disabled-btn-bg, $disabled-btn-bg);
-        }
-    }
 }
 
 .compare-float-button {

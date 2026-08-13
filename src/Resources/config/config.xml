@@ -19,11 +19,92 @@
             <defaultValue>false</defaultValue>
         </input-field>
 
+        <input-field type="single-select">
+            <name>compareButtonStyle</name>
+            <label>Button style for "Add to compare"</label>
+            <label lang="de-DE">Button-Stil für "Zum Vergleich hinzufügen"</label>
+            <helpText>Bootstrap variant for compare buttons on product cards (listing, detail page).</helpText>
+            <helpText lang="de-DE">Bootstrap-Variante für Vergleichs-Buttons auf Produktkarten (Listing, Detailseite).</helpText>
+            <defaultValue>primary</defaultValue>
+            <options>
+                <option>
+                    <id>primary</id>
+                    <name>Primary</name>
+                </option>
+                <option>
+                    <id>secondary</id>
+                    <name>Secondary</name>
+                </option>
+                <option>
+                    <id>outline-primary</id>
+                    <name>Outline Primary</name>
+                </option>
+                <option>
+                    <id>outline-secondary</id>
+                    <name>Outline Secondary</name>
+                </option>
+            </options>
+        </input-field>
+
+        <input-field type="single-select">
+            <name>compareButtonSelectedStyle</name>
+            <label>Button style when product is selected</label>
+            <label lang="de-DE">Button-Stil wenn Produkt ausgewählt</label>
+            <helpText>Bootstrap variant for the compare button when the product has been added to the comparison.</helpText>
+            <helpText lang="de-DE">Bootstrap-Variante für den Vergleichs-Button, wenn das Produkt zum Vergleich hinzugefügt wurde.</helpText>
+            <defaultValue>secondary</defaultValue>
+            <options>
+                <option>
+                    <id>primary</id>
+                    <name>Primary</name>
+                </option>
+                <option>
+                    <id>secondary</id>
+                    <name>Secondary</name>
+                </option>
+                <option>
+                    <id>outline-primary</id>
+                    <name>Outline Primary</name>
+                </option>
+                <option>
+                    <id>outline-secondary</id>
+                    <name>Outline Secondary</name>
+                </option>
+            </options>
+        </input-field>
+
         <input-field type="bool">
             <name>showInHeader</name>
             <label>Show comparison in header</label>
             <label lang="de-DE">Zeige Vergleichen auch im Header</label>
             <defaultValue>false</defaultValue>
+        </input-field>
+
+        <input-field type="single-select">
+            <name>floatingButtonStyle</name>
+            <label>Button style for floating compare button</label>
+            <label lang="de-DE">Button-Stil für den Floating-Vergleichs-Button</label>
+            <helpText>Bootstrap variant for the floating compare button in the header area.</helpText>
+            <helpText lang="de-DE">Bootstrap-Variante für den schwebenden Vergleichs-Button im Header-Bereich.</helpText>
+            <defaultValue>primary</defaultValue>
+            <options>
+                <option>
+                    <id>primary</id>
+                    <name>Primary</name>
+                </option>
+                <option>
+                    <id>secondary</id>
+                    <name>Secondary</name>
+                </option>
+                <option>
+                    <id>outline-primary</id>
+                    <name>Outline Primary</name>
+                </option>
+                <option>
+                    <id>outline-secondary</id>
+                    <name>Outline Secondary</name>
+                </option>
+            </options>
         </input-field>
 
         <input-field type="multi-select">

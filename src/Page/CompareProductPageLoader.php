@@ -57,11 +57,10 @@ class CompareProductPageLoader
             return $page;
         }
 
-        $criteria = new Criteria();
-        $criteria->setIds($productIds)->setLimit(self::MAX_COMPARE_PRODUCT_ITEMS);
-        $criteria->addAssociation('featureSet');
-
-        $products = $this->productGateway->get($productIds, $salesChannelContext);
+        $products = $this->filterCloseoutProducts(
+            $this->productGateway->get($productIds, $salesChannelContext),
+            $salesChannelContext
+        );
 
         $result = ProductListingResult::createFrom($products);
 
@@ -90,7 +89,10 @@ class CompareProductPageLoader
             return $page;
         }
 
-        $products = $this->productGateway->get($productIds, $salesChannelContext);
+        $products = $this->filterCloseoutProducts(
+            $this->productGateway->get($productIds, $salesChannelContext),
+            $salesChannelContext
+        );
 
         $result = ProductListingResult::createFrom($products);
 
@@ -313,5 +315,14 @@ class CompareProductPageLoader
         }
 
         return $availableCustomFieldNames;
+    }
+
+    private function filterCloseoutProducts(ProductCollection $products, SalesChannelContext $context): ProductCollection
+    {
+        if (!$this->systemConfigService->getBool('core.listing.hideCloseoutProductsWhenOutOfStock', $context->getSalesChannelId())) {
+            return $products;
+        }
+
+        return $products->filter(fn (SalesChannelProductEntity $product) => !$product->getIsCloseout() || $product->getAvailable());
     }
 }

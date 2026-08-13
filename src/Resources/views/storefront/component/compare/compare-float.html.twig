@@ -1,9 +1,10 @@
 {% block frosh_product_compare_float_button_inner %}
-    {% set buttonClasses = buttonClasses ?? 'btn-primary' %}
+    {% set buttonClasses = buttonClasses ?? ('btn-' ~ (config('FroshProductCompare.config.floatingButtonStyle') ?? 'primary')) %}
     {% set floatingButtonClasses = floatingButtonClasses ?? 'compare-float-button' %}
     {% set badgeClasses = badgeClasses ?? 'bg-danger' %}
     {% set compareFloatOptions = {
-        maximumNumberCompareProductsText: "froshProductCompare.general.maximumCompareProducts"|trans|sw_sanitize
+        maximumNumberCompareProductsText: "froshProductCompare.general.maximumCompareProducts"|trans|sw_sanitize,
+        productsRemovedText: "froshProductCompare.general.productsRemoved"|trans|sw_sanitize
     } %}
 
     <div data-compare-float="true" data-compare-float-options="{{ compareFloatOptions|json_encode }}">

@@ -10,7 +10,8 @@
             "empty": "No products have been added to compare yet.",
             "headline": "Compare products",
             "maximumCompareProducts": "Maximum number of compare products is 4",
-            "removeFromCompare": "Remove from compare"
+            "removeFromCompare": "Remove from compare",
+            "productsRemoved": "%count% unavailable product(s) have been removed from the comparison."
         },
         "offcanvas": {
             "compareNow": "Compare Now",

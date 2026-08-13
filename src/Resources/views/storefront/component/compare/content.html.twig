@@ -1,5 +1,5 @@
 {% block frosh_product_compare_table_container %}
-    <div class="comparison-table">
+    <div class="comparison-table" data-valid-product-ids="{{ page.products.ids|json_encode }}">
         {% set products = page.products %}
         {% set hideAttributes = config('FroshProductCompare.config.hideAttributes') %}
 

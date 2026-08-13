@@ -68,6 +68,7 @@ export default class CompareWidgetPlugin extends window.PluginBaseClass {
                 ElementLoadingIndicatorUtil.remove(this.el);
 
                 this.renderCompareProducts(text);
+                this._syncLocalStorage();
 
                 this.$emitter.publish('insertStoredContent', {
                     response: text,
@@ -78,6 +79,35 @@ export default class CompareWidgetPlugin extends window.PluginBaseClass {
     renderCompareProducts(html) {
         this.el.querySelector('.compare-product-content').innerHTML = html;
         window.PluginManager.initializePlugins();
+    }
+
+    _syncLocalStorage() {
+        const container = this.el.querySelector('[data-valid-product-ids]');
+        if (container) {
+            const validIds = Object.values(JSON.parse(container.dataset.validProductIds));
+            const removedCount = CompareLocalStorageHelper.sync(validIds);
+
+            if (removedCount > 0) {
+                this._showRemovedProductsAlert(removedCount, container);
+            }
+        }
+    }
+
+    _showRemovedProductsAlert(removedCount, container) {
+        const alert = document.createElement('div');
+        alert.setAttribute('role', 'alert');
+        alert.setAttribute('aria-live', 'polite');
+        alert.className = 'alert alert-info d-flex align-items-center alert-dismissible fade show';
+        alert.innerHTML = `
+            <div class="alert-content-container">
+                ${this.options.productsRemovedText.replace('%count%', removedCount)}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+        `;
+
+        container.insertAdjacentElement('beforebegin', alert);
     }
 
     _registerEvents() {

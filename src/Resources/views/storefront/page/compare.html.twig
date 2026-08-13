@@ -18,7 +18,10 @@
 
         <div class="cms-page show-on-print">
             {% block frosh_product_compare_page_content_block %}
-                <div class="compare-product-container" data-compare-widget="true">
+                {% set compareWidgetOptions = {
+                    productsRemovedText: "froshProductCompare.general.productsRemoved"|trans|sw_sanitize
+                } %}
+                <div class="compare-product-container" data-compare-widget="true" data-compare-widget-options="{{ compareWidgetOptions|json_encode }}">
 
                     {% block frosh_product_compare_page_content_action %}
                         <div class="row no-gutters mt-3 pb-3 hide-on-print action-row d-print-none">

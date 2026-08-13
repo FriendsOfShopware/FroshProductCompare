@@ -3,6 +3,8 @@ import CompareLocalStorageHelper from '../helper/compare-local-storage.helper';
 export default class AddToCompareButtonPlugin extends window.PluginBaseClass {
     static options = {
         isAddedToCompareClass: 'is-added-to-compare',
+        defaultButtonClass: 'btn-primary',
+        selectedButtonClass: 'btn-secondary',
     };
 
     init() {
@@ -19,11 +21,12 @@ export default class AddToCompareButtonPlugin extends window.PluginBaseClass {
     }
 
     _checkAddedProduct() {
-        const { productId, addedText, isAddedToCompareClass } = this.options;
+        const { productId, addedText, isAddedToCompareClass, defaultButtonClass, selectedButtonClass } = this.options;
 
         if (this._isAddedProduct(productId) && addedText) {
             this._toggleText(this.el, addedText);
-            this.el.classList.add(isAddedToCompareClass);
+            this.el.classList.remove(defaultButtonClass);
+            this.el.classList.add(isAddedToCompareClass, selectedButtonClass);
         }
     }
 
@@ -67,7 +70,7 @@ export default class AddToCompareButtonPlugin extends window.PluginBaseClass {
     }
 
     _handleBeforeRemove() {
-        const { defaultText, isAddedToCompareClass, productId } = this.options;
+        const { defaultText, isAddedToCompareClass, defaultButtonClass, selectedButtonClass, productId } = this.options;
 
         const product = { productId };
 
@@ -78,7 +81,8 @@ export default class AddToCompareButtonPlugin extends window.PluginBaseClass {
                 'none';
         } else {
             this._toggleText(this.el, defaultText);
-            this.el.classList.remove(isAddedToCompareClass);
+            this.el.classList.remove(isAddedToCompareClass, selectedButtonClass);
+            this.el.classList.add(defaultButtonClass);
         }
 
         document.$emitter.publish(this.REMOVE_COMPARE_PRODUCT_EVENT, {
@@ -87,23 +91,25 @@ export default class AddToCompareButtonPlugin extends window.PluginBaseClass {
     }
 
     _handleBeforeAdd() {
-        const { addedText, isAddedToCompareClass } = this.options;
+        const { addedText, isAddedToCompareClass, defaultButtonClass, selectedButtonClass } = this.options;
 
         this._toggleText(this.el, addedText);
-        this.el.classList.add(isAddedToCompareClass);
+        this.el.classList.remove(defaultButtonClass);
+        this.el.classList.add(isAddedToCompareClass, selectedButtonClass);
     }
 
     _registerEvents() {
         this._registerCompareButtonSelection();
 
-        const { productId, isAddedToCompareClass, defaultText } = this.options;
+        const { productId, isAddedToCompareClass, defaultButtonClass, selectedButtonClass, defaultText } = this.options;
 
         document.$emitter.subscribe(
             this.REMOVE_COMPARE_PRODUCT_EVENT,
             (event) => {
                 if (event.detail.product.productId === productId) {
                     this._toggleText(this.el, defaultText);
-                    this.el.classList.remove(isAddedToCompareClass);
+                    this.el.classList.remove(isAddedToCompareClass, selectedButtonClass);
+                    this.el.classList.add(defaultButtonClass);
                 }
             }
         );

@@ -90,8 +90,49 @@ export default class CompareFloatPlugin extends window.PluginBaseClass {
             window.router['frontend.compare.offcanvas'],
             formData,
             (response) => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(response, 'text/html');
+                const container = doc.querySelector('[data-valid-product-ids]');
+                let removedCount = 0;
+
+                if (container) {
+                    const validIds = Object.values(JSON.parse(container.dataset.validProductIds));
+                    removedCount = CompareLocalStorageHelper.sync(validIds);
+                }
+
+                if (removedCount > 0) {
+                    this._showRemovedProductsAlert(removedCount);
+                }
+
                 this.$emitter.publish('insertStoredContent', { response });
             }
         );
+    }
+
+    _showRemovedProductsAlert(removedCount) {
+        const offcanvasContent = document.querySelector('.offcanvas-cart');
+        if (!offcanvasContent) {
+            return;
+        }
+
+        const header = offcanvasContent.querySelector('.offcanvas-cart-header');
+        if (!header) {
+            return;
+        }
+
+        const alert = document.createElement('div');
+        alert.setAttribute('role', 'alert');
+        alert.setAttribute('aria-live', 'polite');
+        alert.className = 'alert alert-info d-flex align-items-center alert-dismissible fade show';
+        alert.innerHTML = `
+            <div class="alert-content-container">
+                ${this.options.productsRemovedText.replace('%count%', removedCount)}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+        `;
+
+        header.insertAdjacentElement('afterend', alert);
     }
 }
