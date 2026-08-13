@@ -29,6 +29,9 @@ class CompareProductPageLoader
 {
     public const MAX_COMPARE_PRODUCT_ITEMS = 4;
 
+    /**
+     * @param EntityRepository<CustomFieldCollection> $customFieldRepository
+     */
     public function __construct(
         private readonly ProductGatewayInterface $productGateway,
         private readonly GenericPageLoaderInterface $genericLoader,
@@ -284,13 +287,7 @@ class CompareProductPageLoader
             $criteria->addFilter(new EqualsAnyFilter('name', $availableCustomFieldNames));
         }
 
-        $customFields = $this->customFieldRepository->search($criteria, $context->getContext())->getEntities();
-
-        if ($customFields instanceof CustomFieldCollection) {
-            return $customFields;
-        }
-
-        return new CustomFieldCollection();
+        return $this->customFieldRepository->search($criteria, $context->getContext())->getEntities();
     }
 
     /**

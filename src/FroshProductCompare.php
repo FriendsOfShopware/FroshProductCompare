@@ -18,7 +18,9 @@ class FroshProductCompare extends Plugin
     {
         parent::build($container);
 
+        // @phpstan-ignore new.deprecatedClass
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/DependencyInjection/'));
+        // @phpstan-ignore method.deprecatedClass
         $loader->load('services.xml');
     }
 
